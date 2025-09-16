@@ -15,14 +15,6 @@ export default function Home() {
 
   const navigationCards = [
     {
-      title: "Onboarding",
-      description:
-        "Complete your onboarding process and get started with the platform",
-      href: "/onboarding",
-      icon: "🚀",
-      color: "bg-blue-50 border-blue-200 hover:bg-blue-100",
-    },
-    {
       title: "Employee",
       description: "Access your employee dashboard and manage your profile",
       href: "/employee",
@@ -50,7 +42,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {navigationCards.map((card) => (
             <Card
               key={card.title}

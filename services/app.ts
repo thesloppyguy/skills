@@ -1,7 +1,7 @@
-// API Configuration
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { post, get, del, put } from "./base";
+import { getAccessToken } from "./fetch";
 
-// Types for API responses
 export interface OrganizationRole {
   id: string;
   name: string;
@@ -11,6 +11,17 @@ export interface OrganizationRole {
   responsibilities: string[];
   requirements: string[];
   skills: string[];
+}
+
+export interface Organization {
+  id: string;
+  name: string;
+  industry: string;
+  size: string;
+  departments: string[];
+  description?: string;
+  createdAt: string;
+  roleCount: number;
 }
 
 export interface GenerateRolesResponse {
@@ -30,68 +41,91 @@ export interface GenerateRolesRequest {
   requirements?: {
     includeSkills?: boolean;
     includeResponsibilities?: boolean;
-    level?: 'entry' | 'mid' | 'senior' | 'executive';
+    level?: "entry" | "mid" | "senior" | "executive";
   };
 }
 
-// API Service Functions
-export const apiService = {
-  /**
-   * Generate organization roles based on organization data
-   */
-  async generateOrganizationRoles(
-    query: GenerateRolesRequest,
-    apiKey: string
-  ): Promise<GenerateRolesResponse> {
-    const response = await fetch(`${API_BASE_URL}/organization/roles`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': apiKey,
-      },
-      body: JSON.stringify(query),
-    });
+export interface CreateOrganizationRequest {
+  name: string;
+  industry: string;
+  size: string;
+  departments: string[];
+  description?: string;
+}
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(
-        errorData.detail || `HTTP error! status: ${response.status}`
-      );
-    }
+export interface UpdateOrganizationRequest {
+  name?: string;
+  industry?: string;
+  size?: string;
+  departments?: string[];
+  description?: string;
+}
 
-    return response.json();
-  },
-
-  /**
-   * Get organization roles (if you have a GET endpoint)
-   */
-  async getOrganizationRoles(apiKey: string): Promise<GenerateRolesResponse> {
-    const response = await fetch(`${API_BASE_URL}/organization/roles`, {
-      method: 'GET',
-      headers: {
-        'X-API-Key': apiKey,
-      },
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(
-        errorData.detail || `HTTP error! status: ${response.status}`
-      );
-    }
-
-    return response.json();
-  },
+export const generateOrganizationRoles = async (query: any) => {
+  return post(`organization/roles`, {
+    body: query,
+    headers: {
+      "X-API-Key": getAccessToken(),
+    },
+  });
 };
 
-// Error handling utility
-export class ApiError extends Error {
-  constructor(
-    message: string,
-    public status?: number,
-    public data?: any
-  ) {
-    super(message);
-    this.name = 'ApiError';
-  }
-}
+export const generateSkillsOntology = async (data: {
+  roleTitle: string;
+  parentDetails: {
+    industry: string;
+    subEntity: string;
+    jobFamily?: string;
+    subJobFamily?: string;
+  };
+  hierarchyPath: string[];
+}) => {
+  return post(`skills/ontology`, {
+    body: { user_data: data },
+    headers: {
+      "Content-Type": "application/json",
+      "X-API-Key": getAccessToken(),
+    },
+  });
+};
+
+export const getOrganizations = async (): Promise<Organization[]> => {
+  return get<Organization[]>(`organizations`, {
+    headers: {
+      "X-API-Key": getAccessToken(),
+    },
+  });
+};
+
+export const deleteOrganization = async (id: string): Promise<void> => {
+  return del(`organizations/${id}`, {
+    headers: {
+      "X-API-Key": getAccessToken(),
+    },
+  });
+};
+
+export const createOrganization = async (
+  data: CreateOrganizationRequest
+): Promise<Organization> => {
+  return post<Organization>(`organizations`, {
+    body: data,
+    headers: {
+      "Content-Type": "application/json",
+      "X-API-Key": getAccessToken(),
+    },
+  });
+};
+
+export const updateOrganization = async (
+  id: string,
+  data: UpdateOrganizationRequest
+): Promise<Organization> => {
+  return put<Organization>(`organizations/${id}`, {
+    body: data,
+    headers: {
+      "Content-Type": "application/json",
+      "X-API-Key": getAccessToken(),
+    },
+  });
+};

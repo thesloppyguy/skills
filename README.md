@@ -34,3 +34,24 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## APIS
+
+Organization
+-> Generate Org structute.
+-> Finalize.
+
+Triggers
+-> Starts Creating ontology for each role.
+
+-> Edit and compare with industry.
+
+Onboard User
+-> New User Uploads Resume for a role.
+
+-> Generate Ontology.
+
+-> Comparison with the Org Ontology.
+
+Existing User
+-> Direct Comparison and Roadmap for the User.
