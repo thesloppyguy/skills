@@ -248,7 +248,7 @@ const CreateOrganizationPage = () => {
         };
 
         // Add the skills ontology to the map
-        addSkillsOntology(role.id, {
+        addSkillsOntology(role.title, {
           id: uuidv4(),
           roleId: role.id,
           roleTitle: role.title,
@@ -399,7 +399,7 @@ const CreateOrganizationPage = () => {
                 </p>
                 {processingStatus.currentRoleId && (
                   <p className="text-xs text-blue-600 mt-1">
-                    Currently processing: {processingStatus.currentRoleId}
+                    Currently processing: {processingStatus.currentRoleTitle}
                   </p>
                 )}
               </div>

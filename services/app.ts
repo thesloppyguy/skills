@@ -62,7 +62,7 @@ export interface UpdateOrganizationRequest {
 }
 
 export const generateOrganizationRoles = async (query: any) => {
-  return post(`api/organization/roles`, {
+  return post(`organization/roles`, {
     body: query,
     headers: {
       "X-API-Key": getAccessToken(),
@@ -80,7 +80,7 @@ export const generateSkillsOntology = async (data: {
   };
   hierarchyPath: string[];
 }) => {
-  return post(`api/skills/ontology`, {
+  return post(`skills/ontology`, {
     body: { user_data: data },
     headers: {
       "Content-Type": "application/json",
@@ -90,7 +90,7 @@ export const generateSkillsOntology = async (data: {
 };
 
 export const getEmployeeSkillsOntology = async (data: any) => {
-  return post(`api/skills/ontology`, {
+  return post(`skills/ontology`, {
     body: { user_data: data },
     headers: {
       "Content-Type": "application/json",
@@ -106,7 +106,7 @@ export const generateRoadmap = async ({
   skills: Domain[];
   target: Domain[] | string;
 }) => {
-  return post(`api/skills/roadmap`, {
+  return post(`skills/roadmap`, {
     body: { user_data: skills, goal: target },
     headers: {
       "Content-Type": "application/json",
@@ -130,7 +130,7 @@ export const compareWithIndustry = async ({
     };
   };
 }) => {
-  return post(`api/skills/compare`, {
+  return post(`skills/compare`, {
     body: { user_data: skills, role_data: role_data },
     headers: {
       "Content-Type": "application/json",

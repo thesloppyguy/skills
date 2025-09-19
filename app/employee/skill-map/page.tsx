@@ -286,6 +286,10 @@ const SkillMapPage = () => {
     const OrganizationOntology = getOrganizationOntology(
       employee.employmentDetails.designation
     );
+    if (!OrganizationOntology) {
+      setOrganizationOntology([]);
+      return;
+    }
     const flattenedOntology = flattenDomain(OrganizationOntology.hierarchy);
     setOrganizationOntology(flattenedOntology);
 
@@ -317,7 +321,14 @@ const SkillMapPage = () => {
       { text: "Preparing visualization..." },
     ];
 
-    return <MultiStepLoader loadingStates={loadingStates} loading={true} />;
+    return (
+      <MultiStepLoader
+        loadingStates={loadingStates}
+        loading={true}
+        loop={false}
+        duration={5000}
+      />
+    );
   }
 
   return (

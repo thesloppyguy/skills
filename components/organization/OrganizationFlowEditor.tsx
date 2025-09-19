@@ -500,8 +500,8 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
   }, []);
 
   const handleSkillsOntologyGenerated = useCallback(
-    (roleId: string, ontology: SkillsOntology) => {
-      addSkillsOntology(roleId, ontology);
+    (roleTitle: string, ontology: SkillsOntology) => {
+      addSkillsOntology(roleTitle, ontology);
     },
     [addSkillsOntology]
   );
@@ -552,7 +552,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
         generatedAt: new Date().toISOString(),
       };
 
-      addSkillsOntology(editingNode.id, newOntology);
+      addSkillsOntology(newOntology.roleTitle, newOntology);
     } catch (error) {
       console.error("Error generating skills ontology:", error);
       setOntologyGenerationError(

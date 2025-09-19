@@ -23,7 +23,7 @@ interface OrganizationContextType {
   setIsDirty: (dirty: boolean) => void;
   skillsMap: Map<string, SkillsOntology>;
   setSkillsMap: (map: Map<string, SkillsOntology>) => void;
-  addSkillsOntology: (roleId: string, skills: SkillsOntology) => void;
+  addSkillsOntology: (roleTitle: string, skills: SkillsOntology) => void;
   saveSkillsOntologyToStorage: (skillsMap: Map<string, SkillsOntology>) => void;
   loadSkillsOntologyFromStorage: () => Map<string, SkillsOntology> | null;
   processingStatus: ProcessingStatus;
@@ -152,9 +152,9 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
     return null;
   };
 
-  const addSkillsOntology = (roleId: string, skills: SkillsOntology) => {
+  const addSkillsOntology = (roleTitle: string, skills: SkillsOntology) => {
     setSkillsMap((prev) => {
-      const newMap = new Map(prev).set(roleId, skills);
+      const newMap = new Map(prev).set(roleTitle, skills);
       saveSkillsOntologyToStorage(newMap);
       return newMap;
     });
