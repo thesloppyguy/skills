@@ -41,7 +41,7 @@ const getOrganizationOntology = (designation: string) => {
   if (skills_ontology_data) {
     const skills_ontology_data_json = JSON.parse(skills_ontology_data);
     return skills_ontology_data_json.find(
-      (item: any) => item[0] === designation
+      (item: any) => item[1].roleTitle === designation
     )[1];
   }
   return null;
