@@ -164,13 +164,13 @@ export default function PersonalDetailsPage() {
           <CardContent className="space-y-4">
             <div>
               <label className="text-sm font-medium text-gray-500">
-                Father's Name
+                Father Name
               </label>
               <p>{personalDetails.fatherName}</p>
             </div>
             <div>
               <label className="text-sm font-medium text-gray-500">
-                Mother's Name
+                Mother Name
               </label>
               <p>{personalDetails.motherName}</p>
             </div>

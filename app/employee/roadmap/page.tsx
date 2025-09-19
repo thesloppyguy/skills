@@ -1,6 +1,6 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { generateRoadmap } from "@/services/app";
 import { dummyEmployees } from "@/constants";
 import {
@@ -24,6 +24,7 @@ import { Loader2, Target, TrendingUp, Clock, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const getEmployeeRoles = () => {
+  if (typeof window === "undefined") return { roles: [], ontologies: [] };
   const employeeRoles = localStorage.getItem(`skills_ontology_data`);
   if (employeeRoles) {
     const employeeRolesJson = JSON.parse(employeeRoles);
@@ -36,6 +37,7 @@ const getEmployeeRoles = () => {
 };
 
 const getEmployeeOntology = (employeeId: string) => {
+  if (typeof window === "undefined") return null;
   const ontology = localStorage.getItem(`ontology_${employeeId}`);
   if (ontology) {
     return JSON.parse(ontology);
@@ -62,11 +64,19 @@ interface RoadmapData {
 
 const RoadmapPage = () => {
   const employee = dummyEmployees[0];
-  const { roles, ontologies } = getEmployeeRoles();
+  const [roles, setRoles] = useState<string[]>([]);
+  const [ontologies, setOntologies] = useState<any[]>([]);
   const [currentRole, setCurrentRole] = useState<string | null>(null);
   const [roadmap, setRoadmap] = useState<RoadmapData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const { roles: employeeRoles, ontologies: employeeOntologies } =
+      getEmployeeRoles();
+    setRoles(employeeRoles);
+    setOntologies(employeeOntologies);
+  }, []);
 
   const handleRoleChange = async (role: string) => {
     setCurrentRole(role);
