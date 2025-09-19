@@ -24,6 +24,8 @@ interface OrganizationContextType {
   skillsMap: Map<string, SkillsOntology>;
   setSkillsMap: (map: Map<string, SkillsOntology>) => void;
   addSkillsOntology: (roleId: string, skills: SkillsOntology) => void;
+  saveSkillsOntologyToStorage: (skillsMap: Map<string, SkillsOntology>) => void;
+  loadSkillsOntologyFromStorage: () => Map<string, SkillsOntology> | null;
   processingStatus: ProcessingStatus;
   setProcessingStatus: (
     status: ProcessingStatus | ((prev: ProcessingStatus) => ProcessingStatus)
@@ -35,6 +37,7 @@ const OrganizationContext = createContext<OrganizationContextType | undefined>(
 );
 
 const STORAGE_KEY = "organization_structure";
+const SKILLS_ONTOLOGY_KEY = "skills_ontology_data";
 
 export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
   children,
@@ -68,6 +71,12 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
     if (stored) {
       setOrganizationData(stored);
     }
+
+    // Load skills ontology data
+    const storedSkills = loadSkillsOntologyFromStorage();
+    if (storedSkills) {
+      setSkillsMap(storedSkills);
+    }
   }, []);
 
   const saveToLocalStorage = (data: OrganizationStructure) => {
@@ -98,6 +107,7 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
   const clearLocalStorage = () => {
     try {
       localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(SKILLS_ONTOLOGY_KEY);
       setOrganizationData(null);
       setIsDirty(false);
       setSkillsMap(new Map());
@@ -115,8 +125,39 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
+  const saveSkillsOntologyToStorage = (
+    skillsMap: Map<string, SkillsOntology>
+  ) => {
+    try {
+      const skillsArray = Array.from(skillsMap.entries());
+      localStorage.setItem(SKILLS_ONTOLOGY_KEY, JSON.stringify(skillsArray));
+    } catch (error) {
+      console.error("Failed to save skills ontology to localStorage:", error);
+    }
+  };
+
+  const loadSkillsOntologyFromStorage = (): Map<
+    string,
+    SkillsOntology
+  > | null => {
+    try {
+      const stored = localStorage.getItem(SKILLS_ONTOLOGY_KEY);
+      if (stored) {
+        const skillsArray = JSON.parse(stored) as [string, SkillsOntology][];
+        return new Map(skillsArray);
+      }
+    } catch (error) {
+      console.error("Failed to load skills ontology from localStorage:", error);
+    }
+    return null;
+  };
+
   const addSkillsOntology = (roleId: string, skills: SkillsOntology) => {
-    setSkillsMap((prev) => new Map(prev).set(roleId, skills));
+    setSkillsMap((prev) => {
+      const newMap = new Map(prev).set(roleId, skills);
+      saveSkillsOntologyToStorage(newMap);
+      return newMap;
+    });
   };
 
   const hasStoredData = organizationData !== null;
@@ -133,6 +174,8 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
     skillsMap,
     setSkillsMap,
     addSkillsOntology,
+    saveSkillsOntologyToStorage,
+    loadSkillsOntologyFromStorage,
     processingStatus,
     setProcessingStatus: handleSetProcessingStatus,
   };

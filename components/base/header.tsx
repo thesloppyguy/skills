@@ -12,8 +12,18 @@ import {
 import React from "react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { useEmployee } from "@/contexts/EmployeeContext";
 
 const Header = () => {
+  // const { selectedEmployee, setSelectedEmployee, employees } = useEmployee();
+
   return (
     <header className="bg-white border-b border-gray-200">
       <div className="px-6 py-3">
@@ -64,7 +74,32 @@ const Header = () => {
         </div>
       </div>
       <div className="flex items-center justify-between bg-blue-900 px-6 py-3">
-        <h2 className="text-lg font-semibold text-white">My Profile</h2>
+        <div className="flex items-center space-x-4">
+          <h2 className="text-lg font-semibold text-white">My Profile</h2>
+          {/* <Select
+            value={selectedEmployee.id}
+            onValueChange={(value) => {
+              const employee = employees.find((emp) => emp.id === value);
+              if (employee) setSelectedEmployee(employee);
+            }}
+          >
+            <SelectTrigger className="w-64 bg-white border-white text-gray-900">
+              <SelectValue>
+                {selectedEmployee.personalDetails.firstName}{" "}
+                {selectedEmployee.personalDetails.lastName} -{" "}
+                {selectedEmployee.domain}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              {employees.map((employee) => (
+                <SelectItem key={employee.id} value={employee.id}>
+                  {employee.personalDetails.firstName}{" "}
+                  {employee.personalDetails.lastName} - {employee.domain}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select> */}
+        </div>
         <div className="flex items-center space-x-4">
           <Button
             size="sm"

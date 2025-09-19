@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { post, get, del, put } from "./base";
+import { post } from "./base";
 import { getAccessToken } from "./fetch";
-
+import { Domain } from "@/types/organization";
 export interface OrganizationRole {
   id: string;
   name: string;
@@ -89,27 +89,9 @@ export const generateSkillsOntology = async (data: {
   });
 };
 
-export const getOrganizations = async (): Promise<Organization[]> => {
-  return get<Organization[]>(`organizations`, {
-    headers: {
-      "X-API-Key": getAccessToken(),
-    },
-  });
-};
-
-export const deleteOrganization = async (id: string): Promise<void> => {
-  return del(`organizations/${id}`, {
-    headers: {
-      "X-API-Key": getAccessToken(),
-    },
-  });
-};
-
-export const createOrganization = async (
-  data: CreateOrganizationRequest
-): Promise<Organization> => {
-  return post<Organization>(`organizations`, {
-    body: data,
+export const getEmployeeSkillsOntology = async (data: any) => {
+  return post(`skills/ontology`, {
+    body: { user_data: data },
     headers: {
       "Content-Type": "application/json",
       "X-API-Key": getAccessToken(),
@@ -117,12 +99,39 @@ export const createOrganization = async (
   });
 };
 
-export const updateOrganization = async (
-  id: string,
-  data: UpdateOrganizationRequest
-): Promise<Organization> => {
-  return put<Organization>(`organizations/${id}`, {
-    body: data,
+export const generateRoadmap = async ({
+  skills,
+  target,
+}: {
+  skills: Domain[];
+  target: Domain[] | string;
+}) => {
+  return post(`skills/roadmap`, {
+    body: { user_data: skills, goal: target },
+    headers: {
+      "Content-Type": "application/json",
+      "X-API-Key": getAccessToken(),
+    },
+  });
+};
+
+export const compareWithIndustry = async ({
+  skills,
+  role_data,
+}: {
+  skills: Domain[];
+  role_data: {
+    roleTitle: string;
+    parentDetails: {
+      industry: string;
+      subEntity: string;
+      jobFamily?: string;
+      subJobFamily?: string;
+    };
+  };
+}) => {
+  return post(`skills/compare`, {
+    body: { user_data: skills, role_data: role_data },
     headers: {
       "Content-Type": "application/json",
       "X-API-Key": getAccessToken(),

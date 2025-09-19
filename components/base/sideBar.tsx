@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SideBarItem, sideBarItems } from "@/constants";
+import { usePathname, useRouter } from "next/navigation";
 
-const SideBar = ({ currentItem }: { currentItem: string }) => {
+const getCurrentItem = (currentItem: string | undefined) => {
+  switch (currentItem) {
+    case "":
+      return "My Home";
+    case "organization":
+      return "My Org";
+    case "employee":
+      return "My Profile";
+    default:
+      return "My Home";
+  }
+};
+const SideBar = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const currentItem = pathname.split("/").pop();
+  const [Item, setItem] = useState<string>(getCurrentItem(currentItem));
+
+  useEffect(() => {
+    if (!currentItem) {
+      setItem("My Home");
+      router.push("/");
+    }
+  }, [currentItem]);
+
   return (
     <aside className="w-16 bg-white border-r border-gray-200 flex flex-col items-center py-3">
       <nav className="w-full">
@@ -10,10 +35,14 @@ const SideBar = ({ currentItem }: { currentItem: string }) => {
             <li key={item.label} className="flex flex-col items-center">
               <button
                 className={`p-2 rounded-lg transition-colors ${
-                  currentItem === item.label
+                  Item === item.href
                     ? "bg-blue-100 text-blue-700"
                     : "text-gray-600 hover:bg-gray-100"
                 }`}
+                onClick={() => {
+                  router.push(item.href);
+                  setItem(item.href);
+                }}
                 title={item.label}
               >
                 {item.icon}

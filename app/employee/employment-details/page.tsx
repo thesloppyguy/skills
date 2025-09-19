@@ -110,12 +110,6 @@ export default function EmploymentDetailsPage() {
                 </label>
                 <p>{employmentDetails.totalExperience}</p>
               </div>
-              <div>
-                <label className="text-sm font-medium text-gray-500">
-                  Tenure with Company
-                </label>
-                <p>{employmentDetails.tenureWithCompany}</p>
-              </div>
             </div>
           </CardContent>
         </Card>
@@ -161,21 +155,18 @@ export default function EmploymentDetailsPage() {
           <div className="space-y-4">
             {employmentHistory.map((history, index) => (
               <div
-                key={history.id}
+                key={history.employeeId}
                 className="border-l-4 border-blue-200 pl-4 py-2"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <h4 className="font-semibold text-lg">
-                      {history.position}
+                      {history.designation}
                     </h4>
                     <p className="text-gray-600">{history.company}</p>
                     <p className="text-sm text-gray-500 flex items-center gap-2">
                       <Calendar className="w-4 h-4" />
-                      {history.startDate} - {history.endDate}
-                    </p>
-                    <p className="text-sm text-gray-600 mt-2">
-                      {history.description}
+                      {history.from_date} - {history.to_date}
                     </p>
                   </div>
                   <Button variant="ghost" size="sm">

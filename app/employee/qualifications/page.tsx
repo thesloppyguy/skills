@@ -43,19 +43,14 @@ export default function QualificationsPage() {
                   </div>
                   <div>
                     <CardTitle className="text-lg">
-                      {qualification.degree}
+                      {qualification.course}
                     </CardTitle>
                     <p className="text-sm text-gray-600">
-                      {qualification.institution}
+                      {qualification.university}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  {qualification.isHighest && (
-                    <Badge className="bg-green-100 text-green-800 border-green-200">
-                      Highest Qualification
-                    </Badge>
-                  )}
                   <Button variant="ghost" size="sm">
                     <Edit className="w-4 h-4" />
                   </Button>
@@ -70,7 +65,7 @@ export default function QualificationsPage() {
                   </label>
                   <p className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-gray-400" />
-                    {qualification.year}
+                    {qualification.to_year}
                   </p>
                 </div>
                 <div>

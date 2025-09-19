@@ -206,16 +206,11 @@ export default function Home() {
                   className="flex items-center justify-between"
                 >
                   <div>
-                    <span className="font-medium">{qualification.degree}</span>
+                    <span className="font-medium">{qualification.course}</span>
                     <p className="text-sm text-gray-600">
-                      {qualification.institution}
+                      {qualification.university}
                     </p>
                   </div>
-                  {qualification.isHighest && (
-                    <Badge className="bg-green-100 text-green-800 border-green-200">
-                      Highest
-                    </Badge>
-                  )}
                 </div>
               ))}
             </div>

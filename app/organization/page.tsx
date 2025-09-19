@@ -51,6 +51,8 @@ const CreateOrganizationPage = () => {
     addSkillsOntology,
     processingStatus,
     setProcessingStatus,
+    loadSkillsOntologyFromStorage,
+    skillsMap,
   } = useOrganization();
 
   // Check for existing data on mount and redirect to edit mode
@@ -58,7 +60,15 @@ const CreateOrganizationPage = () => {
     if (hasStoredData && organizationData) {
       setShowFlowEditor(true);
     }
-  }, [hasStoredData, organizationData]);
+
+    // Load cached skills ontology
+    const cachedSkills = loadSkillsOntologyFromStorage();
+    if (cachedSkills) {
+      console.log(
+        `Loaded ${cachedSkills.size} cached skills ontologies from localStorage`
+      );
+    }
+  }, [hasStoredData, organizationData, loadSkillsOntologyFromStorage]);
 
   // Keyboard shortcut for Ctrl/Cmd+K
   useEffect(() => {
@@ -163,34 +173,38 @@ const CreateOrganizationPage = () => {
       ];
 
       // Process job roles in this family
-      jobFamily.job_roles.forEach((role: JobRole) => {
-        if (!role.id) {
-          role.id = uuidv4();
-        }
+      if (jobFamily.job_roles) {
+        jobFamily.job_roles.forEach((role: JobRole) => {
+          if (!role.id) {
+            role.id = uuidv4();
+          }
 
-        // Build complete hierarchy path for the role
-        const roleHierarchyPath = [...currentHierarchyPath, role.title];
+          // Build complete hierarchy path for the role
+          const roleHierarchyPath = [...currentHierarchyPath, role.title];
 
-        roles.push({
-          id: role.id,
-          title: role.title,
-          parentDetails: {
-            industry: orgData.industry,
-            subEntity: orgData.sub_entity,
-            jobFamily: jobFamily.name,
-            subJobFamily:
-              parentPath.length > 0
-                ? parentPath[parentPath.length - 1]
-                : undefined,
-          },
-          hierarchyPath: roleHierarchyPath,
+          roles.push({
+            id: role.id,
+            title: role.title,
+            parentDetails: {
+              industry: orgData.industry,
+              subEntity: orgData.sub_entity,
+              jobFamily: jobFamily.name,
+              subJobFamily:
+                parentPath.length > 0
+                  ? parentPath[parentPath.length - 1]
+                  : undefined,
+            },
+            hierarchyPath: roleHierarchyPath,
+          });
         });
-      });
+      }
 
       // Process sub job families
-      jobFamily.sub_job_families.forEach((subFamily: JobFamily) => {
-        processJobFamily(subFamily, [...parentPath, jobFamily.name]);
-      });
+      if (jobFamily.sub_job_families) {
+        jobFamily.sub_job_families.forEach((subFamily: JobFamily) => {
+          processJobFamily(subFamily, [...parentPath, jobFamily.name]);
+        });
+      }
     };
 
     orgData.job_families.forEach((jobFamily) => {
@@ -424,6 +438,33 @@ const CreateOrganizationPage = () => {
             </CardContent>
           </Card>
         )}
+
+      {/* Debug Cache Information */}
+      {showFlowEditor && (
+        <Card className="border-blue-200 bg-blue-50">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-semibold text-blue-900">Cache Status</h3>
+                <p className="text-sm text-blue-700">
+                  Skills Ontology Cache: {skillsMap.size} items stored
+                </p>
+              </div>
+              <Button
+                onClick={() => {
+                  clearLocalStorage();
+                  window.location.reload();
+                }}
+                variant="outline"
+                size="sm"
+                className="border-blue-300 text-blue-700 hover:bg-blue-100"
+              >
+                Clear All Cache
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {showFlowEditor && (
         <div className="space-y-6">

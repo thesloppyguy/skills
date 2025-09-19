@@ -16,7 +16,7 @@ export default function RootLayout({
 
       <div className="flex h-full max-h-[calc(100vh-125px)]">
         {/* Left Sidebar */}
-        <SideBar currentItem="My Home" />
+        <SideBar />
 
         {/* Main Content */}
         <main className="flex-1 p-6 gap-6 overflow-y-auto">{children}</main>

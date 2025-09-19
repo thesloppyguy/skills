@@ -1,5 +1,6 @@
 export interface JobRole {
   title: string;
+  definition: string;
   id?: string;
 }
 

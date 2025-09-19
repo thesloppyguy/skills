@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -30,10 +30,11 @@ import {
   SkillGroup,
   Category,
   OntologyRelationship,
-  Relationship,
 } from "@/types/organization";
 import { generateSkillsOntology } from "@/services/app";
 import { v4 as uuidv4 } from "uuid";
+import OntologyVisualization from "./OntologyVisualization";
+import { useOrganization } from "@/contexts/OrganizationContext";
 
 interface SkillsOntologyDrawerProps {
   isOpen: boolean;
@@ -63,19 +64,50 @@ const SkillsOntologyDrawer: React.FC<SkillsOntologyDrawerProps> = ({
 }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
+  const [isVisualizationOpen, setIsVisualizationOpen] = useState(false);
+  const { loadSkillsOntologyFromStorage } = useOrganization();
+
+  // Load cached skills ontology on mount
+  React.useEffect(() => {
+    if (roleId && !existingOntology) {
+      const cachedSkills = loadSkillsOntologyFromStorage();
+      if (cachedSkills && cachedSkills.has(roleId)) {
+        const cachedOntology = cachedSkills.get(roleId);
+        if (cachedOntology) {
+          onOntologyGenerated?.(roleId, cachedOntology);
+        }
+      }
+    }
+  }, [
+    roleId,
+    existingOntology,
+    loadSkillsOntologyFromStorage,
+    onOntologyGenerated,
+  ]);
 
   const handleGenerateOntology = async () => {
     if (!roleId || !roleTitle || !parentDetails || !hierarchyPath) return;
+
+    // Check if skills ontology already exists in cache
+    if (existingOntology) {
+      console.log(
+        "Skills ontology already exists for this role, using cached data"
+      );
+      return;
+    }
 
     setIsGenerating(true);
     setGenerationError(null);
 
     try {
-      const response = await generateSkillsOntology({
+      const response = (await generateSkillsOntology({
         roleTitle,
         parentDetails,
         hierarchyPath,
-      });
+      })) as {
+        hierarchy?: Domain[];
+        ontology?: OntologyRelationship[];
+      };
 
       const newOntology: SkillsOntology = {
         id: uuidv4(),
@@ -124,7 +156,7 @@ const SkillsOntologyDrawer: React.FC<SkillsOntologyDrawerProps> = ({
     );
   };
 
-  const renderSkill = (skill: Skill, skillType: string) => {
+  const renderSkill = (skill: Skill) => {
     const skillTypeColors = {
       Technical: "bg-blue-100 text-blue-800",
       Behavioral: "bg-green-100 text-green-800",
@@ -208,7 +240,7 @@ const SkillsOntologyDrawer: React.FC<SkillsOntologyDrawerProps> = ({
               {skillType} Skills
             </h5>
             <div className="grid gap-3">
-              {skills.map((skill) => renderSkill(skill, skillType))}
+              {skills.map((skill) => renderSkill(skill))}
             </div>
           </div>
         ))}
@@ -361,8 +393,15 @@ const SkillsOntologyDrawer: React.FC<SkillsOntologyDrawerProps> = ({
               {/* Ontology Relationships */}
               {renderOntologyRelationships(existingOntology.ontology)}
 
-              {/* Regenerate Button */}
-              <div className="pt-4 border-t border-gray-100">
+              {/* Action Buttons */}
+              <div className="pt-4 border-t border-gray-100 space-y-3">
+                <Button
+                  onClick={() => setIsVisualizationOpen(true)}
+                  className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                >
+                  <Brain className="h-4 w-4 mr-2" />
+                  View Visual Representation
+                </Button>
                 <Button
                   onClick={handleGenerateOntology}
                   disabled={isGenerating}
@@ -451,6 +490,15 @@ const SkillsOntologyDrawer: React.FC<SkillsOntologyDrawerProps> = ({
           </div>
         </div>
       </SheetContent>
+
+      {/* Visualization Dialog */}
+      {existingOntology && (
+        <OntologyVisualization
+          isOpen={isVisualizationOpen}
+          onClose={() => setIsVisualizationOpen(false)}
+          ontology={existingOntology}
+        />
+      )}
     </Sheet>
   );
 };

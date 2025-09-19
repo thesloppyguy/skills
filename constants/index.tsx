@@ -110,6 +110,14 @@ export const sections: {
         path: "/employee/skills",
       },
       {
+        name: "Roadmap",
+        path: "/employee/roadmap",
+      },
+      {
+        name: "Skill Map",
+        path: "/employee/skill-map",
+      },
+      {
         name: "Training & Certifications",
         path: "/employee/training-certifications",
       },
@@ -180,13 +188,13 @@ export const sideBarItems: SideBarItem[] = [
   {
     label: "My Home",
     icon: <HomeIcon className="w-6 h-6" />,
-    href: "#",
+    href: "",
     active: false,
   },
   {
-    label: "My Social",
+    label: "My Org",
     icon: <Users className="w-6 h-6" />,
-    href: "#",
+    href: "/organization",
     active: false,
   },
   {
@@ -210,7 +218,7 @@ export const sideBarItems: SideBarItem[] = [
   {
     label: "My Profile",
     icon: <User className="w-6 h-6" />,
-    href: "#",
+    href: "/employee",
     active: true,
   },
 ];
@@ -265,23 +273,40 @@ export interface EmploymentDetails {
   directReportees?: number;
 }
 
+export interface UserInformation {
+  name: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  rating: number;
+  doj: string;
+  employee_type: string;
+  total_exp: number;
+  tenure: number;
+  age: number;
+  manager: string;
+}
+
 export interface Qualification {
   id: string;
-  degree: string;
-  institution: string;
-  year: string;
-  grade: string;
-  isHighest: boolean;
-  type: string;
+  from_year: string | number;
+  to_year: string | number;
+  full_time_half_time: string;
+  university: string;
   location: string;
+  course: string;
+  grade: string;
+  type: string;
 }
 
 export interface Skill {
   id: string;
   name: string;
   level: string;
-  year: string;
+  from_year: number;
+  to_year: number;
   category: string;
+  year: string;
 }
 
 export interface TrainingCertification {
@@ -333,199 +358,109 @@ export interface PerformanceRating {
 }
 
 export interface EmploymentHistory {
-  id: string;
+  employeeId: string;
   company: string;
+  designation: string;
+  from_date: string;
+  to_date: string;
+  id: string;
   position: string;
   startDate: string;
   endDate: string;
   description: string;
 }
 
+export interface MonthlySalaryData {
+  month: string;
+  salary: number;
+}
+
+export interface CareerProgression {
+  company_name: string;
+  monthly_salary_data: MonthlySalaryData[];
+}
+
+export interface GoalsKRA {
+  name: string;
+  progress: number;
+  weight: number;
+}
+
+export interface LearningProgress {
+  course_name: string;
+  start_date: string;
+  progress: number;
+}
+
 export interface Employee {
   id: string;
+  domain: string;
   personalDetails: PersonalDetails;
-  contactDetails: ContactDetails;
-  employmentDetails: EmploymentDetails;
   qualifications: Qualification[];
   skills: Skill[];
+  employmentHistory: EmploymentHistory[];
+  employmentDetails: EmploymentDetails;
+  contactDetails: ContactDetails;
+  career_progression: CareerProgression[];
+  performanceRatings: PerformanceRating[];
+  goals_kra: GoalsKRA[];
+  learning_progress: LearningProgress[];
+  bankDetails: BankDetails;
+  familyMembers: FamilyMember[];
   trainingCertifications: TrainingCertification[];
   languages: Language[];
-  familyMembers: FamilyMember[];
-  bankDetails: BankDetails;
-  performanceRatings: PerformanceRating[];
-  employmentHistory: EmploymentHistory[];
-  domain: string;
-  role: string;
 }
 
 // Dummy Employee Data
 export const dummyEmployees: Employee[] = [
   {
-    id: "EMP001",
-    domain: "Technology",
-    role: "Senior Software Engineer",
+    id: "emp-001",
+    domain: "Manufacturing",
     personalDetails: {
-      firstName: "Rajesh",
-      lastName: "Kumar",
-      middleName: "Singh",
-      dateOfBirth: "1985-03-15",
-      gender: "Male",
-      maritalStatus: "Married",
-      bloodGroup: "B+",
-      nationality: "Indian",
-      religion: "Hindu",
-      fatherName: "Suresh Kumar",
-      motherName: "Sunita Devi",
-      profilePicture: "/api/placeholder/150/150",
-    },
-    contactDetails: {
-      email: "rajesh.kumar@techcorp.com",
-      phone: "9876543210",
-      alternatePhone: "9876543211",
-      address: {
-        street: "123 Tech Park, Sector 5",
-        city: "Bangalore",
-        state: "Karnataka",
-        country: "India",
-        pincode: "560001",
-      },
-      emergencyContact: {
-        name: "Priya Kumar",
-        relationship: "Spouse",
-        phone: "9876543212",
-      },
+      firstName: "Emily",
+      middleName: "Grace",
+      lastName: "Johnson",
+      dateOfBirth: "1992-09-10",
+      gender: "Female",
+      maritalStatus: "Single",
+      bloodGroup: "A+",
+      nationality: "American",
+      religion: "Christian",
+      fatherName: "David Johnson",
+      motherName: "Laura Johnson",
+      profilePicture: undefined,
     },
     employmentDetails: {
-      employeeId: "TECH001",
-      company: "TechCorp Solutions",
-      department: "Software Development",
-      designation: "Senior Software Engineer",
-      reportingManager: "Dr. Sarah Johnson",
-      managerId: "MGR001",
-      joiningDate: "2020-06-15",
+      employeeId: "EMP1002",
+      company: "SolarTech Manufacturing Inc.",
+      department: "Quality Assurance",
+      designation: "Quality Assurance Specialist",
+      reportingManager: "QA Manager / Plant Head",
+      managerId: "MGR010",
+      joiningDate: "2023-04-01",
       employmentType: "Full Time",
-      workLocation: "Bangalore",
-      totalExperience: "8 years 6 months",
-      tenureWithCompany: "4 years 6 months",
-      teamSize: 12,
-      directReportees: 3,
+      workLocation: "Solar Panel Manufacturing Plant - California",
+      totalExperience: "5 years",
+      tenureWithCompany: "2 years",
+      teamSize: 6,
+      directReportees: 0,
     },
-    qualifications: [
-      {
-        id: "Q001",
-        degree: "Master of Technology in Computer Science",
-        institution: "Indian Institute of Technology, Delhi",
-        year: "2010-2012",
-        grade: "8.5/10",
-        isHighest: true,
-        type: "Full Time",
-        location: "Delhi, India",
+    contactDetails: {
+      email: "emily.johnson@solartech.com",
+      phone: "+1-555-1122",
+      alternatePhone: "+1-555-1123",
+      address: {
+        street: "456 Industrial Road",
+        city: "Los Angeles",
+        state: "CA",
+        country: "USA",
+        pincode: "90001",
       },
-      {
-        id: "Q002",
-        degree: "Bachelor of Technology in Computer Science",
-        institution: "National Institute of Technology, Trichy",
-        year: "2006-2010",
-        grade: "8.2/10",
-        isHighest: false,
-        type: "Full Time",
-        location: "Trichy, India",
+      emergencyContact: {
+        name: "David Johnson",
+        relationship: "Father",
+        phone: "+1-555-1124",
       },
-    ],
-    skills: [
-      {
-        id: "S001",
-        name: "Java Development",
-        level: "Expert",
-        year: "2015-2024",
-        category: "Programming",
-      },
-      {
-        id: "S002",
-        name: "Spring Framework",
-        level: "Expert",
-        year: "2016-2024",
-        category: "Framework",
-      },
-      {
-        id: "S003",
-        name: "Microservices Architecture",
-        level: "Advanced",
-        year: "2018-2024",
-        category: "Architecture",
-      },
-      {
-        id: "S004",
-        name: "AWS Cloud Services",
-        level: "Intermediate",
-        year: "2020-2024",
-        category: "Cloud",
-      },
-    ],
-    trainingCertifications: [
-      {
-        id: "T001",
-        name: "AWS Solutions Architect",
-        provider: "Amazon Web Services",
-        completionDate: "2023-03-15",
-        expiryDate: "2026-03-15",
-        status: "Completed",
-        progress: 100,
-        modules: 5,
-      },
-      {
-        id: "T002",
-        name: "Agile Project Management",
-        provider: "Scrum Alliance",
-        completionDate: "2022-08-20",
-        status: "Completed",
-        progress: 100,
-        modules: 4,
-      },
-    ],
-    languages: [
-      {
-        id: "L001",
-        name: "English",
-        proficiency: "Fluent",
-        isNative: false,
-      },
-      {
-        id: "L002",
-        name: "Hindi",
-        proficiency: "Native",
-        isNative: true,
-      },
-      {
-        id: "L003",
-        name: "Tamil",
-        proficiency: "Conversational",
-        isNative: false,
-      },
-    ],
-    familyMembers: [
-      {
-        id: "F001",
-        name: "Priya Kumar",
-        relationship: "Spouse",
-        dateOfBirth: "1987-07-22",
-        occupation: "Software Engineer",
-        phone: "9876543212",
-      },
-      {
-        id: "F002",
-        name: "Arjun Kumar",
-        relationship: "Son",
-        dateOfBirth: "2015-11-10",
-        occupation: "Student",
-      },
-    ],
-    bankDetails: {
-      accountNumber: "1234567890123456",
-      bankName: "HDFC Bank",
-      ifscCode: "HDFC0001234",
-      branch: "Koramangala Branch",
-      accountType: "Savings",
     },
     performanceRatings: [
       {
@@ -533,412 +468,314 @@ export const dummyEmployees: Employee[] = [
         rating: 4.2,
         goals: [
           {
-            name: "Complete Microservices Migration",
-            weightage: 30,
-            target: "100",
-            unit: "Percentage",
-            progress: 85,
+            name: "Defect Rate Reduction",
+            weightage: 40,
+            target: "< 1%",
+            unit: "percentage",
+            progress: 95,
             status: "On Track",
           },
           {
-            name: "Team Productivity Improvement",
-            weightage: 25,
-            target: "20",
-            unit: "Percentage",
-            progress: 90,
+            name: "ISO 9001:2015 Compliance",
+            weightage: 30,
+            target: "100% compliance",
+            unit: "percentage",
+            progress: 100,
+            status: "Completed",
+          },
+          {
+            name: "Supplier Quality Audits",
+            weightage: 30,
+            target: "12 audits/year",
+            unit: "count",
+            progress: 10,
             status: "On Track",
           },
         ],
       },
     ],
-    employmentHistory: [
+    qualifications: [
       {
-        id: "EH001",
-        company: "Infosys Limited",
-        position: "Software Engineer",
-        startDate: "2012-07-01",
-        endDate: "2016-12-31",
-        description:
-          "Worked on Java-based web applications and database management systems",
+        id: "qual-010",
+        from_year: "2010",
+        to_year: 2014,
+        full_time_half_time: "Full Time",
+        university: "California State University",
+        location: "California, USA",
+        course: "BSc in Mechanical Engineering",
+        grade: "A",
+        type: "Bachelors",
       },
       {
-        id: "EH002",
-        company: "Wipro Technologies",
-        position: "Senior Software Engineer",
-        startDate: "2017-01-15",
-        endDate: "2020-05-31",
+        id: "qual-011",
+        from_year: 2018,
+        to_year: 2019,
+        full_time_half_time: "Part Time",
+        university: "Quality Institute of America",
+        location: "California, USA",
+        course: "Certification in Quality Assurance & Six Sigma Green Belt",
+        grade: "A",
+        type: "Certification",
+      },
+    ],
+    skills: [
+      {
+        id: "skill-101",
+        name: "Quality Control (QC) & Quality Assurance (QA)",
+        level: "expert",
+        from_year: 2019,
+        to_year: 2025,
+        category: "Quality Management",
+        year: "2019-2025",
+      },
+      {
+        id: "skill-102",
+        name: "ISO 9001 & ISO 14001 Standards",
+        level: "expert",
+        from_year: 2020,
+        to_year: 2025,
+        category: "Compliance",
+        year: "2020-2025",
+      },
+      {
+        id: "skill-103",
+        name: "Statistical Process Control (SPC)",
+        level: "intermediate",
+        from_year: 2021,
+        to_year: 2025,
+        category: "Manufacturing",
+        year: "2021-2025",
+      },
+      {
+        id: "skill-104",
+        name: "Root Cause Analysis (RCA) & CAPA",
+        level: "expert",
+        from_year: 2020,
+        to_year: 2025,
+        category: "Problem Solving",
+        year: "2020-2025",
+      },
+      {
+        id: "skill-105",
+        name: "Solar Panel Manufacturing Processes",
+        level: "intermediate",
+        from_year: 2022,
+        to_year: 2025,
+        category: "Industry Knowledge",
+        year: "2022-2025",
+      },
+    ],
+    employmentHistory: [
+      {
+        employeeId: "EMP1002",
+        company: "SolarTech Manufacturing Inc.",
+        designation: "Quality Assurance Specialist",
+        from_date: "2023-04-01",
+        to_date: "Present",
+        id: "emp-hist-010",
+        position: "QA Specialist",
+        startDate: "2023-04-01",
+        endDate: "Present",
         description:
-          "Led development of enterprise applications using Spring framework",
+          "Ensuring product quality of solar panels, managing QA audits, and overseeing defect analysis.",
+      },
+      {
+        employeeId: "EMP1001",
+        company: "Green Energy Components Ltd.",
+        designation: "Quality Control Engineer",
+        from_date: "2019-01-15",
+        to_date: "2023-03-15",
+        id: "emp-hist-011",
+        position: "QC Engineer",
+        startDate: "2019-01-15",
+        endDate: "2023-03-15",
+        description:
+          "Handled quality inspections, supplier evaluations, and implemented SPC methodologies.",
+      },
+    ],
+    career_progression: [
+      {
+        company_name: "SolarTech Manufacturing Inc.",
+        monthly_salary_data: [
+          { month: "2024-01", salary: 6000 },
+          { month: "2024-02", salary: 6000 },
+          { month: "2024-03", salary: 6000 },
+          { month: "2024-04", salary: 6200 },
+          { month: "2024-05", salary: 6200 },
+          { month: "2024-06", salary: 6200 },
+        ],
+      },
+      {
+        company_name: "Green Energy Components Ltd.",
+        monthly_salary_data: [
+          { month: "2022-01", salary: 5000 },
+          { month: "2022-02", salary: 5000 },
+          { month: "2022-03", salary: 5000 },
+        ],
+      },
+    ],
+    goals_kra: [
+      {
+        name: "Reduce Defect Rate in Solar Panel Production",
+        progress: 0.7,
+        weight: 30,
+      },
+      {
+        name: "Enhance Process Audits & Compliance",
+        progress: 0.6,
+        weight: 25,
+      },
+      {
+        name: "Supplier Quality Improvement",
+        progress: 0.5,
+        weight: 20,
+      },
+      {
+        name: "Team Collaboration & Training",
+        progress: 0.8,
+        weight: 15,
+      },
+      {
+        name: "Sustainability & Safety Initiatives",
+        progress: 0.65,
+        weight: 10,
+      },
+    ],
+    learning_progress: [
+      {
+        course_name: "Six Sigma Green Belt Advanced",
+        start_date: "2025-01-15",
+        progress: 0.5,
+      },
+      {
+        course_name: "Solar Panel Manufacturing Process Optimization",
+        start_date: "2025-02-10",
+        progress: 0.25,
+      },
+      {
+        course_name: "Auditing Skills for Quality Professionals",
+        start_date: "2025-03-05",
+        progress: 0.4,
+      },
+    ],
+    bankDetails: {
+      accountNumber: "7894561230987654",
+      bankName: "Bank of America",
+      ifscCode: "BOFAUS3NXXX",
+      branch: "LA Downtown Branch",
+      accountType: "Savings",
+    },
+    familyMembers: [
+      {
+        id: "fam-010",
+        name: "David Johnson",
+        relationship: "Father",
+        dateOfBirth: "1960-05-15",
+        occupation: "Retired",
+        phone: "+1-555-1124",
+      },
+      {
+        id: "fam-011",
+        name: "Laura Johnson",
+        relationship: "Mother",
+        dateOfBirth: "1962-07-22",
+        occupation: "Homemaker",
+      },
+    ],
+    trainingCertifications: [
+      {
+        id: "cert-010",
+        name: "Six Sigma Green Belt",
+        provider: "ASQ",
+        completionDate: "2019-06-15",
+        expiryDate: "2025-06-15",
+        status: "Completed",
+        progress: 100,
+        modules: 10,
+      },
+      {
+        id: "cert-011",
+        name: "ISO 9001:2015 Internal Auditor",
+        provider: "TÜV SÜD",
+        completionDate: "2021-09-20",
+        status: "Completed",
+        progress: 100,
+        modules: 8,
+      },
+      {
+        id: "cert-012",
+        name: "Solar Energy Manufacturing & Materials",
+        provider: "NREL Academy",
+        completionDate: "2023-05-30",
+        status: "In Progress",
+        progress: 70,
+        modules: 6,
+      },
+    ],
+    languages: [
+      {
+        id: "lang-010",
+        name: "English",
+        proficiency: "Native",
+        isNative: true,
+      },
+      {
+        id: "lang-011",
+        name: "Spanish",
+        proficiency: "Conversational",
+        isNative: false,
       },
     ],
   },
+
   {
-    id: "EMP002",
-    domain: "Healthcare",
-    role: "Senior Medical Officer",
+    id: "emp-002",
+    domain: "Sales & Marketing",
     personalDetails: {
-      firstName: "Dr. Priya",
-      lastName: "Sharma",
-      middleName: "Devi",
-      dateOfBirth: "1982-09-08",
+      firstName: "Sarah",
+      middleName: "Elizabeth",
+      lastName: "Johnson",
+      dateOfBirth: "1995-08-22",
       gender: "Female",
-      maritalStatus: "Married",
-      bloodGroup: "O+",
+      maritalStatus: "Single",
+      bloodGroup: "A+",
       nationality: "Indian",
       religion: "Hindu",
-      fatherName: "Dr. Ramesh Sharma",
-      motherName: "Dr. Meera Sharma",
-      profilePicture: "/api/placeholder/150/150",
+      fatherName: "Robert Johnson",
+      motherName: "Mary Johnson",
+      profilePicture: undefined,
+    },
+    employmentDetails: {
+      employeeId: "EMP002",
+      company: "Solar Bright Energy Pvt Ltd",
+      department: "Sales & Marketing",
+      designation: "Marketing Coordinator",
+      reportingManager: "Marketing Manager",
+      managerId: "MGR010",
+      joiningDate: "2024-03-15",
+      employmentType: "Full Time",
+      workLocation: "Corporate Office – Mumbai",
+      totalExperience: "3 years",
+      tenureWithCompany: "1 year",
+      teamSize: 6,
+      directReportees: 0,
     },
     contactDetails: {
-      email: "priya.sharma@healthcare.com",
-      phone: "9876543213",
+      email: "sarah.johnson@solarbright.com",
+      phone: "+91-9876543210",
+      alternatePhone: "+91-9876543211",
       address: {
-        street: "456 Medical Complex, MG Road",
+        street: "456 Green Energy Lane",
         city: "Mumbai",
         state: "Maharashtra",
         country: "India",
         pincode: "400001",
       },
       emergencyContact: {
-        name: "Dr. Amit Sharma",
-        relationship: "Spouse",
-        phone: "9876543214",
-      },
-    },
-    employmentDetails: {
-      employeeId: "MED001",
-      company: "Apollo Healthcare Group",
-      department: "Cardiology",
-      designation: "Senior Medical Officer",
-      reportingManager: "Dr. Rajesh Patel",
-      managerId: "MGR002",
-      joiningDate: "2018-03-01",
-      employmentType: "Full Time",
-      workLocation: "Mumbai",
-      totalExperience: "12 years 3 months",
-      tenureWithCompany: "6 years 9 months",
-      teamSize: 8,
-      directReportees: 4,
-    },
-    qualifications: [
-      {
-        id: "Q003",
-        degree: "Doctor of Medicine (MD) in Cardiology",
-        institution: "All India Institute of Medical Sciences, Delhi",
-        year: "2010-2013",
-        grade: "Distinction",
-        isHighest: true,
-        type: "Full Time",
-        location: "Delhi, India",
-      },
-      {
-        id: "Q004",
-        degree: "Bachelor of Medicine and Bachelor of Surgery (MBBS)",
-        institution: "Grant Medical College, Mumbai",
-        year: "2005-2010",
-        grade: "First Class",
-        isHighest: false,
-        type: "Full Time",
-        location: "Mumbai, India",
-      },
-    ],
-    skills: [
-      {
-        id: "S005",
-        name: "Cardiac Surgery",
-        level: "Expert",
-        year: "2013-2024",
-        category: "Medical",
-      },
-      {
-        id: "S006",
-        name: "Echocardiography",
-        level: "Expert",
-        year: "2014-2024",
-        category: "Diagnostic",
-      },
-      {
-        id: "S007",
-        name: "Patient Management",
-        level: "Expert",
-        year: "2010-2024",
-        category: "Clinical",
-      },
-    ],
-    trainingCertifications: [
-      {
-        id: "T003",
-        name: "Advanced Cardiac Life Support (ACLS)",
-        provider: "American Heart Association",
-        completionDate: "2023-06-15",
-        expiryDate: "2025-06-15",
-        status: "Completed",
-        progress: 100,
-        modules: 3,
-      },
-      {
-        id: "T004",
-        name: "Interventional Cardiology Fellowship",
-        provider: "Apollo Healthcare Group",
-        completionDate: "2022-12-20",
-        status: "Completed",
-        progress: 100,
-        modules: 6,
-      },
-    ],
-    languages: [
-      {
-        id: "L004",
-        name: "English",
-        proficiency: "Fluent",
-        isNative: false,
-      },
-      {
-        id: "L005",
-        name: "Hindi",
-        proficiency: "Native",
-        isNative: true,
-      },
-      {
-        id: "L006",
-        name: "Marathi",
-        proficiency: "Fluent",
-        isNative: true,
-      },
-    ],
-    familyMembers: [
-      {
-        id: "F003",
-        name: "Dr. Amit Sharma",
-        relationship: "Spouse",
-        dateOfBirth: "1980-12-15",
-        occupation: "Orthopedic Surgeon",
-        phone: "9876543214",
-      },
-      {
-        id: "F004",
-        name: "Kavya Sharma",
-        relationship: "Daughter",
-        dateOfBirth: "2012-04-18",
-        occupation: "Student",
-      },
-    ],
-    bankDetails: {
-      accountNumber: "2345678901234567",
-      bankName: "ICICI Bank",
-      ifscCode: "ICIC0002345",
-      branch: "Andheri West Branch",
-      accountType: "Savings",
-    },
-    performanceRatings: [
-      {
-        year: "2024",
-        rating: 4.5,
-        goals: [
-          {
-            name: "Patient Satisfaction Score",
-            weightage: 40,
-            target: "95",
-            unit: "Percentage",
-            progress: 92,
-            status: "On Track",
-          },
-          {
-            name: "Successful Surgeries",
-            weightage: 35,
-            target: "200",
-            unit: "Number",
-            progress: 180,
-            status: "On Track",
-          },
-        ],
-      },
-    ],
-    employmentHistory: [
-      {
-        id: "EH003",
-        company: "Fortis Healthcare",
-        position: "Medical Officer",
-        startDate: "2013-07-01",
-        endDate: "2016-02-28",
-        description: "Worked in emergency department and general medicine",
-      },
-      {
-        id: "EH004",
-        company: "Max Healthcare",
-        position: "Senior Medical Officer",
-        startDate: "2016-03-15",
-        endDate: "2018-02-28",
-        description:
-          "Specialized in cardiology department with focus on interventional procedures",
-      },
-    ],
-  },
-  {
-    id: "EMP003",
-    domain: "Finance",
-    role: "Senior Financial Analyst",
-    personalDetails: {
-      firstName: "Michael",
-      lastName: "Chen",
-      middleName: "Wei",
-      dateOfBirth: "1988-11-25",
-      gender: "Male",
-      maritalStatus: "Single",
-      bloodGroup: "A+",
-      nationality: "American",
-      religion: "Christian",
-      fatherName: "David Chen",
-      motherName: "Linda Chen",
-      profilePicture: "/api/placeholder/150/150",
-    },
-    contactDetails: {
-      email: "michael.chen@financecorp.com",
-      phone: "+1-555-0123",
-      address: {
-        street: "789 Wall Street, Suite 456",
-        city: "New York",
-        state: "New York",
-        country: "United States",
-        pincode: "10005",
-      },
-      emergencyContact: {
-        name: "Sarah Chen",
-        relationship: "Sister",
-        phone: "+1-555-0124",
-      },
-    },
-    employmentDetails: {
-      employeeId: "FIN001",
-      company: "Global Finance Corp",
-      department: "Investment Banking",
-      designation: "Senior Financial Analyst",
-      reportingManager: "Jennifer Martinez",
-      managerId: "MGR003",
-      joiningDate: "2021-01-15",
-      employmentType: "Full Time",
-      workLocation: "New York",
-      totalExperience: "6 years 2 months",
-      tenureWithCompany: "3 years 10 months",
-      teamSize: 15,
-      directReportees: 2,
-    },
-    qualifications: [
-      {
-        id: "Q005",
-        degree: "Master of Business Administration (MBA) in Finance",
-        institution: "Wharton School, University of Pennsylvania",
-        year: "2018-2020",
-        grade: "3.8/4.0",
-        isHighest: true,
-        type: "Full Time",
-        location: "Philadelphia, USA",
-      },
-      {
-        id: "Q006",
-        degree: "Bachelor of Science in Economics",
-        institution: "Stanford University",
-        year: "2010-2014",
-        grade: "3.6/4.0",
-        isHighest: false,
-        type: "Full Time",
-        location: "Stanford, USA",
-      },
-    ],
-    skills: [
-      {
-        id: "S008",
-        name: "Financial Modeling",
-        level: "Expert",
-        year: "2018-2024",
-        category: "Analytics",
-      },
-      {
-        id: "S009",
-        name: "Excel Advanced",
-        level: "Expert",
-        year: "2016-2024",
-        category: "Technical",
-      },
-      {
-        id: "S010",
-        name: "Python for Finance",
-        level: "Advanced",
-        year: "2020-2024",
-        category: "Programming",
-      },
-      {
-        id: "S011",
-        name: "Risk Assessment",
-        level: "Expert",
-        year: "2018-2024",
-        category: "Risk Management",
-      },
-    ],
-    trainingCertifications: [
-      {
-        id: "T005",
-        name: "Chartered Financial Analyst (CFA)",
-        provider: "CFA Institute",
-        completionDate: "2022-08-15",
-        status: "Completed",
-        progress: 100,
-        modules: 3,
-      },
-      {
-        id: "T006",
-        name: "Financial Risk Manager (FRM)",
-        provider: "Global Association of Risk Professionals",
-        completionDate: "2023-05-20",
-        status: "Completed",
-        progress: 100,
-        modules: 2,
-      },
-    ],
-    languages: [
-      {
-        id: "L007",
-        name: "English",
-        proficiency: "Native",
-        isNative: true,
-      },
-      {
-        id: "L008",
-        name: "Mandarin",
-        proficiency: "Fluent",
-        isNative: true,
-      },
-      {
-        id: "L009",
-        name: "Spanish",
-        proficiency: "Conversational",
-        isNative: false,
-      },
-    ],
-    familyMembers: [
-      {
-        id: "F005",
-        name: "Sarah Chen",
-        relationship: "Sister",
-        dateOfBirth: "1990-03-12",
-        occupation: "Marketing Manager",
-        phone: "+1-555-0124",
-      },
-      {
-        id: "F006",
-        name: "David Chen",
+        name: "Robert Johnson",
         relationship: "Father",
-        dateOfBirth: "1955-08-20",
-        occupation: "Retired Engineer",
+        phone: "+91-9876543212",
       },
-    ],
-    bankDetails: {
-      accountNumber: "3456789012345678",
-      bankName: "JPMorgan Chase",
-      ifscCode: "CHASUS33",
-      branch: "Wall Street Branch",
-      accountType: "Checking",
     },
     performanceRatings: [
       {
@@ -946,370 +783,247 @@ export const dummyEmployees: Employee[] = [
         rating: 4.3,
         goals: [
           {
-            name: "Deal Closure Rate",
+            name: "Marketing Campaign Execution (Solar Awareness)",
             weightage: 35,
-            target: "85",
-            unit: "Percentage",
-            progress: 88,
+            target: "10 campaigns",
+            unit: "count",
+            progress: 80,
             status: "On Track",
           },
           {
-            name: "Revenue Generation",
+            name: "Lead Generation Support for Sales",
             weightage: 30,
-            target: "5000000",
-            unit: "USD",
-            progress: 4200000,
-            status: "On Track",
+            target: "500 qualified leads",
+            unit: "count",
+            progress: 65,
+            status: "In Progress",
           },
         ],
       },
     ],
-    employmentHistory: [
-      {
-        id: "EH005",
-        company: "Goldman Sachs",
-        position: "Financial Analyst",
-        startDate: "2014-07-01",
-        endDate: "2017-12-31",
-        description: "Worked on equity research and investment analysis",
-      },
-      {
-        id: "EH006",
-        company: "Morgan Stanley",
-        position: "Associate",
-        startDate: "2018-01-15",
-        endDate: "2020-12-31",
-        description: "Focused on mergers and acquisitions advisory",
-      },
-    ],
-  },
-  {
-    id: "EMP004",
-    domain: "Marketing",
-    role: "Marketing Manager",
-    personalDetails: {
-      firstName: "Sarah",
-      lastName: "Johnson",
-      middleName: "Elizabeth",
-      dateOfBirth: "1990-05-12",
-      gender: "Female",
-      maritalStatus: "Married",
-      bloodGroup: "AB+",
-      nationality: "British",
-      religion: "Christian",
-      fatherName: "Robert Johnson",
-      motherName: "Margaret Johnson",
-      profilePicture: "/api/placeholder/150/150",
-    },
-    contactDetails: {
-      email: "sarah.johnson@marketingpro.com",
-      phone: "+44-20-7946-0958",
-      address: {
-        street: "123 Oxford Street, Flat 45",
-        city: "London",
-        state: "England",
-        country: "United Kingdom",
-        pincode: "W1D 1BS",
-      },
-      emergencyContact: {
-        name: "James Johnson",
-        relationship: "Spouse",
-        phone: "+44-20-7946-0959",
-      },
-    },
-    employmentDetails: {
-      employeeId: "MKT001",
-      company: "Creative Marketing Solutions",
-      department: "Digital Marketing",
-      designation: "Marketing Manager",
-      reportingManager: "David Thompson",
-      managerId: "MGR004",
-      joiningDate: "2019-09-01",
-      employmentType: "Full Time",
-      workLocation: "London",
-      totalExperience: "7 years 4 months",
-      tenureWithCompany: "5 years 3 months",
-      teamSize: 10,
-      directReportees: 5,
-    },
     qualifications: [
       {
-        id: "Q007",
-        degree: "Master of Science in Marketing",
-        institution: "London Business School",
-        year: "2016-2017",
-        grade: "Distinction",
-        isHighest: true,
-        type: "Full Time",
-        location: "London, UK",
+        id: "qual-003",
+        from_year: "2018",
+        to_year: 2021,
+        full_time_half_time: "Full Time",
+        university: "Mumbai University",
+        location: "Mumbai, India",
+        course: "Bachelor of Commerce (B.Com)",
+        grade: "A",
+        type: "Bachelors",
       },
       {
-        id: "Q008",
-        degree: "Bachelor of Arts in Communications",
-        institution: "University of Cambridge",
-        year: "2012-2015",
-        grade: "First Class Honours",
-        isHighest: false,
-        type: "Full Time",
-        location: "Cambridge, UK",
+        id: "qual-004",
+        from_year: 2021,
+        to_year: 2022,
+        full_time_half_time: "Full Time",
+        university: "Digital Marketing Institute",
+        location: "Delhi, India",
+        course: "Professional Digital Marketing Certification",
+        grade: "A",
+        type: "Certification",
       },
     ],
     skills: [
       {
-        id: "S012",
-        name: "Digital Marketing Strategy",
-        level: "Expert",
-        year: "2017-2024",
-        category: "Strategy",
+        id: "skill-011",
+        name: "Digital Marketing (SEO, SEM, Social Media)",
+        level: "intermediate",
+        from_year: 2021,
+        to_year: 2025,
+        category: "Marketing Technology",
+        year: "2021-2025",
       },
       {
-        id: "S013",
-        name: "Social Media Management",
-        level: "Expert",
-        year: "2016-2024",
-        category: "Digital",
+        id: "skill-012",
+        name: "Content Marketing & Campaigns",
+        level: "intermediate",
+        from_year: 2022,
+        to_year: 2025,
+        category: "Marketing",
+        year: "2022-2025",
       },
       {
-        id: "S014",
-        name: "Google Analytics",
-        level: "Advanced",
-        year: "2018-2024",
-        category: "Analytics",
+        id: "skill-013",
+        name: "Lead Generation & CRM (HubSpot/Salesforce)",
+        level: "intermediate",
+        from_year: 2021,
+        to_year: 2025,
+        category: "Sales Enablement",
+        year: "2021-2025",
       },
       {
-        id: "S015",
-        name: "Content Creation",
-        level: "Expert",
-        year: "2015-2024",
-        category: "Creative",
-      },
-    ],
-    trainingCertifications: [
-      {
-        id: "T007",
-        name: "Google Ads Certification",
-        provider: "Google",
-        completionDate: "2023-09-10",
-        expiryDate: "2024-09-10",
-        status: "Completed",
-        progress: 100,
-        modules: 4,
+        id: "skill-014",
+        name: "Market Research – Renewable Energy",
+        level: "intermediate",
+        from_year: 2022,
+        to_year: 2025,
+        category: "Market Analysis",
+        year: "2022-2025",
       },
       {
-        id: "T008",
-        name: "HubSpot Content Marketing",
-        provider: "HubSpot Academy",
-        completionDate: "2023-11-15",
-        status: "Completed",
-        progress: 100,
-        modules: 5,
-      },
-    ],
-    languages: [
-      {
-        id: "L010",
-        name: "English",
-        proficiency: "Native",
-        isNative: true,
+        id: "skill-015",
+        name: "Event & Trade Show Coordination",
+        level: "beginner",
+        from_year: 2023,
+        to_year: 2025,
+        category: "Event Marketing",
+        year: "2023-2025",
       },
       {
-        id: "L011",
-        name: "French",
-        proficiency: "Fluent",
-        isNative: false,
-      },
-      {
-        id: "L012",
-        name: "Spanish",
-        proficiency: "Conversational",
-        isNative: false,
+        id: "skill-016",
+        name: "Communication & Branding",
+        level: "intermediate",
+        from_year: 2021,
+        to_year: 2025,
+        category: "Communication",
+        year: "2021-2025",
       },
     ],
-    familyMembers: [
+    employmentHistory: [
       {
-        id: "F007",
-        name: "James Johnson",
-        relationship: "Spouse",
-        dateOfBirth: "1988-11-30",
-        occupation: "Software Developer",
-        phone: "+44-20-7946-0959",
+        employeeId: "EMP002",
+        company: "Solar Bright Energy Pvt Ltd",
+        designation: "Marketing Coordinator",
+        from_date: "2024-03-15",
+        to_date: "Present",
+        id: "emp-hist-004",
+        position: "Marketing Coordinator",
+        startDate: "2024-03-15",
+        endDate: "Present",
+        description:
+          "Coordinating digital and offline marketing campaigns to promote solar energy adoption and supporting the sales team with lead generation.",
       },
       {
-        id: "F008",
-        name: "Emma Johnson",
-        relationship: "Daughter",
-        dateOfBirth: "2020-08-15",
-        occupation: "Toddler",
+        employeeId: "EMP003",
+        company: "Retail Plus Inc",
+        designation: "Junior Sales Executive",
+        from_date: "2021-06-01",
+        to_date: "2024-03-14",
+        id: "emp-hist-005",
+        position: "Junior Sales Executive",
+        startDate: "2021-06-01",
+        endDate: "2024-03-14",
+        description:
+          "Handled retail sales operations, customer service, and supported senior sales team.",
+      },
+    ],
+    career_progression: [
+      {
+        company_name: "Solar Bright Energy Pvt Ltd",
+        monthly_salary_data: [
+          { month: "2024-03", salary: 5000 },
+          { month: "2024-04", salary: 5000 },
+          { month: "2024-05", salary: 5000 },
+          { month: "2024-06", salary: 5000 },
+          { month: "2024-07", salary: 5000 },
+          { month: "2024-08", salary: 5000 },
+          { month: "2024-09", salary: 5000 },
+          { month: "2024-10", salary: 5000 },
+          { month: "2024-11", salary: 5000 },
+          { month: "2024-12", salary: 5000 },
+          { month: "2025-01", salary: 5000 },
+          { month: "2025-02", salary: 5000 },
+        ],
+      },
+      {
+        company_name: "Retail Plus Inc",
+        monthly_salary_data: [
+          { month: "2023-01", salary: 3200 },
+          { month: "2023-02", salary: 3200 },
+          { month: "2023-03", salary: 3200 },
+          { month: "2023-04", salary: 3200 },
+          { month: "2023-05", salary: 3200 },
+          { month: "2023-06", salary: 3200 },
+          { month: "2023-07", salary: 3200 },
+          { month: "2023-08", salary: 3200 },
+          { month: "2023-09", salary: 3200 },
+          { month: "2023-10", salary: 3200 },
+          { month: "2023-11", salary: 3200 },
+          { month: "2023-12", salary: 3200 },
+        ],
+      },
+    ],
+    goals_kra: [
+      {
+        name: "Digital Campaign Performance (Leads, Engagement)",
+        progress: 0.7,
+        weight: 35,
+      },
+      {
+        name: "Marketing-Sales Alignment (MQL to SQL Conversion)",
+        progress: 0.6,
+        weight: 25,
+      },
+      {
+        name: "Brand Visibility & Awareness (Events, PR)",
+        progress: 0.8,
+        weight: 20,
+      },
+      {
+        name: "Product Knowledge & Sustainability Messaging",
+        progress: 0.9,
+        weight: 20,
+      },
+    ],
+    learning_progress: [
+      {
+        course_name: "Digital Marketing for Renewable Energy",
+        start_date: "2024-05-01",
+        progress: 0.6,
+      },
+      {
+        course_name: "HubSpot Marketing Hub Mastery",
+        start_date: "2024-04-01",
+        progress: 0.7,
+      },
+      {
+        course_name: "Solar Industry Market Trends & Customer Insights",
+        start_date: "2024-07-15",
+        progress: 0.4,
       },
     ],
     bankDetails: {
-      accountNumber: "4567890123456789",
-      bankName: "Barclays Bank",
-      ifscCode: "BARCGB22",
-      branch: "Oxford Street Branch",
+      accountNumber: "2345678901234567",
+      bankName: "HDFC Bank",
+      ifscCode: "HDFC0001234",
+      branch: "Mumbai Central",
       accountType: "Current",
     },
-    performanceRatings: [
+    familyMembers: [
       {
-        year: "2024",
-        rating: 4.1,
-        goals: [
-          {
-            name: "Brand Awareness Increase",
-            weightage: 30,
-            target: "25",
-            unit: "Percentage",
-            progress: 22,
-            status: "On Track",
-          },
-          {
-            name: "Lead Generation",
-            weightage: 25,
-            target: "1000",
-            unit: "Number",
-            progress: 850,
-            status: "On Track",
-          },
-        ],
-      },
-    ],
-    employmentHistory: [
-      {
-        id: "EH007",
-        company: "Brand Agency Ltd",
-        position: "Marketing Executive",
-        startDate: "2015-06-01",
-        endDate: "2017-08-31",
-        description: "Worked on brand campaigns and social media management",
+        id: "fam-004",
+        name: "Robert Johnson",
+        relationship: "Father",
+        dateOfBirth: "1960-05-10",
+        occupation: "Retired Engineer",
+        phone: "+91-9876543212",
       },
       {
-        id: "EH008",
-        company: "Digital First Marketing",
-        position: "Senior Marketing Executive",
-        startDate: "2017-09-15",
-        endDate: "2019-08-31",
-        description: "Led digital marketing campaigns and team coordination",
-      },
-    ],
-  },
-  {
-    id: "EMP005",
-    domain: "Operations",
-    role: "Operations Manager",
-    personalDetails: {
-      firstName: "Ahmed",
-      lastName: "Hassan",
-      middleName: "Ali",
-      dateOfBirth: "1987-12-03",
-      gender: "Male",
-      maritalStatus: "Married",
-      bloodGroup: "O-",
-      nationality: "Egyptian",
-      religion: "Muslim",
-      fatherName: "Ali Hassan",
-      motherName: "Fatima Hassan",
-      profilePicture: "/api/placeholder/150/150",
-    },
-    contactDetails: {
-      email: "ahmed.hassan@operations.com",
-      phone: "+971-50-123-4567",
-      address: {
-        street: "456 Sheikh Zayed Road, Tower 2",
-        city: "Dubai",
-        state: "Dubai",
-        country: "UAE",
-        pincode: "00000",
-      },
-      emergencyContact: {
-        name: "Aisha Hassan",
-        relationship: "Spouse",
-        phone: "+971-50-123-4568",
-      },
-    },
-    employmentDetails: {
-      employeeId: "OPS001",
-      company: "Global Logistics Solutions",
-      department: "Supply Chain Operations",
-      designation: "Operations Manager",
-      reportingManager: "Mohammed Al-Rashid",
-      managerId: "MGR005",
-      joiningDate: "2020-02-01",
-      employmentType: "Full Time",
-      workLocation: "Dubai",
-      totalExperience: "9 years 1 month",
-      tenureWithCompany: "4 years 10 months",
-      teamSize: 20,
-      directReportees: 8,
-    },
-    qualifications: [
-      {
-        id: "Q009",
-        degree:
-          "Master of Business Administration (MBA) in Operations Management",
-        institution: "American University in Dubai",
-        year: "2015-2017",
-        grade: "3.7/4.0",
-        isHighest: true,
-        type: "Full Time",
-        location: "Dubai, UAE",
-      },
-      {
-        id: "Q010",
-        degree: "Bachelor of Engineering in Industrial Engineering",
-        institution: "Cairo University",
-        year: "2005-2009",
-        grade: "Very Good",
-        isHighest: false,
-        type: "Full Time",
-        location: "Cairo, Egypt",
-      },
-    ],
-    skills: [
-      {
-        id: "S016",
-        name: "Supply Chain Management",
-        level: "Expert",
-        year: "2015-2024",
-        category: "Operations",
-      },
-      {
-        id: "S017",
-        name: "Process Optimization",
-        level: "Expert",
-        year: "2017-2024",
-        category: "Efficiency",
-      },
-      {
-        id: "S018",
-        name: "SAP ERP",
-        level: "Advanced",
-        year: "2018-2024",
-        category: "Technology",
-      },
-      {
-        id: "S019",
-        name: "Lean Six Sigma",
-        level: "Expert",
-        year: "2016-2024",
-        category: "Quality",
+        id: "fam-005",
+        name: "Mary Johnson",
+        relationship: "Mother",
+        dateOfBirth: "1965-08-20",
+        occupation: "Teacher",
       },
     ],
     trainingCertifications: [
       {
-        id: "T009",
-        name: "Certified Supply Chain Professional (CSCP)",
-        provider: "APICS",
-        completionDate: "2022-04-20",
-        expiryDate: "2025-04-20",
+        id: "cert-004",
+        name: "Google Digital Marketing Certification",
+        provider: "Google",
+        completionDate: "2024-02-15",
+        expiryDate: "2026-02-15",
         status: "Completed",
         progress: 100,
-        modules: 4,
+        modules: 8,
       },
       {
-        id: "T010",
-        name: "Six Sigma Black Belt",
-        provider: "American Society for Quality",
-        completionDate: "2021-10-15",
+        id: "cert-005",
+        name: "Renewable Energy Marketing Strategies",
+        provider: "Coursera / University of Colorado",
+        completionDate: "2024-08-10",
         status: "Completed",
         progress: 100,
         modules: 6,
@@ -1317,96 +1031,339 @@ export const dummyEmployees: Employee[] = [
     ],
     languages: [
       {
-        id: "L013",
-        name: "Arabic",
-        proficiency: "Native",
-        isNative: true,
-      },
-      {
-        id: "L014",
+        id: "lang-004",
         name: "English",
         proficiency: "Fluent",
         isNative: false,
       },
       {
-        id: "L015",
-        name: "French",
-        proficiency: "Conversational",
-        isNative: false,
+        id: "lang-005",
+        name: "Hindi",
+        proficiency: "Native",
+        isNative: true,
+      },
+      {
+        id: "lang-006",
+        name: "Marathi",
+        proficiency: "Native",
+        isNative: true,
       },
     ],
-    familyMembers: [
-      {
-        id: "F009",
-        name: "Aisha Hassan",
-        relationship: "Spouse",
-        dateOfBirth: "1989-06-20",
-        occupation: "Teacher",
-        phone: "+971-50-123-4568",
+  },
+  // Operations Coordinator
+  {
+    id: "emp-003",
+    domain: "Project Management & Installation",
+    personalDetails: {
+      firstName: "Michael",
+      middleName: "David",
+      lastName: "Brown",
+      dateOfBirth: "1992-12-10",
+      gender: "Male",
+      maritalStatus: "Single",
+      bloodGroup: "B+",
+      nationality: "Indian",
+      religion: "Christian",
+      fatherName: "David Brown Sr.",
+      motherName: "Lisa Brown",
+      profilePicture: undefined,
+    },
+    employmentDetails: {
+      employeeId: "EMP003",
+      company: "SolarTech Energy Pvt Ltd",
+      department: "Project Management & Installation",
+      designation: "Installation Technician",
+      reportingManager: "Project Manager",
+      managerId: "MGR103",
+      joiningDate: "2023-08-01",
+      employmentType: "Full Time",
+      workLocation: "Field Sites & HQ",
+      totalExperience: "4 years",
+      tenureWithCompany: "1 year",
+      teamSize: 12,
+      directReportees: 0,
+    },
+    contactDetails: {
+      email: "michael.brown@solartechenergy.com",
+      phone: "+91-9876543210",
+      alternatePhone: "+91-9876543211",
+      address: {
+        street: "789 Green Energy Road",
+        city: "Bangalore",
+        state: "Karnataka",
+        country: "India",
+        pincode: "560001",
       },
-      {
-        id: "F010",
-        name: "Omar Hassan",
-        relationship: "Son",
-        dateOfBirth: "2018-03-10",
-        occupation: "Student",
+      emergencyContact: {
+        name: "Lisa Brown",
+        relationship: "Sister",
+        phone: "+91-9876543212",
       },
-      {
-        id: "F011",
-        name: "Layla Hassan",
-        relationship: "Daughter",
-        dateOfBirth: "2021-09-25",
-        occupation: "Toddler",
-      },
-    ],
-    bankDetails: {
-      accountNumber: "5678901234567890",
-      bankName: "Emirates NBD",
-      ifscCode: "EBILAEAD",
-      branch: "Sheikh Zayed Road Branch",
-      accountType: "Savings",
     },
     performanceRatings: [
       {
         year: "2024",
-        rating: 4.4,
+        rating: 4.1,
         goals: [
           {
-            name: "Cost Reduction",
+            name: "Timely Installation Completion",
             weightage: 35,
-            target: "15",
-            unit: "Percentage",
-            progress: 12,
+            target: "95%",
+            unit: "percentage",
+            progress: 80,
             status: "On Track",
           },
           {
-            name: "Process Efficiency",
+            name: "Installation Quality & Safety Compliance",
             weightage: 30,
-            target: "20",
-            unit: "Percentage",
-            progress: 18,
+            target: "100%",
+            unit: "percentage",
+            progress: 90,
             status: "On Track",
           },
         ],
       },
     ],
-    employmentHistory: [
+    qualifications: [
       {
-        id: "EH009",
-        company: "DHL Express",
-        position: "Operations Supervisor",
-        startDate: "2009-07-01",
-        endDate: "2014-12-31",
-        description: "Managed warehouse operations and logistics coordination",
+        id: "qual-005",
+        from_year: "2012",
+        to_year: 2015,
+        full_time_half_time: "Full Time",
+        university: "Technical Institute of Bangalore",
+        location: "Bangalore, India",
+        course: "Diploma in Electrical Engineering",
+        grade: "A",
+        type: "Diploma",
       },
       {
-        id: "EH010",
-        company: "FedEx Middle East",
-        position: "Senior Operations Coordinator",
-        startDate: "2015-01-15",
-        endDate: "2019-12-31",
+        id: "qual-006",
+        from_year: 2020,
+        to_year: 2021,
+        full_time_half_time: "Full Time",
+        university: "Solar Training Academy",
+        location: "Pune, India",
+        course: "Solar PV Installation Certification",
+        grade: "A",
+        type: "Certification",
+      },
+    ],
+    skills: [
+      {
+        id: "skill-027",
+        name: "Solar PV Installation",
+        level: "intermediate",
+        from_year: 2020,
+        to_year: 2025,
+        category: "Solar Technology",
+        year: "2020-2025",
+      },
+      {
+        id: "skill-028",
+        name: "Project Site Coordination",
+        level: "intermediate",
+        from_year: 2021,
+        to_year: 2025,
+        category: "Project Management",
+        year: "2021-2025",
+      },
+      {
+        id: "skill-029",
+        name: "Electrical Wiring & Safety",
+        level: "intermediate",
+        from_year: 2019,
+        to_year: 2025,
+        category: "Electrical",
+        year: "2019-2025",
+      },
+      {
+        id: "skill-030",
+        name: "Inverter Installation & Maintenance",
+        level: "intermediate",
+        from_year: 2020,
+        to_year: 2025,
+        category: "Solar Technology",
+        year: "2020-2025",
+      },
+      {
+        id: "skill-031",
+        name: "Troubleshooting & Repairs",
+        level: "beginner",
+        from_year: 2022,
+        to_year: 2025,
+        category: "Maintenance",
+        year: "2022-2025",
+      },
+      {
+        id: "skill-032",
+        name: "Team Coordination on Site",
+        level: "intermediate",
+        from_year: 2021,
+        to_year: 2025,
+        category: "Team Management",
+        year: "2021-2025",
+      },
+    ],
+    employmentHistory: [
+      {
+        employeeId: "EMP003",
+        company: "SolarTech Energy Pvt Ltd",
+        designation: "Installation Technician",
+        from_date: "2023-08-01",
+        to_date: "Present",
+        id: "emp-hist-006",
+        position: "Installation Technician",
+        startDate: "2023-08-01",
+        endDate: "Present",
         description:
-          "Oversaw regional operations and process improvement initiatives",
+          "Performing solar PV installations, coordinating with project managers, and ensuring site safety and quality compliance.",
+      },
+      {
+        employeeId: "EMP005",
+        company: "Bright Energy Services",
+        designation: "Assistant Installation Technician",
+        from_date: "2020-06-01",
+        to_date: "2023-07-31",
+        id: "emp-hist-007",
+        position: "Assistant Installation Technician",
+        startDate: "2020-06-01",
+        endDate: "2023-07-31",
+        description:
+          "Assisted in solar panel installations, wiring, and system testing for residential and commercial clients.",
+      },
+    ],
+    career_progression: [
+      {
+        company_name: "SolarTech Energy Pvt Ltd",
+        monthly_salary_data: [
+          { month: "2023-08", salary: 4800 },
+          { month: "2023-09", salary: 4800 },
+          { month: "2023-10", salary: 4800 },
+          { month: "2023-11", salary: 5000 },
+          { month: "2023-12", salary: 5000 },
+          { month: "2024-01", salary: 5000 },
+          { month: "2024-02", salary: 5200 },
+          { month: "2024-03", salary: 5200 },
+          { month: "2024-04", salary: 5200 },
+          { month: "2024-05", salary: 5200 },
+        ],
+      },
+      {
+        company_name: "Bright Energy Services",
+        monthly_salary_data: [
+          { month: "2020-06", salary: 3000 },
+          { month: "2020-07", salary: 3000 },
+          { month: "2020-08", salary: 3000 },
+          { month: "2021-01", salary: 3200 },
+          { month: "2021-02", salary: 3200 },
+          { month: "2021-03", salary: 3200 },
+          { month: "2022-01", salary: 3500 },
+          { month: "2022-02", salary: 3500 },
+          { month: "2022-03", salary: 3500 },
+        ],
+      },
+    ],
+    goals_kra: [
+      {
+        name: "On-time Project Installations",
+        progress: 0.8,
+        weight: 35,
+      },
+      {
+        name: "Installation Quality & Safety",
+        progress: 0.9,
+        weight: 30,
+      },
+      {
+        name: "Customer Satisfaction",
+        progress: 0.75,
+        weight: 20,
+      },
+      {
+        name: "Technical Skill Development",
+        progress: 0.6,
+        weight: 15,
+      },
+    ],
+    learning_progress: [
+      {
+        course_name: "Advanced Solar PV Installation",
+        start_date: "2024-02-01",
+        progress: 0.5,
+      },
+      {
+        course_name: "Electrical Safety Standards",
+        start_date: "2024-01-15",
+        progress: 0.7,
+      },
+      {
+        course_name: "Inverter Troubleshooting",
+        start_date: "2024-03-01",
+        progress: 0.3,
+      },
+    ],
+    bankDetails: {
+      accountNumber: "3456789012345678",
+      bankName: "ICICI Bank",
+      ifscCode: "ICIC0001234",
+      branch: "Bangalore Central",
+      accountType: "Savings",
+    },
+    familyMembers: [
+      {
+        id: "fam-006",
+        name: "Lisa Brown",
+        relationship: "Sister",
+        dateOfBirth: "1988-12-05",
+        occupation: "Software Engineer",
+        phone: "+91-9876543212",
+      },
+      {
+        id: "fam-007",
+        name: "David Brown Sr.",
+        relationship: "Father",
+        dateOfBirth: "1955-09-18",
+        occupation: "Retired Manager",
+      },
+    ],
+    trainingCertifications: [
+      {
+        id: "cert-006",
+        name: "Solar PV Technician Certification",
+        provider: "MNRE (Govt of India)",
+        completionDate: "2023-06-15",
+        status: "Completed",
+        progress: 100,
+        modules: 8,
+      },
+      {
+        id: "cert-007",
+        name: "Electrical Safety & Compliance",
+        provider: "National Institute of Solar Energy",
+        completionDate: "2024-01-15",
+        status: "In Progress",
+        progress: 70,
+        modules: 6,
+      },
+    ],
+    languages: [
+      {
+        id: "lang-007",
+        name: "English",
+        proficiency: "Fluent",
+        isNative: false,
+      },
+      {
+        id: "lang-008",
+        name: "Kannada",
+        proficiency: "Native",
+        isNative: true,
+      },
+      {
+        id: "lang-009",
+        name: "Hindi",
+        proficiency: "Conversational",
+        isNative: false,
       },
     ],
   },

@@ -67,7 +67,6 @@ export default function SkillsPage() {
                   </div>
                   <div>
                     <CardTitle className="text-lg">{skill.name}</CardTitle>
-                    <p className="text-sm text-gray-600">{skill.category}</p>
                   </div>
                 </div>
                 <Button variant="ghost" size="sm">
@@ -98,16 +97,7 @@ export default function SkillsPage() {
                   </label>
                   <p className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-gray-400" />
-                    {skill.year}
-                  </p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">
-                    Category
-                  </label>
-                  <p className="flex items-center gap-2">
-                    <BarChart3 className="w-4 h-4 text-gray-400" />
-                    {skill.category}
+                    {skill.from_year} - {skill.to_year}
                   </p>
                 </div>
               </div>

@@ -32,7 +32,6 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
@@ -57,9 +56,11 @@ import {
   SkillsOntology,
   Domain,
   OntologyRelationship,
+  JobRole,
 } from "@/types/organization";
 import { useOrganization } from "@/contexts/OrganizationContext";
 import SkillsOntologyDrawer from "./SkillsOntologyDrawer";
+import OntologyVisualization from "./OntologyVisualization";
 import { generateSkillsOntology } from "@/services/app";
 import { v4 as uuidv4 } from "uuid";
 
@@ -479,6 +480,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
     screenY?: number;
   } | null>(null);
   const [isSkillsDrawerOpen, setIsSkillsDrawerOpen] = useState(false);
+  const [isVisualizationOpen, setIsVisualizationOpen] = useState(false);
   const [selectedRoleForSkills, setSelectedRoleForSkills] =
     useState<Node | null>(null);
   const [isGeneratingOntology, setIsGeneratingOntology] = useState(false);
@@ -506,6 +508,14 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
 
   const handleGenerateOntologyFromEdit = useCallback(async () => {
     if (!editingNode || editingNode.type !== "job_role") return;
+
+    // Check if skills ontology already exists in cache
+    if (skillsMap.has(editingNode.id)) {
+      console.log(
+        "Skills ontology already exists for this role, using cached data"
+      );
+      return;
+    }
 
     setIsGeneratingOntology(true);
     setOntologyGenerationError(null);
@@ -553,7 +563,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
     } finally {
       setIsGeneratingOntology(false);
     }
-  }, [editingNode, addSkillsOntology]);
+  }, [editingNode, addSkillsOntology, skillsMap]);
 
   // Convert organization data to flow nodes and edges
   const convertToFlowData = useCallback((data: OrganizationStructure) => {
@@ -595,10 +605,13 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
       return families.reduce((total, family) => {
         const familyHeight = VERTICAL_SPACING;
         const subFamiliesHeight =
-          family.sub_job_families.length > 0
+          family.sub_job_families && family.sub_job_families.length > 0
             ? calculateTotalHeight(family.sub_job_families)
             : 0;
-        const rolesHeight = family.job_roles.length * VERTICAL_SPACING;
+        const rolesHeight =
+          family.job_roles && family.job_roles.length > 0
+            ? family.job_roles.length * VERTICAL_SPACING
+            : 0;
         return total + Math.max(familyHeight, subFamiliesHeight, rolesHeight);
       }, 0);
     };
@@ -659,7 +672,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
       const currentXOffset = xOffset + HORIZONTAL_SPACING;
 
       // Process nested job families - arrange them vertically
-      if (jobFamily.sub_job_families.length > 0) {
+      if (jobFamily.sub_job_families && jobFamily.sub_job_families.length > 0) {
         const subSpacing = Math.max(VERTICAL_SPACING, 200);
         const subStartY = finalY;
 
@@ -682,12 +695,12 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
       }
 
       // Process job roles - arrange them vertically to the right
-      if (jobFamily.job_roles.length > 0) {
+      if (jobFamily.job_roles && jobFamily.job_roles.length > 0) {
         const roleSpacing = Math.max(VERTICAL_SPACING, 100);
         const roleStartY = finalY;
 
         jobFamily.job_roles.forEach(
-          (role: { title: string }, roleIndex: number) => {
+          (role: { title: string; definition: string }, roleIndex: number) => {
             const roleId = `role_${nodeId++}`;
             const roleY = roleStartY + roleIndex * roleSpacing;
 
@@ -705,6 +718,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
                 label: role.title,
                 level: level + 1,
                 hierarchyPath: currentHierarchyPath,
+                definition: role.definition,
               },
               position: {
                 x: currentXOffset,
@@ -759,7 +773,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
       const node = nodes.find((n) => n.id === nodeId);
       if (node) {
         setSelectedRoleForSkills(node);
-        setIsSkillsDrawerOpen(true);
+        setIsVisualizationOpen(true);
       }
     },
     [nodes]
@@ -933,6 +947,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
           sub_job_families: subJobFamilies,
           job_roles: roleNodes.map((roleNode) => ({
             title: roleNode.data.label as string,
+            definition: (roleNode.data.definition as string) || "",
           })),
         };
       });
@@ -1398,18 +1413,14 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
           side="right"
           className="w-[400px] sm:w-[540px] bg-white border-l border-gray-200"
         >
-          <SheetHeader className="pb-6 border-b border-gray-100">
+          <SheetHeader className="border-b border-gray-100">
             <SheetTitle className="flex items-center gap-2 text-lg font-semibold text-gray-900">
               <Pencil className="h-5 w-5 text-blue-600" />
               Edit Node
             </SheetTitle>
-            <SheetDescription className="text-sm text-gray-600 mt-2">
-              Edit the details of this node in the organization structure.
-            </SheetDescription>
           </SheetHeader>
-          <div className="p-6 space-y-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Name</label>
+          <div className="p-6">
+            <div className="flex gap-2">
               <Input
                 value={editData.name}
                 onChange={(e) =>
@@ -1418,28 +1429,34 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
                 placeholder="Enter name"
                 className="w-full"
               />
+              <Button
+                onClick={() => {
+                  if (editingNode) {
+                    handleDeleteNode(editingNode);
+                  }
+                }}
+                size="icon"
+                variant="destructive"
+                className="bg-red-600 hover:bg-red-700 text-white"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
             </div>
 
-            {(editingNode?.type === "job_family" ||
-              editingNode?.type === "nested_job_family") && (
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">
-                  Definition
-                </label>
-                <Textarea
-                  value={editData.definition}
-                  onChange={(e) =>
-                    setEditData((prev) => ({
-                      ...prev,
-                      definition: e.target.value,
-                    }))
-                  }
-                  placeholder="Enter definition"
-                  rows={3}
-                  className="w-full"
-                />
-              </div>
-            )}
+            <div className="space-y-2 pt-2">
+              <Textarea
+                value={editData.definition}
+                onChange={(e) =>
+                  setEditData((prev) => ({
+                    ...prev,
+                    definition: e.target.value,
+                  }))
+                }
+                placeholder="Enter definition"
+                rows={3}
+                className="w-full"
+              />
+            </div>
 
             {/* Skills Ontology Section for Job Roles */}
             {editingNode?.type === "job_role" && (
@@ -1452,52 +1469,50 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
                     </h3>
                   </div>
 
-                  {skillsMap.has(editingNode.id) ? (
+                  {skillsMap.has(editingNode.data.label as string) ? (
                     <div className="space-y-3">
-                      <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-lg">
-                        <CheckCircle className="h-4 w-4 text-green-600" />
-                        <div>
-                          <p className="text-sm font-medium text-green-900">
-                            Skills Ontology Available
-                          </p>
-                          <p className="text-xs text-green-700">
-                            Generated on{" "}
-                            {new Date(
-                              skillsMap.get(editingNode.id)?.generatedAt || ""
-                            ).toLocaleDateString()}
-                          </p>
+                      <div className="flex justify-between items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-lg">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle className="h-4 w-4 text-green-600" />
+                          <div>
+                            <p className="text-sm font-medium text-green-900">
+                              Skills Ontology Available
+                            </p>
+                            <p className="text-xs text-green-700">
+                              Generated on{" "}
+                              {new Date(
+                                skillsMap.get(editingNode.id)?.generatedAt || ""
+                              ).toLocaleDateString()}
+                            </p>
+                          </div>
                         </div>
+
+                        <Button
+                          onClick={handleGenerateOntologyFromEdit}
+                          disabled={isGeneratingOntology}
+                          variant="outline"
+                          size="icon"
+                          className=" border-orange-200 text-orange-700 hover:bg-orange-50"
+                        >
+                          {isGeneratingOntology ? (
+                            <RefreshCw className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <RefreshCw className="h-4 w-4" />
+                          )}
+                        </Button>
                       </div>
 
                       <div className="flex gap-2">
                         <Button
                           onClick={() => {
                             setSelectedRoleForSkills(editingNode);
-                            setIsSkillsDrawerOpen(true);
+                            setIsVisualizationOpen(true);
                           }}
                           variant="outline"
                           className="flex-1 border-purple-200 text-purple-700 hover:bg-purple-50"
                         >
                           <Brain className="h-4 w-4 mr-2" />
                           View Ontology
-                        </Button>
-                        <Button
-                          onClick={handleGenerateOntologyFromEdit}
-                          disabled={isGeneratingOntology}
-                          variant="outline"
-                          className="flex-1 border-orange-200 text-orange-700 hover:bg-orange-50"
-                        >
-                          {isGeneratingOntology ? (
-                            <>
-                              <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                              Regenerating...
-                            </>
-                          ) : (
-                            <>
-                              <RefreshCw className="h-4 w-4 mr-2" />
-                              Regenerate
-                            </>
-                          )}
                         </Button>
                       </div>
                     </div>
@@ -1529,7 +1544,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
                         ) : (
                           <>
                             <Brain className="h-4 w-4 mr-2" />
-                            Generate Skills Ontology
+                            Generate Ontology
                           </>
                         )}
                       </Button>
@@ -1550,7 +1565,14 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
               </div>
             )}
 
-            <div className="flex gap-3 pt-4">
+            <div className="flex gap-3 pt-4 justify-end">
+              <Button
+                onClick={() => setIsDrawerOpen(false)}
+                variant="outline"
+                className="border-gray-300 text-gray-700 hover:bg-gray-50"
+              >
+                Cancel
+              </Button>
               <Button
                 onClick={() => {
                   if (editingNode) {
@@ -1571,31 +1593,9 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
                     setIsDrawerOpen(false);
                   }
                 }}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                className="bg-blue-600 hover:bg-blue-700 text-white"
               >
-                Save Changes
-              </Button>
-              <Button
-                onClick={() => setIsDrawerOpen(false)}
-                variant="outline"
-                className="border-gray-300 text-gray-700 hover:bg-gray-50"
-              >
-                Cancel
-              </Button>
-            </div>
-
-            <div className="pt-6 border-t border-gray-100">
-              <Button
-                onClick={() => {
-                  if (editingNode) {
-                    handleDeleteNode(editingNode);
-                  }
-                }}
-                variant="destructive"
-                className="w-full bg-red-600 hover:bg-red-700 text-white"
-              >
-                <Trash2 className="h-4 w-4 mr-2" />
-                Delete Node
+                Save
               </Button>
             </div>
           </div>
@@ -1781,6 +1781,21 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
         }
         onOntologyGenerated={handleSkillsOntologyGenerated}
       />
+
+      {/* Ontology Visualization Dialog */}
+      {selectedRoleForSkills &&
+        skillsMap.has(selectedRoleForSkills.data.label as string) && (
+          <OntologyVisualization
+            isOpen={isVisualizationOpen}
+            onClose={() => {
+              setIsVisualizationOpen(false);
+              setSelectedRoleForSkills(null);
+            }}
+            ontology={
+              skillsMap.get(selectedRoleForSkills.data.label as string)!
+            }
+          />
+        )}
     </div>
   );
 };

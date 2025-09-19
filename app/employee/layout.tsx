@@ -7,6 +7,7 @@ import LayoutSections from "@/components/employee/sections";
 import Profile from "@/components/employee/profile";
 import SectionsDropdown from "@/components/employee/sections-dropdown";
 import { useIsTablet } from "@/hooks/use-mobile";
+import { EmployeeProvider } from "@/contexts/EmployeeContext";
 
 export default function RootLayout({
   children,
@@ -15,13 +16,13 @@ export default function RootLayout({
 }>) {
   const isTablet = useIsTablet();
   return (
-    <>
+    <EmployeeProvider>
       {/* Top Header */}
       <Header />
 
       <div className="flex h-full max-h-[calc(100vh-125px)]">
         {/* Left Sidebar */}
-        <SideBar currentItem="My Profile" />
+        <SideBar />
 
         {/* Main Content */}
         <main className="flex-1 p-6 gap-6 overflow-y-auto">
@@ -38,6 +39,6 @@ export default function RootLayout({
           </div>
         </main>
       </div>
-    </>
+    </EmployeeProvider>
   );
 }
