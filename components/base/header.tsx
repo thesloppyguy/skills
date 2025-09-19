@@ -22,7 +22,7 @@ import {
 import { useEmployee } from "@/contexts/EmployeeContext";
 
 const Header = () => {
-  // const { selectedEmployee, setSelectedEmployee, employees } = useEmployee();
+  const { selectedEmployee, setSelectedEmployee, employees } = useEmployee();
 
   return (
     <header className="bg-white border-b border-gray-200">
@@ -76,7 +76,7 @@ const Header = () => {
       <div className="flex items-center justify-between bg-blue-900 px-6 py-3">
         <div className="flex items-center space-x-4">
           <h2 className="text-lg font-semibold text-white">My Profile</h2>
-          {/* <Select
+          <Select
             value={selectedEmployee.id}
             onValueChange={(value) => {
               const employee = employees.find((emp) => emp.id === value);
@@ -98,7 +98,7 @@ const Header = () => {
                 </SelectItem>
               ))}
             </SelectContent>
-          </Select> */}
+          </Select>
         </div>
         <div className="flex items-center space-x-4">
           <Button

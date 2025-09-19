@@ -22,6 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Loader2, Target, TrendingUp, Clock, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useEmployee } from "@/contexts/EmployeeContext";
 
 const getEmployeeRoles = () => {
   if (typeof window === "undefined") return { roles: [], ontologies: [] };
@@ -63,7 +64,7 @@ interface RoadmapData {
 }
 
 const RoadmapPage = () => {
-  const employee = dummyEmployees[0];
+  const { selectedEmployee: employee } = useEmployee();
   const [roles, setRoles] = useState<string[]>([]);
   const [ontologies, setOntologies] = useState<any[]>([]);
   const [currentRole, setCurrentRole] = useState<string | null>(null);
@@ -182,10 +183,7 @@ const RoadmapPage = () => {
           apiResponse.data?.totalDuration ||
           apiResponse.totalDuration ||
           calculateTotalDuration(steps),
-        currentLevel:
-          apiResponse.data?.currentLevel ||
-          apiResponse.currentLevel ||
-          "Current Level",
+        currentLevel: employee.employmentDetails.designation,
         targetLevel:
           apiResponse.data?.targetLevel || apiResponse.targetLevel || role,
         progress: apiResponse.data?.progress || apiResponse.progress || 0,

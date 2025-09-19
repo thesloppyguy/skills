@@ -5,9 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Building, Globe, Plus, Edit, Navigation } from "lucide-react";
+import { useEmployee } from "@/contexts/EmployeeContext";
 
 export default function PrimaryLocationPage() {
-  const employee = dummyEmployees[0]; // Using first employee as example
+  const { selectedEmployee: employee } = useEmployee();
   const { contactDetails, employmentDetails } = employee;
 
   return (

@@ -12,9 +12,10 @@ import {
   Heart,
   Globe,
 } from "lucide-react";
+import { useEmployee } from "@/contexts/EmployeeContext";
 
 export default function PersonalDetailsPage() {
-  const employee = dummyEmployees[0]; // Using first employee as example
+  const { selectedEmployee: employee } = useEmployee();
   const { personalDetails, contactDetails, employmentDetails } = employee;
 
   return (

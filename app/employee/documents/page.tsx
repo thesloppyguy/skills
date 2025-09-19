@@ -13,9 +13,10 @@ import {
   Plus,
   File,
 } from "lucide-react";
+import { useEmployee } from "@/contexts/EmployeeContext";
 
 export default function DocumentsPage() {
-  const employee = dummyEmployees[0]; // Using first employee as example
+  const { selectedEmployee: employee } = useEmployee();
   const { employmentDetails } = employee;
 
   // Mock documents data

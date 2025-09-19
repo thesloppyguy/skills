@@ -13,9 +13,10 @@ import {
   Edit,
   CheckCircle,
 } from "lucide-react";
+import { useEmployee } from "@/contexts/EmployeeContext";
 
 export default function TrainingCertificationsPage() {
-  const employee = dummyEmployees[0]; // Using first employee as example
+  const { selectedEmployee: employee } = useEmployee();
   const { trainingCertifications, employmentDetails } = employee;
 
   const getStatusColor = (status: string) => {

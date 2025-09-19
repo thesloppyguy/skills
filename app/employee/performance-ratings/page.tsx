@@ -6,9 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Star, Target, TrendingUp, Calendar, Plus, Edit } from "lucide-react";
+import { useEmployee } from "@/contexts/EmployeeContext";
 
 export default function PerformanceRatingsPage() {
-  const employee = dummyEmployees[0]; // Using first employee as example
+  const { selectedEmployee: employee } = useEmployee();
   const { performanceRatings, employmentDetails } = employee;
 
   const getRatingColor = (rating: number) => {

@@ -5,9 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Plus, Edit } from "lucide-react";
+import { useEmployee } from "@/contexts/EmployeeContext";
 
 export default function ContactDetailsPage() {
-  const employee = dummyEmployees[0]; // Using first employee as example
+  const { selectedEmployee: employee } = useEmployee();
   const { contactDetails, employmentDetails } = employee;
 
   return (

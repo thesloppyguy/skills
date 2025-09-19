@@ -13,9 +13,10 @@ import {
   Edit,
   Heart,
 } from "lucide-react";
+import { useEmployee } from "@/contexts/EmployeeContext";
 
 export default function FamilyDetailsPage() {
-  const employee = dummyEmployees[0]; // Using first employee as example
+  const { selectedEmployee: employee } = useEmployee();
   const { familyMembers, employmentDetails } = employee;
 
   return (

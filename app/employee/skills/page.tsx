@@ -6,9 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Snowflake, Calendar, BarChart3, Plus, Edit } from "lucide-react";
+import { useEmployee } from "@/contexts/EmployeeContext";
 
 export default function SkillsPage() {
-  const employee = dummyEmployees[0]; // Using first employee as example
+  const { selectedEmployee: employee } = useEmployee();
   const { skills, employmentDetails } = employee;
 
   const getLevelColor = (level: string) => {

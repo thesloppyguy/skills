@@ -10,7 +10,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <OrganizationProvider>
+    <>
       {/* Top Header */}
       <Header />
 
@@ -21,6 +21,6 @@ export default function RootLayout({
         {/* Main Content */}
         <main className="flex-1 p-6 gap-6 overflow-y-auto">{children}</main>
       </div>
-    </OrganizationProvider>
+    </>
   );
 }

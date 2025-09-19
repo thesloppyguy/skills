@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   const isTablet = useIsTablet();
   return (
-    <EmployeeProvider>
+    <>
       {/* Top Header */}
       <Header />
 
@@ -39,6 +39,6 @@ export default function RootLayout({
           </div>
         </main>
       </div>
-    </EmployeeProvider>
+    </>
   );
 }

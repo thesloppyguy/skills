@@ -12,9 +12,10 @@ import {
   Plus,
   Edit,
 } from "lucide-react";
+import { useEmployee } from "@/contexts/EmployeeContext";
 
 export default function UndertakingsPage() {
-  const employee = dummyEmployees[0]; // Using first employee as example
+  const { selectedEmployee: employee } = useEmployee();
   const { employmentDetails } = employee;
 
   // Mock undertakings data

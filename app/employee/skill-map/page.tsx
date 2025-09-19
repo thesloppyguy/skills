@@ -14,6 +14,9 @@ import {
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { renderSkillLevels } from "@/components/organization/OntologyVisualization";
+import { useEmployee } from "@/contexts/EmployeeContext";
+import { Card } from "@/components/ui/card";
+import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 
 const getEmployeeOntology = (employeeId: string) => {
   const ontology = localStorage.getItem(`ontology_${employeeId}`);
@@ -239,7 +242,7 @@ const renderDomainWithStatus = (
 };
 
 const SkillMapPage = () => {
-  const employee = dummyEmployees[0];
+  const { selectedEmployee: employee } = useEmployee();
   const [currentOntology, setCurrentOntology] = useState<{
     hierarchy?: Domain[];
     ontology?: OntologyRelationship[];
@@ -306,11 +309,19 @@ const SkillMapPage = () => {
       setCurrentOntology(ontology);
     }
   }, [employee]);
-  if (!currentOntology.hierarchy || !currentOntology.ontology)
-    return <div>Loading...</div>;
+  if (!currentOntology.hierarchy || !currentOntology.ontology) {
+    const loadingStates = [
+      { text: "Loading employee data..." },
+      { text: "Fetching skills ontology..." },
+      { text: "Analyzing skill hierarchy..." },
+      { text: "Preparing visualization..." },
+    ];
+
+    return <MultiStepLoader loadingStates={loadingStates} loading={true} />;
+  }
 
   return (
-    <div className="p-6 pb-4">
+    <Card className="p-6 pb-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Brain className="h-6 w-6 text-purple-600" />
@@ -368,7 +379,7 @@ const SkillMapPage = () => {
           </div>
         </div>
       )}
-    </div>
+    </Card>
   );
 };
 

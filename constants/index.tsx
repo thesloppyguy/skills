@@ -181,45 +181,23 @@ export type SideBarItem = {
   label: string;
   icon: React.ReactNode;
   href: string;
-  active: boolean;
 };
 
 export const sideBarItems: SideBarItem[] = [
   {
     label: "My Home",
     icon: <HomeIcon className="w-6 h-6" />,
-    href: "",
-    active: false,
+    href: "/",
   },
   {
     label: "My Org",
     icon: <Users className="w-6 h-6" />,
     href: "/organization",
-    active: false,
-  },
-  {
-    label: "My Work",
-    icon: <Briefcase className="w-6 h-6" />,
-    href: "#",
-    active: false,
-  },
-  {
-    label: "My Zone",
-    icon: <Globe className="w-6 h-6" />,
-    href: "#",
-    active: false,
-  },
-  {
-    label: "My Growth",
-    icon: <TrendingUp className="w-6 h-6" />,
-    href: "#",
-    active: false,
   },
   {
     label: "My Profile",
     icon: <User className="w-6 h-6" />,
     href: "/employee",
-    active: true,
   },
 ];
 

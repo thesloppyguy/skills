@@ -21,35 +21,14 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
+import { useEmployee } from "@/contexts/EmployeeContext";
 
 export default function Home() {
-  const [selectedEmployee, setSelectedEmployee] = useState(dummyEmployees[0]);
-
+  const { selectedEmployee, setSelectedEmployee } = useEmployee();
   return (
     <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center">
         <h1 className="text-3xl font-bold">Employee Dashboard</h1>
-        <div className="flex items-center gap-4">
-          <Select
-            value={selectedEmployee.id}
-            onValueChange={(value) => {
-              const employee = dummyEmployees.find((emp) => emp.id === value);
-              if (employee) setSelectedEmployee(employee);
-            }}
-          >
-            <SelectTrigger className="w-64">
-              <SelectValue placeholder="Select an employee" />
-            </SelectTrigger>
-            <SelectContent>
-              {dummyEmployees.map((employee) => (
-                <SelectItem key={employee.id} value={employee.id}>
-                  {employee.personalDetails.firstName}{" "}
-                  {employee.personalDetails.lastName} - {employee.domain}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
       </div>
 
       {/* Employee Overview */}
