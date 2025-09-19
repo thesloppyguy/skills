@@ -76,7 +76,7 @@ const beforeErrorToast = (otherOptions: IOtherOptions): BeforeErrorHook => {
 };
 
 export async function getAccessToken() {
-  return "SRIQvppocj";
+  return process.env.NEXT_PUBLIC_ACCESS_TOKEN;
 }
 
 const beforeRequestPublicAuthorization: BeforeRequestHook = async (request) => {
