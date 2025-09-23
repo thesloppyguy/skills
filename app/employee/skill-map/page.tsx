@@ -308,6 +308,7 @@ const SkillMapPage = () => {
     setMissingSkills(missing);
   }, [employee, employeeSkillNames, skillsMap]);
   useEffect(() => {
+    setCurrentOntology({});
     const ontology = getEmployeeOntology(employee.id);
     if (!ontology) {
       const fetchSkillMap = async () => {

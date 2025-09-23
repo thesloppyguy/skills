@@ -222,6 +222,7 @@ const compareSkills = (
   employeeOntology: any,
   targetOntology: any
 ): SkillsComparison => {
+  console.log('compare skills')
   const employeeSkills = [
     ...extractSkillsFromOntology(employeeOntology),
     ...extractSkillsFromHierarchy(employeeOntology?.hierarchy || []),
@@ -352,6 +353,7 @@ const RoadmapPage = () => {
 
     // Calculate skills comparison immediately on role selection
     try {
+      console.log('try')
       const employeeOntology = getEmployeeOntology(employee.id);
       const targetOntology = ontologies.find(
         (ontology) => ontology.roleTitle === role

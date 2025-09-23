@@ -44,15 +44,15 @@ const OrganizationSwitcher: React.FC<OrganizationSwitcherProps> = ({
   disabled = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { presetOrganizations } = useOrganization();
+  const { presetOrganizations, customOrganization } = useOrganization();
 
   const currentOrg = currentOrgId === 'custom' 
     ? {
         id: 'custom',
-        name: 'Custom Organization',
-        description: 'Create and edit your own organization',
+        name: customOrganization ? 'Custom Organization' : 'Create New Organization',
+        description: customOrganization ? 'Your custom organization structure' : 'Create and edit your own organization',
         type: 'custom' as const,
-        organizationData: null,
+        organizationData: customOrganization,
         skillMap: {}
       }
     : presetOrganizations.find(org => org.id === currentOrgId) || presetOrganizations[0];
@@ -132,6 +132,41 @@ const OrganizationSwitcher: React.FC<OrganizationSwitcherProps> = ({
           
           <DropdownMenuSeparator />
           
+          {/* Custom Organization Option */}
+          {customOrganization && (
+            <DropdownMenuItem
+              onClick={() => handleOrgSelect({
+                id: 'custom',
+                name: 'Custom Organization',
+                description: 'Your custom organization structure',
+                type: 'custom',
+                organizationData: customOrganization,
+                skillMap: {}
+              })}
+              className="flex items-center justify-between p-3 cursor-pointer"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
+                  <Edit3 className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-medium text-sm">Custom Organization</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                    Your custom organization structure
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Badge variant="outline" className="text-xs">
+                  Editable
+                </Badge>
+                {currentOrgId === 'custom' && (
+                  <Check className="h-4 w-4 text-green-600" />
+                )}
+              </div>
+            </DropdownMenuItem>
+          )}
+          
           {/* Create New Option */}
           <DropdownMenuItem
             onClick={() => {
@@ -153,11 +188,8 @@ const OrganizationSwitcher: React.FC<OrganizationSwitcherProps> = ({
             </div>
             <div className="flex items-center gap-2">
               <Badge variant="outline" className="text-xs">
-                Editable
+                New
               </Badge>
-              {currentOrgId === 'custom' && (
-                <Check className="h-4 w-4 text-green-600" />
-              )}
             </div>
           </DropdownMenuItem>
         </DropdownMenuContent>

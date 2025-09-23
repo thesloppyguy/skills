@@ -49,6 +49,8 @@ const CreateOrganizationPage = () => {
     organizationData,
     setOrganizationData,
     saveToLocalStorage,
+    customOrganization,
+    setCustomOrganization,
     hasStoredData,
     clearLocalStorage,
     addSkillsOntology,
@@ -109,7 +111,7 @@ const CreateOrganizationPage = () => {
     generateOrganizationRoles({
       query: {
         prompt: editQuery,
-        memory: organizationData,
+        memory: currentOrgType === 'preset' ? organizationData : customOrganization,
       },
     })
       .then((res) => {
@@ -117,6 +119,7 @@ const CreateOrganizationPage = () => {
         const updatedData = res as OrganizationStructure;
         setOrganizationData(updatedData);
         saveToLocalStorage(updatedData);
+        setCustomOrganization(updatedData);
         setEditQuery("");
         setIsDialogOpen(false);
         console.log("Organization updated:", res);
@@ -474,7 +477,7 @@ const CreateOrganizationPage = () => {
       {showFlowEditor && (
         <div className="space-y-6">
           <OrganizationFlowEditor
-            initialData={organizationData || undefined}
+            initialData={(currentOrgType === 'preset' ? organizationData : customOrganization) || undefined}
             onSave={handleSaveOrganization}
             processingStatus={processingStatus}
           />

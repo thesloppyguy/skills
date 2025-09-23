@@ -1791,6 +1791,7 @@ const OrganizationFlowEditor: React.FC<OrganizationFlowEditorProps> = ({
   onSave,
   processingStatus,
 }) => {
+  console.log("initialData", initialData);
   return (
     <ReactFlowProvider>
       <FlowEditorContent

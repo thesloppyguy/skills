@@ -29,7 +29,8 @@ interface OrganizationContextType {
   // Organization switching
   switchToOrganization: (org: OrganizationOption) => void;
   createNewOrganization: () => void;
-  
+  customOrganization: OrganizationStructure | null;
+  setCustomOrganization: (organization: OrganizationStructure) => void;
   // Preset organizations
   presetOrganizations: OrganizationOption[];
   
@@ -110,6 +111,7 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
     return initialSkillsMap;
   });
   const [currentOrgId, setCurrentOrgId] = useState<string>(defaultOrg.id);
+  const [customOrganization, setCustomOrganization] = useState<OrganizationStructure | null>(null);
   const [currentOrgType, setCurrentOrgType] = useState<'preset' | 'custom'>(defaultOrg.type);
   const [processingStatus, setProcessingStatus] = useState<ProcessingStatus>({
     isProcessing: false,
@@ -155,6 +157,7 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
         const stored = loadFromLocalStorage();
         if (stored) {
           setOrganizationData(stored);
+          setCustomOrganization(stored);
         }
 
         // Load skills ontology data
@@ -205,15 +208,30 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
       setCurrentOrgId(org.id);
       setCurrentOrgType(org.type);
       
-      // Load organization data and skills map
-      setOrganizationData(org.organizationData);
-      
-      // Convert skill map to Map format
-      const skillsMap = new Map<string, SkillsOntology>();
-      Object.entries(org.skillMap).forEach(([roleTitle, skills]) => {
-        skillsMap.set(roleTitle, skills as SkillsOntology);
-      });
-      setSkillsMap(skillsMap);
+      if (org.type === 'custom') {
+        // For custom organizations, use the organizationData from the org parameter
+        // and load skills from localStorage if available
+        setOrganizationData(org.organizationData);
+        setCustomOrganization(org.organizationData);
+        
+        // Load skills ontology data from localStorage for custom organizations
+        const storedSkills = loadSkillsOntologyFromStorage();
+        if (storedSkills) {
+          setSkillsMap(storedSkills);
+        } else {
+          setSkillsMap(new Map());
+        }
+      } else {
+        // For preset organizations, use the preset data and skill map
+        setOrganizationData(org.organizationData);
+        
+        // Convert skill map to Map format
+        const skillsMap = new Map<string, SkillsOntology>();
+        Object.entries(org.skillMap).forEach(([roleTitle, skills]) => {
+          skillsMap.set(roleTitle, skills as SkillsOntology);
+        });
+        setSkillsMap(skillsMap);
+      }
       
       // Clear processing status
       setProcessingStatus({
@@ -318,6 +336,8 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
   const contextValue: OrganizationContextType = {
     organizationData,
     setOrganizationData,
+    customOrganization,
+    setCustomOrganization,
     currentOrgId,
     setCurrentOrgId,
     currentOrgType,
