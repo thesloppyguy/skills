@@ -18,6 +18,7 @@ import { useEmployee } from "@/contexts/EmployeeContext";
 import { useOrganization } from "@/contexts/OrganizationContext";
 import { Card } from "@/components/ui/card";
 import { MultiStepLoader } from "@/components/ui/multi-step-loader";
+import { hierarchy } from "d3";
 
 const getEmployeeOntology = (employeeId: string) => {
   const ontology = localStorage.getItem(`ontology_${employeeId}`);
@@ -39,14 +40,19 @@ const setOntology = (
 
 const getOrganizationOntology = (designation: string, skillsMap: Map<string, any>) => {
   // Get the ontology for the specific role from the current organization's skills map
-  const ontology = skillsMap.get(designation);
-  if (ontology) {
+  const skills = skillsMap.get(designation);
+  if (skills) {
     return {
       roleTitle: designation,
-      ontology: ontology
+      ontology: skills.ontology,
+      hierarchy: skills.hierarchy
     };
   }
-  return null;
+  return {
+      roleTitle: designation,
+      ontology: [],
+      hierarchy: [],
+    };
 };
 
 const flattenDomain = (domains: Domain[]): string[] => {

@@ -341,7 +341,6 @@ const CreateOrganizationPage = () => {
               <Button
                 variant="outline"
                 className=" bg-orange-50 hover:bg-orange-100 border-orange-200 text-orange-700"
-                disabled={currentOrgType === 'preset'}
               >
                 <Sparkles className="h-4 w-4 mr-1" />
                 AI Generate
@@ -385,7 +384,7 @@ const CreateOrganizationPage = () => {
           {currentOrgType === 'custom' && <Button
             variant="outline"
             onClick={handleProceed}
-            disabled={!organizationData || processingStatus.isProcessing || currentOrgType === 'preset'}
+            disabled={!organizationData || processingStatus.isProcessing}
             className=" bg-green-50 hover:bg-green-100 border-green-200 text-green-700"
           >
             {processingStatus.isProcessing ? (
