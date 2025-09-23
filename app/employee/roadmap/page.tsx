@@ -21,6 +21,8 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Loader2, Target, TrendingUp, Clock, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import { useEmployee } from "@/contexts/EmployeeContext";
 import { useOrganization } from "@/contexts/OrganizationContext";
 import { CheckCircle, XCircle, AlertTriangle } from "lucide-react";
@@ -338,6 +340,8 @@ const RoadmapPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [skillsComparison, setSkillsComparison] =
     useState<SkillsComparison | null>(null);
+  const [isCustomRole, setIsCustomRole] = useState(false);
+  const [customRole, setCustomRole] = useState("");
 
   useEffect(() => {
     const { roles: employeeRoles, ontologies: employeeOntologies } =
@@ -372,20 +376,47 @@ const RoadmapPage = () => {
   };
 
   const handleGenerateRoadmap = async () => {
-    if (!currentRole) return;
+    const selectedRole = isCustomRole ? customRole.trim() : currentRole;
+    if (!selectedRole) return;
+
+    // Validate custom role input
+    if (isCustomRole) {
+      if (selectedRole.length < 3) {
+        setError("Custom role must be at least 3 characters long.");
+        return;
+      }
+      if (selectedRole.length > 100) {
+        setError("Custom role must be less than 100 characters long.");
+        return;
+      }
+    }
 
     setLoading(true);
     setError(null);
 
     try {
       const employeeOntology = getEmployeeOntology(employee.id);
-      const targetOntology = ontologies.find(
-        (ontology) => ontology.roleTitle === currentRole
-      )?.ontology;
+      
+      let targetOntology;
+      if (isCustomRole) {
+        // For custom roles, we'll send the role name as a string target
+        targetOntology = {query: selectedRole};
+      } else {
+        // For predefined roles, use the ontology
+        targetOntology = ontologies.find(
+          (ontology) => ontology.roleTitle === currentRole
+        )?.ontology;
+      }
 
-      if (!employeeOntology || !targetOntology) {
+      if (!employeeOntology) {
         throw new Error(
-          "Required data not found. Please ensure employee skills and role ontologies are available."
+          "Employee skills data not found. Please ensure employee skills are available."
+        );
+      }
+
+      if (!isCustomRole && !targetOntology) {
+        throw new Error(
+          "Required role ontology not found. Please ensure role ontologies are available."
         );
       }
 
@@ -480,7 +511,7 @@ const RoadmapPage = () => {
         targetLevel:
           apiResponse.data?.targetLevel ||
           apiResponse.targetLevel ||
-          currentRole,
+          selectedRole,
         progress: apiResponse.data?.progress || apiResponse.progress || 0,
       };
 
@@ -526,7 +557,21 @@ const RoadmapPage = () => {
       </div>
 
       {/* Skills Summary */}
-      {currentRole && skillsComparison && (
+      {isCustomRole && customRole.trim() && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5" />
+              Custom Role Selected
+            </CardTitle>
+            <CardDescription>
+              Skills analysis is not available for custom roles. The roadmap will be generated based on the role description you provided.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      )}
+
+      {currentRole && !isCustomRole && skillsComparison && (
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -721,30 +766,67 @@ const RoadmapPage = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
+            {/* Toggle Switch */}
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <Switch
+                  id="role-mode"
+                  checked={isCustomRole}
+                  onCheckedChange={(checked) => {
+                    setIsCustomRole(checked);
+                    if (checked) {
+                      setCurrentRole(null);
+                      setSkillsComparison(null);
+                    } else {
+                      setCustomRole("");
+                    }
+                  }}
+                />
+                <label htmlFor="role-mode" className="text-sm font-medium text-gray-700">
+                  {isCustomRole ? "Custom Role Input" : "Select from Available Roles"}
+                </label>
+              </div>
+              <div className="text-xs text-gray-500">
+                {isCustomRole 
+                  ? "Enter a custom role name" 
+                  : "Choose from predefined roles"
+                }
+              </div>
+            </div>
+
             <div className="flex gap-4 items-end">
               <div className="flex-1">
                 <label className="text-sm font-medium text-gray-700 mb-2 block">
-                  Available Roles
+                  {isCustomRole ? "Custom Role" : "Available Roles"}
                 </label>
-                <Select
-                  value={currentRole || ""}
-                  onValueChange={handleRoleChange}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a role to generate roadmap" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {roles.map((role) => (
-                      <SelectItem key={role} value={role}>
-                        {role}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                {isCustomRole ? (
+                  <Input
+                    value={customRole}
+                    onChange={(e) => setCustomRole(e.target.value)}
+                    placeholder="Enter your target role (e.g., Senior Software Engineer)"
+                    className="w-full"
+                  />
+                ) : (
+                  <Select
+                    value={currentRole || ""}
+                    onValueChange={handleRoleChange}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select a role to generate roadmap" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {roles.map((role) => (
+                        <SelectItem key={role} value={role}>
+                          {role}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
               </div>
               <Button
                 onClick={handleGenerateRoadmap}
-                disabled={!currentRole || loading}
+                disabled={(!currentRole && !customRole.trim()) || loading}
                 className="min-w-[140px]"
               >
                 {loading ? (
@@ -758,15 +840,15 @@ const RoadmapPage = () => {
               </Button>
             </div>
 
-            {currentRole && !loading && (
+            {(currentRole || customRole.trim()) && !loading && (
               <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
                 <div className="flex items-center gap-2">
                   <Target className="w-4 h-4 text-blue-600" />
                   <span className="text-sm font-medium text-blue-800">
-                    Selected Role:
+                    {isCustomRole ? "Custom Role:" : "Selected Role:"}
                   </span>
                   <span className="text-sm text-blue-700 font-semibold">
-                    {currentRole}
+                    {isCustomRole ? customRole : currentRole}
                   </span>
                 </div>
                 <p className="text-xs text-blue-600 mt-1">
