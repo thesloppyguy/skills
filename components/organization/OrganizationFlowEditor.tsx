@@ -1389,22 +1389,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
         connectionLineType={ConnectionLineType.SmoothStep}
       >
         <Controls />
-        <MiniMap />
         <Background variant={BackgroundVariant.Dots} />
-
-        <Panel position="top-right">
-          <div className="flex gap-2 flex-wrap">
-            <Button
-              onClick={recalculateLayout}
-              size="sm"
-              variant="outline"
-              className="bg-cyan-50 hover:bg-cyan-100 border-cyan-200"
-            >
-              <RefreshCw className="h-4 w-4 mr-1" />
-              Recalculate
-            </Button>
-          </div>
-        </Panel>
       </ReactFlow>
 
       {/* Edit Drawer */}

@@ -8,6 +8,7 @@ import {
   Mail,
   Calendar,
   Bell,
+  Trash2,
 } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
@@ -20,9 +21,18 @@ import {
   SelectValue,
 } from "../ui/select";
 import { useEmployee } from "@/contexts/EmployeeContext";
+import { useOrganization } from "@/contexts/OrganizationContext";
+import OrganizationSwitcher from "@/components/organization/OrganizationSwitcher";
 
 const Header = () => {
   const { selectedEmployee, setSelectedEmployee, employees } = useEmployee();
+  const { currentOrgId, switchToOrganization, createNewOrganization } = useOrganization();
+
+  const clearLocalStorage = () => {
+    localStorage.clear();
+    // Optionally reload the page to reset the application state
+    window.location.reload();
+  };
 
   return (
     <header className="bg-white border-b border-gray-200">
@@ -99,6 +109,14 @@ const Header = () => {
               ))}
             </SelectContent>
           </Select>
+          <div className="text-white text-lg font-semibold">|</div>
+          <div className="bg-white rounded-md">
+            <OrganizationSwitcher
+              currentOrgId={currentOrgId}
+              onOrganizationChange={switchToOrganization}
+              onCreateNew={createNewOrganization}
+            />
+          </div>
         </div>
         <div className="flex items-center space-x-4">
           <Button
@@ -141,6 +159,15 @@ const Header = () => {
               <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
             </svg>
             PERSONALIZE
+          </Button>
+          <Button
+            variant="ghost"
+            className="text-white hover:bg-red-600"
+            onClick={clearLocalStorage}
+            title="Clear all localStorage data"
+          >
+            <Trash2 className="w-4 h-4 mr-2" />
+            CLEAR DATA
           </Button>
         </div>
       </div>

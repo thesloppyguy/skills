@@ -23,8 +23,10 @@ import {
   FileArchive,
   Save,
   CheckCircle,
+  Eye,
 } from "lucide-react";
 import OrganizationFlowEditor from "@/components/organization/OrganizationFlowEditor";
+import OrganizationSwitcher from "@/components/organization/OrganizationSwitcher";
 import {
   OrganizationStructure,
   JobFamily,
@@ -34,6 +36,7 @@ import {
   OntologyRelationship,
 } from "@/types/organization";
 import { useOrganization } from "@/contexts/OrganizationContext";
+import { OrganizationOption } from "@/components/organization/OrganizationSwitcher";
 import { v4 as uuidv4 } from "uuid";
 
 const CreateOrganizationPage = () => {
@@ -53,6 +56,10 @@ const CreateOrganizationPage = () => {
     setProcessingStatus,
     loadSkillsOntologyFromStorage,
     skillsMap,
+    currentOrgId,
+    currentOrgType,
+    switchToOrganization,
+    createNewOrganization,
   } = useOrganization();
 
   // Check for existing data on mount and redirect to edit mode
@@ -61,14 +68,16 @@ const CreateOrganizationPage = () => {
       setShowFlowEditor(true);
     }
 
-    // Load cached skills ontology
-    const cachedSkills = loadSkillsOntologyFromStorage();
-    if (cachedSkills) {
-      console.log(
-        `Loaded ${cachedSkills.size} cached skills ontologies from localStorage`
-      );
+    // Load cached skills ontology for custom organizations
+    if (currentOrgType === 'custom') {
+      const cachedSkills = loadSkillsOntologyFromStorage();
+      if (cachedSkills) {
+        console.log(
+          `Loaded ${cachedSkills.size} cached skills ontologies from localStorage`
+        );
+      }
     }
-  }, [hasStoredData, organizationData, loadSkillsOntologyFromStorage]);
+  }, [hasStoredData, organizationData, loadSkillsOntologyFromStorage, currentOrgType]);
 
   // Keyboard shortcut for Ctrl/Cmd+K
   useEffect(() => {
@@ -137,6 +146,17 @@ const CreateOrganizationPage = () => {
 
   const handleStartFresh = () => {
     clearLocalStorage();
+    setShowFlowEditor(false);
+    setEditQuery("");
+  };
+
+  const handleOrganizationChange = (org: OrganizationOption) => {
+    switchToOrganization(org);
+    setShowFlowEditor(true);
+  };
+
+  const handleCreateNew = () => {
+    createNewOrganization();
     setShowFlowEditor(false);
     setEditQuery("");
   };
@@ -308,23 +328,23 @@ const CreateOrganizationPage = () => {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button
-            onClick={handleStartFresh}
-            variant="outline"
-            className="bg-red-50 hover:bg-red-100 border-red-200 text-red-700"
-          >
-            <FileArchive className="h-4 w-4 mr-1" />
-            New Structure
-          </Button>
+                {/* Organization Switcher */}
+        <OrganizationSwitcher
+          currentOrgId={currentOrgId}
+          onOrganizationChange={handleOrganizationChange}
+          onCreateNew={handleCreateNew}
+          disabled={processingStatus.isProcessing}
+        />
           {/* AI Edit Generator Dialog */}
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          {currentOrgType === 'custom' && <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button
                 variant="outline"
                 className=" bg-orange-50 hover:bg-orange-100 border-orange-200 text-orange-700"
+                disabled={currentOrgType === 'preset'}
               >
                 <Sparkles className="h-4 w-4 mr-1" />
-                Generate (CMD + K)
+                AI Generate
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[600px]">
@@ -360,12 +380,12 @@ const CreateOrganizationPage = () => {
                 </Button>
               </DialogFooter>
             </DialogContent>
-          </Dialog>
+          </Dialog>}
 
-          <Button
+          {currentOrgType === 'custom' && <Button
             variant="outline"
             onClick={handleProceed}
-            disabled={!organizationData || processingStatus.isProcessing}
+            disabled={!organizationData || processingStatus.isProcessing || currentOrgType === 'preset'}
             className=" bg-green-50 hover:bg-green-100 border-green-200 text-green-700"
           >
             {processingStatus.isProcessing ? (
@@ -376,10 +396,23 @@ const CreateOrganizationPage = () => {
             ) : (
               <>
                 <Save className="h-4 w-4 mr-2" />
-                Generate Skills
+                Generate Ontology
               </>
             )}
-          </Button>
+          </Button>}
+          {/* Debug Cache Information */}
+          {showFlowEditor && currentOrgType === 'custom' && (
+                  <Button
+                    onClick={() => {
+                      clearLocalStorage();
+                      window.location.reload();
+                    }}
+                    variant="outline"
+                    className="border-blue-300 text-blue-700 hover:bg-blue-100"
+                  >
+                Clear All Cache
+              </Button>
+          )}
         </div>
       </div>
 
@@ -438,33 +471,6 @@ const CreateOrganizationPage = () => {
             </CardContent>
           </Card>
         )}
-
-      {/* Debug Cache Information */}
-      {showFlowEditor && (
-        <Card className="border-blue-200 bg-blue-50">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-semibold text-blue-900">Cache Status</h3>
-                <p className="text-sm text-blue-700">
-                  Skills Ontology Cache: {skillsMap.size} items stored
-                </p>
-              </div>
-              <Button
-                onClick={() => {
-                  clearLocalStorage();
-                  window.location.reload();
-                }}
-                variant="outline"
-                size="sm"
-                className="border-blue-300 text-blue-700 hover:bg-blue-100"
-              >
-                Clear All Cache
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
 
       {showFlowEditor && (
         <div className="space-y-6">

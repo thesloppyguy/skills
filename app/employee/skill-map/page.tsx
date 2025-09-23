@@ -15,6 +15,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { renderSkillLevels } from "@/components/organization/OntologyVisualization";
 import { useEmployee } from "@/contexts/EmployeeContext";
+import { useOrganization } from "@/contexts/OrganizationContext";
 import { Card } from "@/components/ui/card";
 import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 
@@ -36,13 +37,14 @@ const setOntology = (
   localStorage.setItem(`ontology_${employeeId}`, JSON.stringify(ontology));
 };
 
-const getOrganizationOntology = (designation: string) => {
-  const skills_ontology_data = localStorage.getItem(`skills_ontology_data`);
-  if (skills_ontology_data) {
-    const skills_ontology_data_json = JSON.parse(skills_ontology_data);
-    return skills_ontology_data_json.find(
-      (item: any) => item[1].roleTitle === designation
-    )[1];
+const getOrganizationOntology = (designation: string, skillsMap: Map<string, any>) => {
+  // Get the ontology for the specific role from the current organization's skills map
+  const ontology = skillsMap.get(designation);
+  if (ontology) {
+    return {
+      roleTitle: designation,
+      ontology: ontology
+    };
   }
   return null;
 };
@@ -243,6 +245,7 @@ const renderDomainWithStatus = (
 
 const SkillMapPage = () => {
   const { selectedEmployee: employee } = useEmployee();
+  const { skillsMap } = useOrganization();
   const [currentOntology, setCurrentOntology] = useState<{
     hierarchy?: Domain[];
     ontology?: OntologyRelationship[];
@@ -284,7 +287,8 @@ const SkillMapPage = () => {
   useEffect(() => {
     // get organization ontology based on employee domain and role
     const OrganizationOntology = getOrganizationOntology(
-      employee.employmentDetails.designation
+      employee.employmentDetails.designation,
+      skillsMap
     );
     if (!OrganizationOntology) {
       setOrganizationOntology([]);
@@ -296,7 +300,7 @@ const SkillMapPage = () => {
     // Find missing skills
     const missing = findMissingSkills(flattenedOntology, employeeSkillNames);
     setMissingSkills(missing);
-  }, [employee, employeeSkillNames]);
+  }, [employee, employeeSkillNames, skillsMap]);
   useEffect(() => {
     const ontology = getEmployeeOntology(employee.id);
     if (!ontology) {

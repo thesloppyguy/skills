@@ -22,19 +22,25 @@ import { Progress } from "@/components/ui/progress";
 import { Loader2, Target, TrendingUp, Clock, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useEmployee } from "@/contexts/EmployeeContext";
+import { useOrganization } from "@/contexts/OrganizationContext";
 import { CheckCircle, XCircle, AlertTriangle } from "lucide-react";
 
-const getEmployeeRoles = () => {
+const getEmployeeRoles = (skillsMap: Map<string, any>) => {
   if (typeof window === "undefined") return { roles: [], ontologies: [] };
-  const employeeRoles = localStorage.getItem(`skills_ontology_data`);
-  if (employeeRoles) {
-    const employeeRolesJson = JSON.parse(employeeRoles);
-    return {
-      roles: employeeRolesJson.map((role: any) => role[0]) as string[],
-      ontologies: employeeRolesJson.map((role: any) => role[1]) as any[],
-    };
-  }
-  return { roles: [], ontologies: [] };
+  
+  // Get roles from the current organization's skills map
+  const roles: string[] = [];
+  const ontologies: any[] = [];
+  
+  skillsMap.forEach((ontology, roleTitle) => {
+    roles.push(roleTitle);
+    ontologies.push({
+      roleTitle,
+      ontology
+    });
+  });
+  
+  return { roles, ontologies };
 };
 
 const getEmployeeOntology = (employeeId: string) => {
@@ -322,6 +328,7 @@ const compareSkills = (
 
 const RoadmapPage = () => {
   const { selectedEmployee: employee } = useEmployee();
+  const { skillsMap } = useOrganization();
   const [roles, setRoles] = useState<string[]>([]);
   const [ontologies, setOntologies] = useState<any[]>([]);
   const [currentRole, setCurrentRole] = useState<string | null>(null);
@@ -333,10 +340,10 @@ const RoadmapPage = () => {
 
   useEffect(() => {
     const { roles: employeeRoles, ontologies: employeeOntologies } =
-      getEmployeeRoles();
+      getEmployeeRoles(skillsMap);
     setRoles(employeeRoles);
     setOntologies(employeeOntologies);
-  }, []);
+  }, [skillsMap]);
 
   const handleRoleChange = (role: string) => {
     setCurrentRole(role);
