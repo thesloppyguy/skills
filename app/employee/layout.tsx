@@ -1,6 +1,5 @@
 "use client";
 
-import SearchBar from "@/components/base/searchBar";
 import SideBar from "@/components/base/sideBar";
 import Header from "@/components/base/header";
 import LayoutSections from "@/components/employee/sections";
@@ -26,7 +25,6 @@ export default function RootLayout({
 
         {/* Main Content */}
         <main className="flex-1 p-6 gap-6 overflow-y-auto">
-          <SearchBar />
           <div className="flex flex-col lg:flex-row gap-6 mt-4">
             {/* Left Column - Profile Sections */}
             {isTablet ? <SectionsDropdown /> : <LayoutSections />}

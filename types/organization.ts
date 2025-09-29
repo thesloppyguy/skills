@@ -39,10 +39,10 @@ export interface FlowEdge {
 }
 
 export interface SkillLevel {
-  "1": string;
-  "2": string;
-  "3": string;
-  "4": string;
+  beginner: string[];
+  intermediate: string[];
+  advanced: string[];
+  expert: string[];
 }
 
 export interface SubSkill {
@@ -104,6 +104,31 @@ export interface SkillsOntology {
   hierarchyPath: string[];
   hierarchy: Domain[];
   ontology: OntologyRelationship[];
+  generatedAt: string;
+}
+
+export interface Task {
+  name: string;
+  definition: string;
+  related_occupations: string[];
+}
+
+export interface RoleSpecificSkillsResponse {
+  tasks: Task[];
+}
+
+export interface RoleSpecificSkills {
+  id: string;
+  roleId: string;
+  roleTitle: string;
+  parentDetails: {
+    industry: string;
+    subEntity: string;
+    jobFamily?: string;
+    subJobFamily?: string;
+  };
+  hierarchyPath: string[];
+  skills: RoleSpecificSkillsResponse; // The actual skills data from getRoleSpecificSkills API
   generatedAt: string;
 }
 

@@ -9,12 +9,13 @@ import React, {
 import {
   OrganizationStructure,
   SkillsOntology,
+  Task,
   ProcessingStatus,
 } from "@/types/organization";
 import { OrganizationOption } from "@/components/organization/OrganizationSwitcher";
 import { orgs } from "@/constants/orgs";
 import { solar_skill_map, manufacturing_skill_map, retail_skill_map } from "@/constants/skill_map";
-
+import { solar_role_specific_skills_map, manufacturing_role_specific_skills_map, retail_role_specific_skills_map } from "@/constants/role_specific_skills_map";
 interface OrganizationContextType {
   // Current organization data
   organizationData: OrganizationStructure | null;
@@ -49,6 +50,13 @@ interface OrganizationContextType {
   saveSkillsOntologyToStorage: (skillsMap: Map<string, SkillsOntology>) => void;
   loadSkillsOntologyFromStorage: () => Map<string, SkillsOntology> | null;
   
+  // Role-specific skills management
+  roleSpecificSkillsMap: Map<string, Task[]>;
+  setRoleSpecificSkillsMap: (map: Map<string, Task[]>) => void;
+  addRoleSpecificSkills: (roleTitle: string, task: Task[]) => void;
+  saveRoleSpecificSkillsToStorage: (skillsMap: Map<string, Task[]>) => void;
+  loadRoleSpecificSkillsFromStorage: () => Map<string, Task[]> | null;
+  
   // Processing status
   processingStatus: ProcessingStatus;
   setProcessingStatus: (
@@ -62,6 +70,7 @@ const OrganizationContext = createContext<OrganizationContextType | undefined>(
 
 const STORAGE_KEY = "organization_structure";
 const SKILLS_ONTOLOGY_KEY = "skills_ontology_data";
+const ROLE_SPECIFIC_SKILLS_KEY = "role_specific_skills_data";
 const CURRENT_ORG_KEY = "current_organization_id";
 const CURRENT_ORG_TYPE_KEY = "current_organization_type";
 
@@ -74,6 +83,7 @@ const PRESET_ORGANIZATIONS: OrganizationOption[] = [
     type: 'preset',
     organizationData: orgs.green_energy,
     skillMap: solar_skill_map,
+    roleSpecificSkillsMap: solar_role_specific_skills_map,
   },
   {
     id: 'manufacturing',
@@ -82,6 +92,7 @@ const PRESET_ORGANIZATIONS: OrganizationOption[] = [
     type: 'preset',
     organizationData: orgs.manufacturing,
     skillMap: manufacturing_skill_map,
+    roleSpecificSkillsMap: manufacturing_role_specific_skills_map,
   },
   {
     id: 'retail',
@@ -90,6 +101,7 @@ const PRESET_ORGANIZATIONS: OrganizationOption[] = [
     type: 'preset',
     organizationData: orgs.retail,
     skillMap: retail_skill_map,
+    roleSpecificSkillsMap: retail_role_specific_skills_map,
   },
 ];
 
@@ -109,6 +121,13 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
       initialSkillsMap.set(roleTitle, skills as SkillsOntology);
     });
     return initialSkillsMap;
+  });
+  const [roleSpecificSkillsMap, setRoleSpecificSkillsMap] = useState<Map<string, Task[]>>(() => {
+    const initialRoleSpecificSkillsMap = new Map<string, Task[]>();
+    Object.entries(defaultOrg.roleSpecificSkillsMap).forEach(([roleTitle, tasks]) => {
+      initialRoleSpecificSkillsMap.set(roleTitle, tasks as Task[]);
+    });
+    return initialRoleSpecificSkillsMap;
   });
   const [currentOrgId, setCurrentOrgId] = useState<string>(defaultOrg.id);
   const [customOrganization, setCustomOrganization] = useState<OrganizationStructure | null>(null);
@@ -151,6 +170,11 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
             skillsMap.set(roleTitle, skills as SkillsOntology);
           });
           setSkillsMap(skillsMap);
+          const roleSpecificSkillsMap = new Map<string, Task[]>();
+          Object.entries(presetOrg.roleSpecificSkillsMap).forEach(([roleTitle, tasks]) => {
+            roleSpecificSkillsMap.set(roleTitle, tasks as Task[]);
+          });
+          setRoleSpecificSkillsMap(roleSpecificSkillsMap);
         }
       } else if (storedOrgType === 'custom') {
         // Load organization data and skills for custom organizations
@@ -164,6 +188,12 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
         const storedSkills = loadSkillsOntologyFromStorage();
         if (storedSkills) {
           setSkillsMap(storedSkills);
+        }
+
+        // Load role-specific skills data
+        const storedRoleSpecificSkills = loadRoleSpecificSkillsFromStorage();
+        if (storedRoleSpecificSkills) {
+          setRoleSpecificSkillsMap(storedRoleSpecificSkills);
         }
       }
     } else {
@@ -221,6 +251,14 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
         } else {
           setSkillsMap(new Map());
         }
+
+        // Load role-specific skills data from localStorage for custom organizations
+        const storedRoleSpecificSkills = loadRoleSpecificSkillsFromStorage();
+        if (storedRoleSpecificSkills) {
+          setRoleSpecificSkillsMap(storedRoleSpecificSkills);
+        } else {
+          setRoleSpecificSkillsMap(new Map());
+        }
       } else {
         // For preset organizations, use the preset data and skill map
         setOrganizationData(org.organizationData);
@@ -231,6 +269,14 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
           skillsMap.set(roleTitle, skills as SkillsOntology);
         });
         setSkillsMap(skillsMap);
+
+        // Load role-specific skills data for preset organizations
+        const roleSpecificSkillsMap = new Map<string, Task[]>();
+        console.log(org.roleSpecificSkillsMap)
+        Object.entries(org.roleSpecificSkillsMap).forEach(([roleTitle, tasks]) => {
+          roleSpecificSkillsMap.set(roleTitle, tasks as Task[]);
+        });
+        setRoleSpecificSkillsMap(roleSpecificSkillsMap);
       }
       
       // Clear processing status
@@ -252,6 +298,7 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
       // Clear current data
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem(SKILLS_ONTOLOGY_KEY);
+      localStorage.removeItem(ROLE_SPECIFIC_SKILLS_KEY);
       localStorage.setItem(CURRENT_ORG_KEY, 'custom');
       localStorage.setItem(CURRENT_ORG_TYPE_KEY, 'custom');
       
@@ -259,6 +306,7 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
       setCurrentOrgType('custom');
       setOrganizationData(null);
       setSkillsMap(new Map());
+      setRoleSpecificSkillsMap(new Map());
       setIsDirty(false);
       setProcessingStatus({
         isProcessing: false,
@@ -275,11 +323,13 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
     try {
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem(SKILLS_ONTOLOGY_KEY);
+      localStorage.removeItem(ROLE_SPECIFIC_SKILLS_KEY);
       localStorage.removeItem(CURRENT_ORG_KEY);
       localStorage.removeItem(CURRENT_ORG_TYPE_KEY);
       setOrganizationData(null);
       setIsDirty(false);
       setSkillsMap(new Map());
+      setRoleSpecificSkillsMap(new Map());
       setCurrentOrgId('green-energy');
       setCurrentOrgType('preset');
       setProcessingStatus({
@@ -331,6 +381,41 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
     });
   };
 
+  const saveRoleSpecificSkillsToStorage = (
+    skillsMap: Map<string, Task[]>
+  ) => {
+    try {
+      const skillsArray = Array.from(skillsMap.entries());
+      localStorage.setItem(ROLE_SPECIFIC_SKILLS_KEY, JSON.stringify(skillsArray));
+    } catch (error) {
+      console.error("Failed to save role-specific skills to localStorage:", error);
+    }
+  };
+
+  const loadRoleSpecificSkillsFromStorage = (): Map<
+    string,
+    Task[]
+  > | null => {
+    try {
+      const stored = localStorage.getItem(ROLE_SPECIFIC_SKILLS_KEY);
+      if (stored) {
+        const skillsArray = JSON.parse(stored) as [string, Task[]][];
+        return new Map(skillsArray);
+      }
+    } catch (error) {
+      console.error("Failed to load role-specific skills from localStorage:", error);
+    }
+    return null;
+  };
+
+  const addRoleSpecificSkills = (roleTitle: string, tasks: Task[]) => {
+    setRoleSpecificSkillsMap((prev) => {
+      const newMap = new Map(prev).set(roleTitle, tasks);
+      saveRoleSpecificSkillsToStorage(newMap);
+      return newMap;
+    });
+  };
+
   const hasStoredData = organizationData !== null;
 
   const contextValue: OrganizationContextType = {
@@ -356,6 +441,11 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
     addSkillsOntology,
     saveSkillsOntologyToStorage,
     loadSkillsOntologyFromStorage,
+    roleSpecificSkillsMap,
+    setRoleSpecificSkillsMap,
+    addRoleSpecificSkills,
+    saveRoleSpecificSkillsToStorage,
+    loadRoleSpecificSkillsFromStorage,
     processingStatus,
     setProcessingStatus: handleSetProcessingStatus,
   };

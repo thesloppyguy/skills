@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { post } from "./base";
 import { getAccessToken } from "./fetch";
-import { Domain } from "@/types/organization";
+import { Domain, RoleSpecificSkillsResponse } from "@/types/organization";
 export interface OrganizationRole {
   id: string;
   name: string;
@@ -27,6 +27,12 @@ export interface Organization {
 export interface GenerateRolesResponse {
   success: boolean;
   data: OrganizationRole[];
+  message?: string;
+}
+
+export interface RoleSpecificInformationResponse {
+  success: boolean;
+  data: any;
   message?: string;
 }
 
@@ -92,6 +98,25 @@ export const generateSkillsOntology = async (data: {
 export const getEmployeeSkillsOntology = async (data: any) => {
   return post(`skills/ontology`, {
     body: { user_data: data },
+    headers: {
+      "Content-Type": "application/json",
+      "X-API-Key": getAccessToken(),
+    },
+  });
+};
+
+export const getRoleSpecificInformation = async (data: {
+  roleTitle: string;
+  parentDetails: {
+    industry: string;
+    subEntity: string;
+    jobFamily?: string;
+    subJobFamily?: string;
+  };
+  hierarchyPath: string[];
+}): Promise<RoleSpecificSkillsResponse> => {
+  return post<RoleSpecificSkillsResponse>(`organization/role_specific_information`, {
+    body: { role_data: data },
     headers: {
       "Content-Type": "application/json",
       "X-API-Key": getAccessToken(),

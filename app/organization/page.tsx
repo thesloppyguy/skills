@@ -15,6 +15,7 @@ import {
 import {
   generateOrganizationRoles,
   generateSkillsOntology,
+  getRoleSpecificInformation,
 } from "@/services/app";
 import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 import {
@@ -34,6 +35,8 @@ import {
   ProcessingStatus,
   Domain,
   OntologyRelationship,
+  RoleSpecificSkills,
+  RoleSpecificSkillsResponse,
 } from "@/types/organization";
 import { useOrganization } from "@/contexts/OrganizationContext";
 import { OrganizationOption } from "@/components/organization/OrganizationSwitcher";
@@ -54,10 +57,13 @@ const CreateOrganizationPage = () => {
     hasStoredData,
     clearLocalStorage,
     addSkillsOntology,
+    addRoleSpecificSkills,
     processingStatus,
     setProcessingStatus,
     loadSkillsOntologyFromStorage,
+    loadRoleSpecificSkillsFromStorage,
     skillsMap,
+    roleSpecificSkillsMap,
     currentOrgId,
     currentOrgType,
     switchToOrganization,
@@ -70,12 +76,19 @@ const CreateOrganizationPage = () => {
       setShowFlowEditor(true);
     }
 
-    // Load cached skills ontology for custom organizations
+    // Load cached skills ontology and role-specific skills for custom organizations
     if (currentOrgType === 'custom') {
       const cachedSkills = loadSkillsOntologyFromStorage();
       if (cachedSkills) {
         console.log(
           `Loaded ${cachedSkills.size} cached skills ontologies from localStorage`
+        );
+      }
+      
+      const cachedRoleSpecificSkills = loadRoleSpecificSkillsFromStorage();
+      if (cachedRoleSpecificSkills) {
+        console.log(
+          `Loaded ${cachedRoleSpecificSkills.size} cached role-specific skills from localStorage`
         );
       }
     }
@@ -237,7 +250,7 @@ const CreateOrganizationPage = () => {
     return roles;
   };
 
-  // Function to process all roles and generate skills ontology
+  // Function to process all roles and generate both role-specific skills and skills ontology
   const handleProceed = async () => {
     if (!organizationData) return;
 
@@ -261,26 +274,39 @@ const CreateOrganizationPage = () => {
           currentRoleTitle: role.title,
         }));
 
-        const response = (await generateSkillsOntology({
-          roleTitle: role.title,
-          parentDetails: role.parentDetails,
-          hierarchyPath: role.hierarchyPath,
-        })) as {
-          hierarchy?: Domain[];
-          ontology?: OntologyRelationship[];
-        };
+        // Call both APIs in parallel for better performance
+        const [roleSpecificSkillsResponse, skillsOntologyResponse] = await Promise.all([
+          getRoleSpecificInformation({
+            roleTitle: role.title,
+            parentDetails: role.parentDetails,
+            hierarchyPath: role.hierarchyPath,
+          }) as unknown as Promise<RoleSpecificSkillsResponse>,
+          generateSkillsOntology({
+            roleTitle: role.title,
+            parentDetails: role.parentDetails,
+            hierarchyPath: role.hierarchyPath,
+          }) as Promise<{
+            hierarchy?: Domain[];
+            ontology?: OntologyRelationship[];
+          }>
+        ]);
+        
+
+        addRoleSpecificSkills(role.title, roleSpecificSkillsResponse);
 
         // Add the skills ontology to the map
-        addSkillsOntology(role.title, {
+        const skillsOntologyData = {
           id: uuidv4(),
           roleId: role.id,
           roleTitle: role.title,
           parentDetails: role.parentDetails,
           hierarchyPath: role.hierarchyPath,
-          hierarchy: response.hierarchy || [],
-          ontology: response.ontology || [],
+          hierarchy: skillsOntologyResponse.hierarchy || [],
+          ontology: skillsOntologyResponse.ontology || [],
           generatedAt: new Date().toISOString(),
-        });
+        };
+        addSkillsOntology(role.title, skillsOntologyData);
+        console.log(`Stored skills ontology for ${role.title}:`, skillsOntologyData);
 
         setProcessingStatus((prev: ProcessingStatus) => ({
           ...prev,
@@ -331,12 +357,13 @@ const CreateOrganizationPage = () => {
           </div>
         </div>
         <div className="flex gap-2">
-                {/* Organization Switcher */}
+        {/* Organization Switcher */}
         <OrganizationSwitcher
           currentOrgId={currentOrgId}
           onOrganizationChange={handleOrganizationChange}
           onCreateNew={handleCreateNew}
           disabled={processingStatus.isProcessing}
+          header={false}
         />
           {/* AI Edit Generator Dialog */}
           {currentOrgType === 'custom' && <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -398,7 +425,7 @@ const CreateOrganizationPage = () => {
             ) : (
               <>
                 <Save className="h-4 w-4 mr-2" />
-                Generate Ontology
+                Generate Skills Data
               </>
             )}
           </Button>}
@@ -426,7 +453,7 @@ const CreateOrganizationPage = () => {
               <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
               <div>
                 <h3 className="font-semibold text-blue-900">
-                  Processing Skills Ontology
+                  Processing Skills Data
                 </h3>
                 <p className="text-sm text-blue-700">
                   {processingStatus.processedRoles.length} of{" "}
@@ -462,7 +489,7 @@ const CreateOrganizationPage = () => {
                 <CheckCircle className="h-6 w-6 text-green-600" />
                 <div>
                   <h3 className="font-semibold text-green-900">
-                    Skills Ontology Generated Successfully
+                    Skills Data Generated Successfully
                   </h3>
                   <p className="text-sm text-green-700">
                     {processingStatus.processedRoles.length} roles processed and

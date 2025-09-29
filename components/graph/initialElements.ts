@@ -248,7 +248,6 @@ export function initialOntologyElements(ontology: SkillsOntology) {
     }
   }
 
-  console.log(ontology);
   return { nodes, edges };
 }
 

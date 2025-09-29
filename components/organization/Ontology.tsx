@@ -23,39 +23,48 @@ import {
   Category,
 } from "@/types/organization";
 
-interface OntologyVisualizationProps {
-  isOpen: boolean;
-  onClose: () => void;
+interface OntologyProps {
   ontology: SkillsOntology;
 }
 
 // Text-based drawer content functions
 export const renderSkillLevels = (levels: {
-  "1": string;
-  "2": string;
-  "3": string;
-  "4": string;
+  beginner: string[];
+  intermediate: string[];
+  advanced: string[];
+  expert: string[];
 }) => {
+  const levelEntries = [
+    { key: 'beginner', label: 'Beginner', color: 'bg-green-100 text-green-800' },
+    { key: 'intermediate', label: 'Intermediate', color: 'bg-blue-100 text-blue-800' },
+    { key: 'advanced', label: 'Advanced', color: 'bg-orange-100 text-orange-800' },
+    { key: 'expert', label: 'Expert', color: 'bg-red-100 text-red-800' },
+  ];
+
   return (
     <Accordion
       type="single"
       collapsible
       className="w-full"
-      defaultValue="level-1"
+      defaultValue="level-beginner"
     >
-      {Object.entries(levels).map(([level, description]) => (
-        <AccordionItem key={level} value={`level-${level}`}>
+      {levelEntries.map(({ key, label, color }) => (
+        <AccordionItem key={key} value={`level-${key}`}>
           <AccordionTrigger className="py-2 text-sm">
             <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-xs">
-                Level {level}
+              <Badge className={`text-xs ${color}`}>
+                {label}
               </Badge>
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <span className="text-xs text-gray-600">
-              {description as string}
-            </span>
+            <div className="space-y-1">
+              {levels[key as keyof typeof levels].map((task, index) => (
+                <div key={index} className="text-xs text-gray-600 p-2 bg-gray-50 rounded">
+                  • {task}
+                </div>
+              ))}
+            </div>
           </AccordionContent>
         </AccordionItem>
       ))}
@@ -196,53 +205,29 @@ export const renderDomain = (domain: Domain) => {
   );
 };
 
-const OntologyVisualization: React.FC<OntologyVisualizationProps> = ({
-  isOpen,
-  onClose,
+const Ontology: React.FC<OntologyProps> = ({
   ontology,
 }) => {
-  console.log(ontology);
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[90vw] h-[90vh] p-0">
-        <div className="p-6 pb-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Brain className="h-6 w-6 text-purple-600" />
-              <div>
-                <DialogTitle className="text-xl font-bold">
-                  Skills Ontology Visualization
-                </DialogTitle>
-                <DialogDescription>
-                  Interactive visualization of skills hierarchy and
-                  relationships.
-                </DialogDescription>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-6 max-h-[calc(90vh-200px)] overflow-y-auto">
-            {/* Skills Hierarchy */}
-            <Accordion
-              type="single"
-              collapsible
-              className="w-full"
-              defaultValue="domain-0"
-            >
-              {ontology.hierarchy.map((domain, index) => (
-                <AccordionItem key={index} value={`domain-${index}`}>
-                  <AccordionTrigger className="py-2 text-sm">
-                    <span className="text-sm font-medium">{domain.name}</span>
-                  </AccordionTrigger>
-                  <AccordionContent>{renderDomain(domain)}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </div>
-      </DialogContent>
-    </Dialog>
+    <div className="space-y-6 max-h-[calc(90vh-200px)] overflow-y-auto">
+    {/* Skills Hierarchy */}
+    <Accordion
+      type="single"
+      collapsible
+      className="w-full"
+      defaultValue="domain-0"
+    >
+      {ontology.hierarchy.map((domain, index) => (
+        <AccordionItem key={index} value={`domain-${index}`}>
+          <AccordionTrigger className="py-2 text-sm">
+            <span className="text-sm font-medium">{domain.name}</span>
+          </AccordionTrigger>
+          <AccordionContent>{renderDomain(domain)}</AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  </div>
   );
 };
 
-export default OntologyVisualization;
+export default Ontology;

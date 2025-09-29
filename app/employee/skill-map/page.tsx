@@ -13,7 +13,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { renderSkillLevels } from "@/components/organization/OntologyVisualization";
+import { renderSkillLevels } from "@/components/organization/Ontology";
 import { useEmployee } from "@/contexts/EmployeeContext";
 import { useOrganization } from "@/contexts/OrganizationContext";
 import { Card } from "@/components/ui/card";

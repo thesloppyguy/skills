@@ -49,6 +49,8 @@ import {
   Brain,
   CheckCircle,
   AlertCircle,
+  Target,
+  Loader2,
 } from "lucide-react";
 import {
   OrganizationStructure,
@@ -56,13 +58,14 @@ import {
   SkillsOntology,
   Domain,
   OntologyRelationship,
-  JobRole,
+  RoleSpecificSkillsResponse,
 } from "@/types/organization";
 import { useOrganization } from "@/contexts/OrganizationContext";
-import SkillsOntologyDrawer from "./SkillsOntologyDrawer";
-import OntologyVisualization from "./OntologyVisualization";
-import { generateSkillsOntology } from "@/services/app";
+import SkillsOntologyDrawer from "./RoleDrawer";
+import OntologyVisualization from "./Ontology";
+import { generateSkillsOntology, getRoleSpecificInformation } from "@/services/app";
 import { v4 as uuidv4 } from "uuid";
+import RoleDrawer from "./RoleDrawer";
 
 // Custom Node Components
 const IndustryNode = ({
@@ -308,6 +311,8 @@ const JobRoleNode = ({
   processingStatus,
   onViewSkillsOntology,
   hasSkillsOntology,
+  onViewRoleSpecificInfo,
+  hasRoleSpecificInfo,
 }: {
   data: {
     label: string;
@@ -327,6 +332,8 @@ const JobRoleNode = ({
   };
   onViewSkillsOntology?: () => void;
   hasSkillsOntology?: boolean;
+  onViewRoleSpecificInfo?: () => void;
+  hasRoleSpecificInfo?: boolean;
 }) => {
   const isCurrentlyProcessing = processingStatus?.currentRoleId === data.id;
   const isProcessed = processingStatus?.processedRoles.includes(data.id || "");
@@ -382,6 +389,26 @@ const JobRoleNode = ({
               <Brain className="h-2 w-2" />
             </button>
           )}
+          {onViewRoleSpecificInfo && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onViewRoleSpecificInfo();
+              }}
+              className={`p-1 rounded transition-colors ${
+                hasRoleSpecificInfo
+                  ? "hover:bg-purple-200 text-purple-600"
+                  : "hover:bg-orange-200 text-orange-600"
+              }`}
+              title={
+                hasRoleSpecificInfo
+                  ? "View Role Specific Info"
+                  : "Generate Role Specific Info"
+              }
+            >
+              <Target className="h-2 w-2" />
+            </button>
+          )}
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -419,7 +446,9 @@ const createNodeTypes = (
     errors: string[];
   },
   onViewSkillsOntology?: (nodeId: string) => void,
-  skillsMap?: Map<string, SkillsOntology>
+  skillsMap?: Map<string, SkillsOntology>,
+  onViewRoleSpecificInfo?: (nodeId: string) => void,
+  roleSpecificSkillsMap?: Map<string, any>
 ): NodeTypes => ({
   industry: IndustryNode,
   sub_entity: SubEntityNode,
@@ -443,6 +472,10 @@ const createNodeTypes = (
         props.data.id ? () => onViewSkillsOntology?.(props.data.id!) : undefined
       }
       hasSkillsOntology={props.data.id ? skillsMap?.has(props.data.id) : false}
+      onViewRoleSpecificInfo={
+        props.data.id ? () => onViewRoleSpecificInfo?.(props.data.id!) : undefined
+      }
+      hasRoleSpecificInfo={props.data.id ? roleSpecificSkillsMap?.has(props.data.label) : false}
     />
   ),
 });
@@ -488,7 +521,9 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
     string | null
   >(null);
   const { fitView, screenToFlowPosition } = useReactFlow();
-  const { setIsDirty, skillsMap, addSkillsOntology } = useOrganization();
+  const { setIsDirty, skillsMap, addSkillsOntology, roleSpecificSkillsMap, addRoleSpecificSkills } = useOrganization();
+  const [isRoleSpecificInfoOpen, setIsRoleSpecificInfoOpen] = useState(false);
+  const [isGeneratingRoleInfo, setIsGeneratingRoleInfo] = useState(false);
 
   const handleEditNode = useCallback((node: Node) => {
     setEditingNode(node);
@@ -564,6 +599,33 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
       setIsGeneratingOntology(false);
     }
   }, [editingNode, addSkillsOntology, skillsMap]);
+
+  const handleGenerateRoleSpecificInfo = useCallback(async () => {
+    if (!editingNode || editingNode.type !== "job_role") return;
+
+    setIsGeneratingRoleInfo(true);
+    try {
+      const hierarchyPath = editingNode.data.hierarchyPath as string[];
+      const response: RoleSpecificSkillsResponse = await getRoleSpecificInformation({
+        roleTitle: editingNode.data.label as string,
+        parentDetails: {
+          industry: hierarchyPath[0] || "",
+          subEntity: hierarchyPath[1] || "",
+          jobFamily: hierarchyPath[2] || "",
+          subJobFamily: hierarchyPath[3] || "",
+        },
+        hierarchyPath: hierarchyPath,
+      });
+
+      if (response) {
+        addRoleSpecificSkills(editingNode.data.label as string, response.tasks);
+      }
+    } catch (error) {
+      console.error("Error generating role specific information:", error);
+    } finally {
+      setIsGeneratingRoleInfo(false);
+    }
+  }, [editingNode, addRoleSpecificSkills]);
 
   // Convert organization data to flow nodes and edges
   const convertToFlowData = useCallback((data: OrganizationStructure) => {
@@ -1368,8 +1430,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
         nodeTypes={createNodeTypes(
           processingStatus,
           handleViewSkillsOntology,
-          skillsMap
-        )}
+          )}
         edgeTypes={edgeTypes}
         fitView
         attributionPosition="bottom-left"
@@ -1391,202 +1452,6 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
         <Controls />
         <Background variant={BackgroundVariant.Dots} />
       </ReactFlow>
-
-      {/* Edit Drawer */}
-      <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <SheetContent
-          side="right"
-          className="w-[400px] sm:w-[540px] bg-white border-l border-gray-200"
-        >
-          <SheetHeader className="border-b border-gray-100">
-            <SheetTitle className="flex items-center gap-2 text-lg font-semibold text-gray-900">
-              <Pencil className="h-5 w-5 text-blue-600" />
-              Edit Node
-            </SheetTitle>
-          </SheetHeader>
-          <div className="p-6">
-            <div className="flex gap-2">
-              <Input
-                value={editData.name}
-                onChange={(e) =>
-                  setEditData((prev) => ({ ...prev, name: e.target.value }))
-                }
-                placeholder="Enter name"
-                className="w-full"
-              />
-              <Button
-                onClick={() => {
-                  if (editingNode) {
-                    handleDeleteNode(editingNode);
-                  }
-                }}
-                size="icon"
-                variant="destructive"
-                className="bg-red-600 hover:bg-red-700 text-white"
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            </div>
-
-            <div className="space-y-2 pt-2">
-              <Textarea
-                value={editData.definition}
-                onChange={(e) =>
-                  setEditData((prev) => ({
-                    ...prev,
-                    definition: e.target.value,
-                  }))
-                }
-                placeholder="Enter definition"
-                rows={3}
-                className="w-full"
-              />
-            </div>
-
-            {/* Skills Ontology Section for Job Roles */}
-            {editingNode?.type === "job_role" && (
-              <div className="pt-6 border-t border-gray-100">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2">
-                    <Brain className="h-5 w-5 text-purple-600" />
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      Skills Ontology
-                    </h3>
-                  </div>
-
-                  {skillsMap.has(editingNode.data.label as string) ? (
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-lg">
-                        <div className="flex items-center gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-600" />
-                          <div>
-                            <p className="text-sm font-medium text-green-900">
-                              Skills Ontology Available
-                            </p>
-                            <p className="text-xs text-green-700">
-                              Generated on{" "}
-                              {new Date(
-                                skillsMap.get(editingNode.id)?.generatedAt || ""
-                              ).toLocaleDateString()}
-                            </p>
-                          </div>
-                        </div>
-
-                        <Button
-                          onClick={handleGenerateOntologyFromEdit}
-                          disabled={isGeneratingOntology}
-                          variant="outline"
-                          size="icon"
-                          className=" border-orange-200 text-orange-700 hover:bg-orange-50"
-                        >
-                          {isGeneratingOntology ? (
-                            <RefreshCw className="h-4 w-4 animate-spin" />
-                          ) : (
-                            <RefreshCw className="h-4 w-4" />
-                          )}
-                        </Button>
-                      </div>
-
-                      <div className="flex gap-2">
-                        <Button
-                          onClick={() => {
-                            setSelectedRoleForSkills(editingNode);
-                            setIsVisualizationOpen(true);
-                          }}
-                          variant="outline"
-                          className="flex-1 border-purple-200 text-purple-700 hover:bg-purple-50"
-                        >
-                          <Brain className="h-4 w-4 mr-2" />
-                          View Ontology
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2 p-3 bg-orange-50 border border-orange-200 rounded-lg">
-                        <AlertCircle className="h-4 w-4 text-orange-600" />
-                        <div>
-                          <p className="text-sm font-medium text-orange-900">
-                            No Skills Ontology Found
-                          </p>
-                          <p className="text-xs text-orange-700">
-                            Generate a skills ontology to see detailed skills
-                            and competencies.
-                          </p>
-                        </div>
-                      </div>
-
-                      <Button
-                        onClick={handleGenerateOntologyFromEdit}
-                        disabled={isGeneratingOntology}
-                        className="w-full bg-purple-600 hover:bg-purple-700 text-white"
-                      >
-                        {isGeneratingOntology ? (
-                          <>
-                            <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                            Generating Skills Ontology...
-                          </>
-                        ) : (
-                          <>
-                            <Brain className="h-4 w-4 mr-2" />
-                            Generate Ontology
-                          </>
-                        )}
-                      </Button>
-                    </div>
-                  )}
-
-                  {ontologyGenerationError && (
-                    <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <AlertCircle className="h-4 w-4 text-red-600" />
-                        <p className="text-sm text-red-700">
-                          {ontologyGenerationError}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            <div className="flex gap-3 pt-4 justify-end">
-              <Button
-                onClick={() => setIsDrawerOpen(false)}
-                variant="outline"
-                className="border-gray-300 text-gray-700 hover:bg-gray-50"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={() => {
-                  if (editingNode) {
-                    setNodes((nds) =>
-                      nds.map((node) =>
-                        node.id === editingNode.id
-                          ? {
-                              ...node,
-                              data: {
-                                ...node.data,
-                                label: editData.name,
-                                definition: editData.definition,
-                              },
-                            }
-                          : node
-                      )
-                    );
-                    setIsDrawerOpen(false);
-                  }
-                }}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                Save
-              </Button>
-            </div>
-          </div>
-        </SheetContent>
-      </Sheet>
-
       {/* Context Menu */}
       {contextMenu && (
         <div
@@ -1732,55 +1597,22 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
       )}
 
       {/* Skills Ontology Drawer */}
-      <SkillsOntologyDrawer
-        isOpen={isSkillsDrawerOpen}
+      <RoleDrawer
+        isOpen={isDrawerOpen}
         onClose={() => {
-          setIsSkillsDrawerOpen(false);
-          setSelectedRoleForSkills(null);
-        }}
-        roleId={selectedRoleForSkills?.id}
-        roleTitle={selectedRoleForSkills?.data.label as string}
-        parentDetails={
-          selectedRoleForSkills?.data.hierarchyPath
-            ? {
-                industry:
-                  (selectedRoleForSkills.data.hierarchyPath as string[])[0] ||
-                  "",
-                subEntity:
-                  (selectedRoleForSkills.data.hierarchyPath as string[])[1] ||
-                  "",
-                jobFamily:
-                  (selectedRoleForSkills.data.hierarchyPath as string[])[2] ||
-                  "",
-                subJobFamily:
-                  (selectedRoleForSkills.data.hierarchyPath as string[])[3] ||
-                  undefined,
-              }
-            : undefined
-        }
-        hierarchyPath={selectedRoleForSkills?.data.hierarchyPath as string[]}
-        existingOntology={
-          selectedRoleForSkills?.id
-            ? skillsMap.get(selectedRoleForSkills.id)
-            : undefined
-        }
-        onOntologyGenerated={handleSkillsOntologyGenerated}
+          setIsDrawerOpen(false);
+          }}
+        type={editingNode?.type as string}
+        definition={editData?.definition as string}
+        handleDeleteNode={() => (editingNode) ? handleDeleteNode(editingNode) : undefined}
+        roleTitle={editData?.name as string}
+        existingOntology={skillsMap.get(editData?.name as string)}
+        existingRoleSpecificInfo={roleSpecificSkillsMap.get(editData?.name as string)}
+        generatedOntology={handleGenerateOntologyFromEdit}
+        generatedRoleSpecificInfo={handleGenerateRoleSpecificInfo}
+        isGenerateOntologyLoading={isGeneratingOntology}
+        isGenerateRoleSpecificInfoLoading={isGeneratingRoleInfo}
       />
-
-      {/* Ontology Visualization Dialog */}
-      {selectedRoleForSkills &&
-        skillsMap.has(selectedRoleForSkills.data.label as string) && (
-          <OntologyVisualization
-            isOpen={isVisualizationOpen}
-            onClose={() => {
-              setIsVisualizationOpen(false);
-              setSelectedRoleForSkills(null);
-            }}
-            ontology={
-              skillsMap.get(selectedRoleForSkills.data.label as string)!
-            }
-          />
-        )}
     </div>
   );
 };

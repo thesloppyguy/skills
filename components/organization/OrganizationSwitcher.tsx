@@ -28,6 +28,7 @@ export interface OrganizationOption {
   type: 'preset' | 'custom';
   organizationData: any;
   skillMap: any;
+  roleSpecificSkillsMap: any;
 }
 
 interface OrganizationSwitcherProps {
@@ -35,6 +36,7 @@ interface OrganizationSwitcherProps {
   onOrganizationChange: (org: OrganizationOption) => void;
   onCreateNew: () => void;
   disabled?: boolean;
+  header?: boolean;
 }
 
 const OrganizationSwitcher: React.FC<OrganizationSwitcherProps> = ({
@@ -42,6 +44,7 @@ const OrganizationSwitcher: React.FC<OrganizationSwitcherProps> = ({
   onOrganizationChange,
   onCreateNew,
   disabled = false,
+  header = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { presetOrganizations, customOrganization } = useOrganization();
@@ -141,7 +144,8 @@ const OrganizationSwitcher: React.FC<OrganizationSwitcherProps> = ({
                 description: 'Your custom organization structure',
                 type: 'custom',
                 organizationData: customOrganization,
-                skillMap: {}
+                skillMap: {},
+                roleSpecificSkillsMap: []
               })}
               className="flex items-center justify-between p-3 cursor-pointer"
             >
@@ -168,7 +172,7 @@ const OrganizationSwitcher: React.FC<OrganizationSwitcherProps> = ({
           )}
           
           {/* Create New Option */}
-          <DropdownMenuItem
+          {!header && <DropdownMenuItem
             onClick={() => {
               onCreateNew();
               setIsOpen(false);
@@ -192,6 +196,7 @@ const OrganizationSwitcher: React.FC<OrganizationSwitcherProps> = ({
               </Badge>
             </div>
           </DropdownMenuItem>
+          }
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
