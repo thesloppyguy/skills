@@ -35,8 +35,7 @@ import {
   ProcessingStatus,
   Domain,
   OntologyRelationship,
-  RoleSpecificSkills,
-  RoleSpecificSkillsResponse,
+  Task,
 } from "@/types/organization";
 import { useOrganization } from "@/contexts/OrganizationContext";
 import { OrganizationOption } from "@/components/organization/OrganizationSwitcher";
@@ -280,7 +279,7 @@ const CreateOrganizationPage = () => {
             roleTitle: role.title,
             parentDetails: role.parentDetails,
             hierarchyPath: role.hierarchyPath,
-          }) as unknown as Promise<RoleSpecificSkillsResponse>,
+          }) as unknown as Promise<{tasks: Task[]}>,
           generateSkillsOntology({
             roleTitle: role.title,
             parentDetails: role.parentDetails,
@@ -292,7 +291,7 @@ const CreateOrganizationPage = () => {
         ]);
         
 
-        addRoleSpecificSkills(role.title, roleSpecificSkillsResponse);
+        addRoleSpecificSkills(role.title, roleSpecificSkillsResponse.tasks);
 
         // Add the skills ontology to the map
         const skillsOntologyData = {
