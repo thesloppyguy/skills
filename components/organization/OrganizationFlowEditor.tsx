@@ -548,9 +548,6 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
 
     // Check if skills ontology already exists in cache
     if (skillsMap.has(editingNode.id)) {
-      console.log(
-        "Skills ontology already exists for this role, using cached data"
-      );
       return;
     }
 
@@ -1625,7 +1622,6 @@ const OrganizationFlowEditor: React.FC<OrganizationFlowEditorProps> = ({
   onSave,
   processingStatus,
 }) => {
-  console.log("initialData", initialData);
   return (
     <ReactFlowProvider>
       <FlowEditorContent

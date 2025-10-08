@@ -78,18 +78,8 @@ const CreateOrganizationPage = () => {
     // Load cached skills ontology and role-specific skills for custom organizations
     if (currentOrgType === 'custom') {
       const cachedSkills = loadSkillsOntologyFromStorage();
-      if (cachedSkills) {
-        console.log(
-          `Loaded ${cachedSkills.size} cached skills ontologies from localStorage`
-        );
-      }
       
       const cachedRoleSpecificSkills = loadRoleSpecificSkillsFromStorage();
-      if (cachedRoleSpecificSkills) {
-        console.log(
-          `Loaded ${cachedRoleSpecificSkills.size} cached role-specific skills from localStorage`
-        );
-      }
     }
   }, [hasStoredData, organizationData, loadSkillsOntologyFromStorage, currentOrgType]);
 
@@ -134,7 +124,7 @@ const CreateOrganizationPage = () => {
         setCustomOrganization(updatedData);
         setEditQuery("");
         setIsDialogOpen(false);
-        console.log("Organization updated:", res);
+        setShowFlowEditor(true); // Show the workflow editor after successful generation
       })
       .catch((err) => {
         setEditLoading(false);
@@ -156,7 +146,6 @@ const CreateOrganizationPage = () => {
   const handleSaveOrganization = (data: OrganizationStructure) => {
     setOrganizationData(data);
     saveToLocalStorage(data);
-    console.log("Organization saved:", data);
   };
 
   const handleStartFresh = () => {
@@ -305,7 +294,6 @@ const CreateOrganizationPage = () => {
           generatedAt: new Date().toISOString(),
         };
         addSkillsOntology(role.title, skillsOntologyData);
-        console.log(`Stored skills ontology for ${role.title}:`, skillsOntologyData);
 
         setProcessingStatus((prev: ProcessingStatus) => ({
           ...prev,

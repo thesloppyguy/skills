@@ -26,6 +26,8 @@ import { Switch } from "@/components/ui/switch";
 import { useEmployee } from "@/contexts/EmployeeContext";
 import { useOrganization } from "@/contexts/OrganizationContext";
 import { CheckCircle, XCircle, AlertTriangle } from "lucide-react";
+import { solar_roadmaps } from "@/constants/roadmaps";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const getEmployeeRoles = (skillsMap: Map<string, any>) => {
   if (typeof window === "undefined") return { roles: [], ontologies: [] };
@@ -52,6 +54,10 @@ const getEmployeeOntology = (employeeId: string) => {
     return JSON.parse(ontology);
   }
   return null;
+};
+
+const getSolarRoadmap = (employeeId: string) => {
+  return solar_roadmaps[employeeId as keyof typeof solar_roadmaps] || null;
 };
 
 interface RoadmapStep {
@@ -224,7 +230,6 @@ const compareSkills = (
   employeeOntology: any,
   targetOntology: any
 ): SkillsComparison => {
-  console.log('compare skills')
   const employeeSkills = [
     ...extractSkillsFromOntology(employeeOntology),
     ...extractSkillsFromHierarchy(employeeOntology?.hierarchy || []),
@@ -331,7 +336,7 @@ const compareSkills = (
 
 const RoadmapPage = () => {
   const { selectedEmployee: employee } = useEmployee();
-  const { skillsMap } = useOrganization();
+  const { currentOrgId, skillsMap } = useOrganization();
   const [roles, setRoles] = useState<string[]>([]);
   const [ontologies, setOntologies] = useState<any[]>([]);
   const [currentRole, setCurrentRole] = useState<string | null>(null);
@@ -342,7 +347,7 @@ const RoadmapPage = () => {
     useState<SkillsComparison | null>(null);
   const [isCustomRole, setIsCustomRole] = useState(false);
   const [customRole, setCustomRole] = useState("");
-
+  const [activeTab, setActiveTab] = useState("solar-roadmap");
   useEffect(() => {
     const { roles: employeeRoles, ontologies: employeeOntologies } =
       getEmployeeRoles(skillsMap);
@@ -357,7 +362,6 @@ const RoadmapPage = () => {
 
     // Calculate skills comparison immediately on role selection
     try {
-      console.log('try')
       const employeeOntology = getEmployeeOntology(employee.id);
       const targetOntology = ontologies.find(
         (ontology) => ontology.roleTitle === role
@@ -545,6 +549,165 @@ const RoadmapPage = () => {
     }
   };
 
+  const renderSolarRoadmap = () => {
+    const solarRoadmap = getSolarRoadmap(employee.id);
+    
+    if (!solarRoadmap) {
+      return (
+        <Card>
+          <CardContent className="text-center py-12">
+            <Target className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              No Solar Roadmap Available
+            </h3>
+            <p className="text-gray-600">
+              No predefined roadmap found for employee {employee.id}
+            </p>
+          </CardContent>
+        </Card>
+      );
+    }
+
+    return (
+      <div className="space-y-6">
+        {/* Solar Roadmap Overview */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <TrendingUp className="w-5 h-5" />
+              Solar Roadmap Overview
+            </CardTitle>
+            <CardDescription>
+              Predefined roadmap for {employee.personalDetails.firstName} {employee.personalDetails.lastName}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="text-center">
+                <p className="text-sm text-gray-600">Current Level</p>
+                <p className="text-lg font-semibold">
+                  {employee.employmentDetails.designation}
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="text-sm text-gray-600">Target Level</p>
+                <p className="text-lg font-semibold text-blue-600">
+                  {solarRoadmap.goal}
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Solar Roadmap Steps */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Solar Roadmap Steps</CardTitle>
+            <CardDescription>
+              Follow these predefined steps to reach your target role
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {solarRoadmap.steps.map((step, index) => (
+                <div
+                  key={step.priority + index}
+                  className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full font-semibold text-sm">
+                          {step.priority}
+                        </div>
+                        <h3 className="text-lg font-semibold">
+                          Step {step.priority}
+                        </h3>
+                        <Badge className={getPriorityColor(step.priority)}>
+                          {getPriorityLabel(step.priority)}
+                        </Badge>
+                      </div>
+                      <p className="text-gray-600 mb-4 text-base leading-relaxed">
+                        {step.action}
+                      </p>
+
+                      {/* Prerequisites */}
+                      {step.prerequisites &&
+                        step.prerequisites.length > 0 && (
+                          <div className="mb-3">
+                            <p className="text-sm font-medium text-gray-700 mb-2">
+                              Prerequisites:
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                              {step.prerequisites.map(
+                                (prereq, prereqIndex) => (
+                                  <Badge
+                                    key={prereqIndex}
+                                    variant="secondary"
+                                  >
+                                    {prereq}
+                                  </Badge>
+                                )
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                      {/* Resources */}
+                      {step.resources && step.resources.length > 0 && (
+                        <div className="mb-3">
+                          <p className="text-sm font-medium text-gray-700 mb-2">
+                            Recommended Resources:
+                          </p>
+                          <ul className="list-disc list-inside space-y-1 text-sm text-gray-600">
+                            {step.resources.map((resource, resourceIndex) => (
+                              <li key={resourceIndex}>{resource}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Skills to Learn */}
+                      {step.learned_skills &&
+                        step.learned_skills.length > 0 && (
+                          <div className="mb-3">
+                            <p className="text-sm font-medium text-gray-700 mb-2">
+                              Skills you&apos;ll develop:
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                              {step.learned_skills.map(
+                                (skill, skillIndex) => (
+                                  <Badge
+                                    key={skillIndex}
+                                    variant="outline"
+                                    className="bg-green-50 text-green-700 border-green-200"
+                                  >
+                                    {skill}
+                                  </Badge>
+                                )
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                      {/* Time Estimate */}
+                      <div className="flex items-center gap-1 text-sm text-gray-600">
+                        <Clock className="w-4 h-4" />
+                        <span className="font-medium">
+                          Estimated time: {step.time}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  };
+
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
@@ -556,483 +719,980 @@ const RoadmapPage = () => {
         </div>
       </div>
 
-      {/* Skills Summary */}
-      {isCustomRole && customRole.trim() && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5" />
-              Custom Role Selected
-            </CardTitle>
-            <CardDescription>
-              Skills analysis is not available for custom roles. The roadmap will be generated based on the role description you provided.
-            </CardDescription>
-          </CardHeader>
-        </Card>
-      )}
+      {/* Tabs for different roadmap types */}
+      {currentOrgId === "green-energy" ? (
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="solar-roadmap">Next Target</TabsTrigger>
+            <TabsTrigger value="select-role">Select Target Role</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="select-role" className="space-y-6">
+            {/* Skills Summary */}
+            {isCustomRole && customRole.trim() && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <AlertTriangle className="w-5 h-5" />
+                    Custom Role Selected
+                  </CardTitle>
+                  <CardDescription>
+                    Skills analysis is not available for custom roles. The roadmap will be generated based on the role description you provided.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            )}
 
-      {currentRole && !isCustomRole && skillsComparison && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5" />
-              Skills Analysis Summary
-            </CardTitle>
-            <CardDescription>
-              Overview of your current skills compared to the target role
-              requirements
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Successful Matches (Exact + Fuzzy + Partial) */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-600" />
-                  <h3 className="font-semibold text-green-800">
-                    Successful Matches
-                  </h3>
-                  <Badge
-                    variant="secondary"
-                    className="bg-green-100 text-green-800"
-                  >
-                    {skillsComparison.matchedSkills.length}
-                  </Badge>
-                </div>
-                <div className="space-y-2 max-h-32 overflow-y-auto">
-                  {skillsComparison.matchedSkills.length > 0 ? (
-                    <>
-                      {/* Show exact matches first */}
-                      {skillsComparison.matchedSkills
-                        .filter(
-                          (skill) =>
-                            !skillsComparison.fuzzyMatches.some(
-                              (fm) => fm.targetSkill === skill
-                            ) &&
-                            !skillsComparison.partialMatchSkills.includes(skill)
-                        )
-                        .slice(0, 5)
-                        .map((skill, index) => (
-                          <div
-                            key={`exact-${index}`}
-                            className="flex items-center gap-2 text-sm"
-                          >
-                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                            <span className="text-gray-700">{skill}</span>
-                            <span className="text-xs text-green-600">
-                              (exact)
-                            </span>
-                          </div>
-                        ))}
-
-                      {/* Show fuzzy matches */}
-                      {skillsComparison.fuzzyMatches
-                        .slice(0, 3)
-                        .map((match, index) => (
-                          <div
-                            key={`fuzzy-${index}`}
-                            className="flex items-center gap-2 text-sm"
-                          >
-                            <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                            <span className="text-gray-700">
-                              {match.targetSkill}
-                            </span>
-                            <span className="text-xs text-purple-600">
-                              ({Math.round(match.similarity * 100)}%)
-                            </span>
-                          </div>
-                        ))}
-
-                      {/* Show partial matches */}
-                      {skillsComparison.partialMatchSkills
-                        .slice(0, 2)
-                        .map((skill, index) => (
-                          <div
-                            key={`partial-${index}`}
-                            className="flex items-center gap-2 text-sm"
-                          >
-                            <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                            <span className="text-gray-700">{skill}</span>
-                            <span className="text-xs text-yellow-600">
-                              (partial)
-                            </span>
-                          </div>
-                        ))}
-                    </>
-                  ) : (
-                    <p className="text-sm text-gray-500 italic">
-                      No successful matches found
-                    </p>
-                  )}
-                  {skillsComparison.matchedSkills.length > 10 && (
-                    <p className="text-xs text-gray-500">
-                      +{skillsComparison.matchedSkills.length - 10} more skills
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {/* Missing Skills */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <XCircle className="w-5 h-5 text-red-600" />
-                  <h3 className="font-semibold text-red-800">Missing Skills</h3>
-                  <Badge
-                    variant="secondary"
-                    className="bg-red-100 text-red-800"
-                  >
-                    {skillsComparison.missingSkills.length}
-                  </Badge>
-                </div>
-                <div className="space-y-2 max-h-32 overflow-y-auto">
-                  {skillsComparison.missingSkills.length > 0 ? (
-                    skillsComparison.missingSkills
-                      .slice(0, 10)
-                      .map((skill, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center gap-2 text-sm"
+            {currentRole && !isCustomRole && skillsComparison && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <AlertTriangle className="w-5 h-5" />
+                    Skills Analysis Summary
+                  </CardTitle>
+                  <CardDescription>
+                    Overview of your current skills compared to the target role
+                    requirements
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Successful Matches (Exact + Fuzzy + Partial) */}
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-600" />
+                        <h3 className="font-semibold text-green-800">
+                          Successful Matches
+                        </h3>
+                        <Badge
+                          variant="secondary"
+                          className="bg-green-100 text-green-800"
                         >
-                          <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                          <span className="text-gray-700">{skill}</span>
+                          {skillsComparison.matchedSkills.length}
+                        </Badge>
+                      </div>
+                      <div className="space-y-2 max-h-32 overflow-y-auto">
+                        {skillsComparison.matchedSkills.length > 0 ? (
+                          <>
+                            {/* Show exact matches first */}
+                            {skillsComparison.matchedSkills
+                              .filter(
+                                (skill) =>
+                                  !skillsComparison.fuzzyMatches.some(
+                                    (fm) => fm.targetSkill === skill
+                                  ) &&
+                                  !skillsComparison.partialMatchSkills.includes(skill)
+                              )
+                              .slice(0, 5)
+                              .map((skill, index) => (
+                                <div
+                                  key={`exact-${index}`}
+                                  className="flex items-center gap-2 text-sm"
+                                >
+                                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                  <span className="text-gray-700">{skill}</span>
+                                  <span className="text-xs text-green-600">
+                                    (exact)
+                                  </span>
+                                </div>
+                              ))}
+
+                            {/* Show fuzzy matches */}
+                            {skillsComparison.fuzzyMatches
+                              .slice(0, 3)
+                              .map((match, index) => (
+                                <div
+                                  key={`fuzzy-${index}`}
+                                  className="flex items-center gap-2 text-sm"
+                                >
+                                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                  <span className="text-gray-700">
+                                    {match.targetSkill}
+                                  </span>
+                                  <span className="text-xs text-purple-600">
+                                    ({Math.round(match.similarity * 100)}%)
+                                  </span>
+                                </div>
+                              ))}
+
+                            {/* Show partial matches */}
+                            {skillsComparison.partialMatchSkills
+                              .slice(0, 2)
+                              .map((skill, index) => (
+                                <div
+                                  key={`partial-${index}`}
+                                  className="flex items-center gap-2 text-sm"
+                                >
+                                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                                  <span className="text-gray-700">{skill}</span>
+                                  <span className="text-xs text-yellow-600">
+                                    (partial)
+                                  </span>
+                                </div>
+                              ))}
+                          </>
+                        ) : (
+                          <p className="text-sm text-gray-500 italic">
+                            No successful matches found
+                          </p>
+                        )}
+                        {skillsComparison.matchedSkills.length > 10 && (
+                          <p className="text-xs text-gray-500">
+                            +{skillsComparison.matchedSkills.length - 10} more skills
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Missing Skills */}
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <XCircle className="w-5 h-5 text-red-600" />
+                        <h3 className="font-semibold text-red-800">Missing Skills</h3>
+                        <Badge
+                          variant="secondary"
+                          className="bg-red-100 text-red-800"
+                        >
+                          {skillsComparison.missingSkills.length}
+                        </Badge>
+                      </div>
+                      <div className="space-y-2 max-h-32 overflow-y-auto">
+                        {skillsComparison.missingSkills.length > 0 ? (
+                          skillsComparison.missingSkills
+                            .slice(0, 10)
+                            .map((skill, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center gap-2 text-sm"
+                              >
+                                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                                <span className="text-gray-700">{skill}</span>
+                              </div>
+                            ))
+                        ) : (
+                          <p className="text-sm text-gray-500 italic">
+                            No missing skills found
+                          </p>
+                        )}
+                        {skillsComparison.missingSkills.length > 10 && (
+                          <p className="text-xs text-gray-500">
+                            +{skillsComparison.missingSkills.length - 10} more skills
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Summary Stats */}
+                  <div className="mt-6 pt-4 border-t">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                      <div>
+                        <p className="text-2xl font-bold text-green-600">
+                          {skillsComparison.matchedSkills.length}
+                        </p>
+                        <p className="text-sm text-gray-600">Successful Matches</p>
+                        <p className="text-xs text-gray-500">
+                          (
+                          {skillsComparison.matchedSkills.length -
+                            skillsComparison.fuzzyMatches.length -
+                            skillsComparison.partialMatchSkills.length}{" "}
+                          exact, {skillsComparison.fuzzyMatches.length} fuzzy,{" "}
+                          {skillsComparison.partialMatchSkills.length} partial)
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-2xl font-bold text-red-600">
+                          {skillsComparison.missingSkills.length}
+                        </p>
+                        <p className="text-sm text-gray-600">Missing Skills</p>
+                      </div>
+                      <div>
+                        <p className="text-2xl font-bold text-blue-600">
+                          {Math.round(
+                            (skillsComparison.matchedSkills.length /
+                              (skillsComparison.matchedSkills.length +
+                                skillsComparison.missingSkills.length)) *
+                              100
+                          )}
+                          %
+                        </p>
+                        <p className="text-sm text-gray-600">Success Rate</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Role Selection */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Target className="w-5 h-5" />
+                  Select Target Role
+                </CardTitle>
+                <CardDescription>
+                  Choose the role you want to work towards to generate your
+                  personalized roadmap
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {/* Toggle Switch */}
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <Switch
+                        id="role-mode"
+                        checked={isCustomRole}
+                        onCheckedChange={(checked) => {
+                          setIsCustomRole(checked);
+                          if (checked) {
+                            setCurrentRole(null);
+                            setSkillsComparison(null);
+                          } else {
+                            setCustomRole("");
+                          }
+                        }}
+                      />
+                      <label htmlFor="role-mode" className="text-sm font-medium text-gray-700">
+                        {isCustomRole ? "Custom Role Input" : "Select from Available Roles"}
+                      </label>
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {isCustomRole 
+                        ? "Enter a custom role name" 
+                        : "Choose from predefined roles"
+                      }
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4 items-end">
+                    <div className="flex-1">
+                      <label className="text-sm font-medium text-gray-700 mb-2 block">
+                        {isCustomRole ? "Custom Role" : "Available Roles"}
+                      </label>
+                      {isCustomRole ? (
+                        <Input
+                          value={customRole}
+                          onChange={(e) => setCustomRole(e.target.value)}
+                          placeholder="Enter your target role (e.g., Senior Software Engineer)"
+                          className="w-full"
+                        />
+                      ) : (
+                        <Select
+                          value={currentRole || ""}
+                          onValueChange={handleRoleChange}
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select a role to generate roadmap" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {roles.map((role) => (
+                              <SelectItem key={role} value={role}>
+                                {role}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    </div>
+                    <Button
+                      onClick={handleGenerateRoadmap}
+                      disabled={(!currentRole && !customRole.trim()) || loading}
+                      className="min-w-[140px]"
+                    >
+                      {loading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Generating...
+                        </>
+                      ) : (
+                        "Generate Roadmap"
+                      )}
+                    </Button>
+                  </div>
+
+                  {(currentRole || customRole.trim()) && !loading && (
+                    <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                      <div className="flex items-center gap-2">
+                        <Target className="w-4 h-4 text-blue-600" />
+                        <span className="text-sm font-medium text-blue-800">
+                          {isCustomRole ? "Custom Role:" : "Selected Role:"}
+                        </span>
+                        <span className="text-sm text-blue-700 font-semibold">
+                          {isCustomRole ? customRole : currentRole}
+                        </span>
+                      </div>
+                      <p className="text-xs text-blue-600 mt-1">
+                        Click &quot;Generate Roadmap&quot; to create your personalized
+                        career roadmap
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Error State */}
+            {error && (
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+
+            {/* Roadmap Display */}
+            {roadmap && (
+              <div className="space-y-6">
+                {/* Roadmap Overview */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <TrendingUp className="w-5 h-5" />
+                      Roadmap Overview
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="text-center">
+                        <p className="text-sm text-gray-600">Current Level</p>
+                        <p className="text-lg font-semibold">
+                          {roadmap.currentLevel}
+                        </p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-sm text-gray-600">Target Level</p>
+                        <p className="text-lg font-semibold text-blue-600">
+                          {roadmap.targetLevel}
+                        </p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-sm text-gray-600">Estimated Duration</p>
+                        <p className="text-lg font-semibold">
+                          {roadmap.totalDuration}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <div className="flex justify-between text-sm text-gray-600 mb-2">
+                        <span>Overall Progress</span>
+                        <span>{roadmap.progress}%</span>
+                      </div>
+                      <Progress value={roadmap.progress} className="h-2" />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Roadmap Steps */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Roadmap Steps</CardTitle>
+                    <CardDescription>
+                      Follow these steps to reach your target role
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {roadmap.steps.map((step, index) => (
+                        <div
+                          key={step.priority + index}
+                          className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3 mb-2">
+                                <div className="flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full font-semibold text-sm">
+                                  {step.priority}
+                                </div>
+                                <h3 className="text-lg font-semibold">
+                                  Step {step.priority}
+                                </h3>
+                                <Badge className={getPriorityColor(step.priority)}>
+                                  {getPriorityLabel(step.priority)}
+                                </Badge>
+                              </div>
+                              <p className="text-gray-600 mb-4 text-base leading-relaxed">
+                                {step.action}
+                              </p>
+
+                              {/* Prerequisites */}
+                              {step.prerequisites &&
+                                step.prerequisites.length > 0 && (
+                                  <div className="mb-3">
+                                    <p className="text-sm font-medium text-gray-700 mb-2">
+                                      Prerequisites:
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                      {step.prerequisites.map(
+                                        (prereq, prereqIndex) => (
+                                          <Badge
+                                            key={prereqIndex}
+                                            variant="secondary"
+                                          >
+                                            {prereq}
+                                          </Badge>
+                                        )
+                                      )}
+                                    </div>
+                                  </div>
+                                )}
+
+                              {/* Resources */}
+                              {step.resources && step.resources.length > 0 && (
+                                <div className="mb-3">
+                                  <p className="text-sm font-medium text-gray-700 mb-2">
+                                    Recommended Resources:
+                                  </p>
+                                  <ul className="list-disc list-inside space-y-1 text-sm text-gray-600">
+                                    {step.resources.map((resource, resourceIndex) => (
+                                      <li key={resourceIndex}>{resource}</li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
+                              {/* Skills to Learn */}
+                              {step.learned_skills &&
+                                step.learned_skills.length > 0 && (
+                                  <div className="mb-3">
+                                    <p className="text-sm font-medium text-gray-700 mb-2">
+                                      Skills you&apos;ll develop:
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                      {step.learned_skills.map(
+                                        (skill, skillIndex) => (
+                                          <Badge
+                                            key={skillIndex}
+                                            variant="outline"
+                                            className="bg-green-50 text-green-700 border-green-200"
+                                          >
+                                            {skill}
+                                          </Badge>
+                                        )
+                                      )}
+                                    </div>
+                                  </div>
+                                )}
+
+                              {/* Time Estimate */}
+                              <div className="flex items-center gap-1 text-sm text-gray-600">
+                                <Clock className="w-4 h-4" />
+                                <span className="font-medium">
+                                  Estimated time: {step.time}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      ))
-                  ) : (
-                    <p className="text-sm text-gray-500 italic">
-                      No missing skills found
-                    </p>
-                  )}
-                  {skillsComparison.missingSkills.length > 10 && (
-                    <p className="text-xs text-gray-500">
-                      +{skillsComparison.missingSkills.length - 10} more skills
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Summary Stats */}
-            <div className="mt-6 pt-4 border-t">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                <div>
-                  <p className="text-2xl font-bold text-green-600">
-                    {skillsComparison.matchedSkills.length}
-                  </p>
-                  <p className="text-sm text-gray-600">Successful Matches</p>
-                  <p className="text-xs text-gray-500">
-                    (
-                    {skillsComparison.matchedSkills.length -
-                      skillsComparison.fuzzyMatches.length -
-                      skillsComparison.partialMatchSkills.length}{" "}
-                    exact, {skillsComparison.fuzzyMatches.length} fuzzy,{" "}
-                    {skillsComparison.partialMatchSkills.length} partial)
-                  </p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-red-600">
-                    {skillsComparison.missingSkills.length}
-                  </p>
-                  <p className="text-sm text-gray-600">Missing Skills</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-blue-600">
-                    {Math.round(
-                      (skillsComparison.matchedSkills.length /
-                        (skillsComparison.matchedSkills.length +
-                          skillsComparison.missingSkills.length)) *
-                        100
-                    )}
-                    %
-                  </p>
-                  <p className="text-sm text-gray-600">Success Rate</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Role Selection */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Target className="w-5 h-5" />
-            Select Target Role
-          </CardTitle>
-          <CardDescription>
-            Choose the role you want to work towards to generate your
-            personalized roadmap
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {/* Toggle Switch */}
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div className="flex items-center space-x-3">
-                <Switch
-                  id="role-mode"
-                  checked={isCustomRole}
-                  onCheckedChange={(checked) => {
-                    setIsCustomRole(checked);
-                    if (checked) {
-                      setCurrentRole(null);
-                      setSkillsComparison(null);
-                    } else {
-                      setCustomRole("");
-                    }
-                  }}
-                />
-                <label htmlFor="role-mode" className="text-sm font-medium text-gray-700">
-                  {isCustomRole ? "Custom Role Input" : "Select from Available Roles"}
-                </label>
-              </div>
-              <div className="text-xs text-gray-500">
-                {isCustomRole 
-                  ? "Enter a custom role name" 
-                  : "Choose from predefined roles"
-                }
-              </div>
-            </div>
-
-            <div className="flex gap-4 items-end">
-              <div className="flex-1">
-                <label className="text-sm font-medium text-gray-700 mb-2 block">
-                  {isCustomRole ? "Custom Role" : "Available Roles"}
-                </label>
-                {isCustomRole ? (
-                  <Input
-                    value={customRole}
-                    onChange={(e) => setCustomRole(e.target.value)}
-                    placeholder="Enter your target role (e.g., Senior Software Engineer)"
-                    className="w-full"
-                  />
-                ) : (
-                  <Select
-                    value={currentRole || ""}
-                    onValueChange={handleRoleChange}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select a role to generate roadmap" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {roles.map((role) => (
-                        <SelectItem key={role} value={role}>
-                          {role}
-                        </SelectItem>
                       ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              </div>
-              <Button
-                onClick={handleGenerateRoadmap}
-                disabled={(!currentRole && !customRole.trim()) || loading}
-                className="min-w-[140px]"
-              >
-                {loading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Generating...
-                  </>
-                ) : (
-                  "Generate Roadmap"
-                )}
-              </Button>
-            </div>
-
-            {(currentRole || customRole.trim()) && !loading && (
-              <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                <div className="flex items-center gap-2">
-                  <Target className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-medium text-blue-800">
-                    {isCustomRole ? "Custom Role:" : "Selected Role:"}
-                  </span>
-                  <span className="text-sm text-blue-700 font-semibold">
-                    {isCustomRole ? customRole : currentRole}
-                  </span>
-                </div>
-                <p className="text-xs text-blue-600 mt-1">
-                  Click &quot;Generate Roadmap&quot; to create your personalized
-                  career roadmap
-                </p>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             )}
-          </div>
-        </CardContent>
-      </Card>
 
-      {/* Error State */}
-      {error && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
-
-      {/* Roadmap Display */}
-      {roadmap && (
+            {/* Empty State */}
+            {!roadmap && !loading && !error && (
+              <Card>
+                <CardContent className="text-center py-12">
+                  <Target className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    No Roadmap Generated
+                  </h3>
+                  <p className="text-gray-600">
+                    Select a target role above to generate your personalized career
+                    roadmap
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
+          
+          <TabsContent value="solar-roadmap" className="space-y-6">
+            {renderSolarRoadmap()}
+          </TabsContent>
+        </Tabs>
+      ) : (
         <div className="space-y-6">
-          {/* Roadmap Overview */}
+          {/* Skills Summary */}
+          {isCustomRole && customRole.trim() && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5" />
+                  Custom Role Selected
+                </CardTitle>
+                <CardDescription>
+                  Skills analysis is not available for custom roles. The roadmap will be generated based on the role description you provided.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          )}
+
+          {currentRole && !isCustomRole && skillsComparison && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5" />
+                  Skills Analysis Summary
+                </CardTitle>
+                <CardDescription>
+                  Overview of your current skills compared to the target role
+                  requirements
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Successful Matches (Exact + Fuzzy + Partial) */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-600" />
+                      <h3 className="font-semibold text-green-800">
+                        Successful Matches
+                      </h3>
+                      <Badge
+                        variant="secondary"
+                        className="bg-green-100 text-green-800"
+                      >
+                        {skillsComparison.matchedSkills.length}
+                      </Badge>
+                    </div>
+                    <div className="space-y-2 max-h-32 overflow-y-auto">
+                      {skillsComparison.matchedSkills.length > 0 ? (
+                        <>
+                          {/* Show exact matches first */}
+                          {skillsComparison.matchedSkills
+                            .filter(
+                              (skill) =>
+                                !skillsComparison.fuzzyMatches.some(
+                                  (fm) => fm.targetSkill === skill
+                                ) &&
+                                !skillsComparison.partialMatchSkills.includes(skill)
+                            )
+                            .slice(0, 5)
+                            .map((skill, index) => (
+                              <div
+                                key={`exact-${index}`}
+                                className="flex items-center gap-2 text-sm"
+                              >
+                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <span className="text-gray-700">{skill}</span>
+                                <span className="text-xs text-green-600">
+                                  (exact)
+                                </span>
+                              </div>
+                            ))}
+
+                          {/* Show fuzzy matches */}
+                          {skillsComparison.fuzzyMatches
+                            .slice(0, 3)
+                            .map((match, index) => (
+                              <div
+                                key={`fuzzy-${index}`}
+                                className="flex items-center gap-2 text-sm"
+                              >
+                                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <span className="text-gray-700">
+                                  {match.targetSkill}
+                                </span>
+                                <span className="text-xs text-purple-600">
+                                  ({Math.round(match.similarity * 100)}%)
+                                </span>
+                              </div>
+                            ))}
+
+                          {/* Show partial matches */}
+                          {skillsComparison.partialMatchSkills
+                            .slice(0, 2)
+                            .map((skill, index) => (
+                              <div
+                                key={`partial-${index}`}
+                                className="flex items-center gap-2 text-sm"
+                              >
+                                <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                                <span className="text-gray-700">{skill}</span>
+                                <span className="text-xs text-yellow-600">
+                                  (partial)
+                                </span>
+                              </div>
+                            ))}
+                        </>
+                      ) : (
+                        <p className="text-sm text-gray-500 italic">
+                          No successful matches found
+                        </p>
+                      )}
+                      {skillsComparison.matchedSkills.length > 10 && (
+                        <p className="text-xs text-gray-500">
+                          +{skillsComparison.matchedSkills.length - 10} more skills
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Missing Skills */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <XCircle className="w-5 h-5 text-red-600" />
+                      <h3 className="font-semibold text-red-800">Missing Skills</h3>
+                      <Badge
+                        variant="secondary"
+                        className="bg-red-100 text-red-800"
+                      >
+                        {skillsComparison.missingSkills.length}
+                      </Badge>
+                    </div>
+                    <div className="space-y-2 max-h-32 overflow-y-auto">
+                      {skillsComparison.missingSkills.length > 0 ? (
+                        skillsComparison.missingSkills
+                          .slice(0, 10)
+                          .map((skill, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-2 text-sm"
+                            >
+                              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                              <span className="text-gray-700">{skill}</span>
+                            </div>
+                          ))
+                      ) : (
+                        <p className="text-sm text-gray-500 italic">
+                          No missing skills found
+                        </p>
+                      )}
+                      {skillsComparison.missingSkills.length > 10 && (
+                        <p className="text-xs text-gray-500">
+                          +{skillsComparison.missingSkills.length - 10} more skills
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Summary Stats */}
+                <div className="mt-6 pt-4 border-t">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div>
+                      <p className="text-2xl font-bold text-green-600">
+                        {skillsComparison.matchedSkills.length}
+                      </p>
+                      <p className="text-sm text-gray-600">Successful Matches</p>
+                      <p className="text-xs text-gray-500">
+                        (
+                        {skillsComparison.matchedSkills.length -
+                          skillsComparison.fuzzyMatches.length -
+                          skillsComparison.partialMatchSkills.length}{" "}
+                        exact, {skillsComparison.fuzzyMatches.length} fuzzy,{" "}
+                        {skillsComparison.partialMatchSkills.length} partial)
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-red-600">
+                        {skillsComparison.missingSkills.length}
+                      </p>
+                      <p className="text-sm text-gray-600">Missing Skills</p>
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-blue-600">
+                        {Math.round(
+                          (skillsComparison.matchedSkills.length /
+                            (skillsComparison.matchedSkills.length +
+                              skillsComparison.missingSkills.length)) *
+                            100
+                        )}
+                        %
+                      </p>
+                      <p className="text-sm text-gray-600">Success Rate</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Role Selection */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5" />
-                Roadmap Overview
+                <Target className="w-5 h-5" />
+                Select Target Role
               </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="text-center">
-                  <p className="text-sm text-gray-600">Current Level</p>
-                  <p className="text-lg font-semibold">
-                    {roadmap.currentLevel}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="text-sm text-gray-600">Target Level</p>
-                  <p className="text-lg font-semibold text-blue-600">
-                    {roadmap.targetLevel}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="text-sm text-gray-600">Estimated Duration</p>
-                  <p className="text-lg font-semibold">
-                    {roadmap.totalDuration}
-                  </p>
-                </div>
-              </div>
-              <div className="mt-4">
-                <div className="flex justify-between text-sm text-gray-600 mb-2">
-                  <span>Overall Progress</span>
-                  <span>{roadmap.progress}%</span>
-                </div>
-                <Progress value={roadmap.progress} className="h-2" />
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Roadmap Steps */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Roadmap Steps</CardTitle>
               <CardDescription>
-                Follow these steps to reach your target role
+                Choose the role you want to work towards to generate your
+                personalized roadmap
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {roadmap.steps.map((step, index) => (
-                  <div
-                    key={step.priority + index}
-                    className="border rounded-lg p-4 hover:shadow-md transition-shadow"
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className="flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full font-semibold text-sm">
-                            {step.priority}
-                          </div>
-                          <h3 className="text-lg font-semibold">
-                            Step {step.priority}
-                          </h3>
-                          <Badge className={getPriorityColor(step.priority)}>
-                            {getPriorityLabel(step.priority)}
-                          </Badge>
-                        </div>
-                        <p className="text-gray-600 mb-4 text-base leading-relaxed">
-                          {step.action}
-                        </p>
-
-                        {/* Prerequisites */}
-                        {step.prerequisites &&
-                          step.prerequisites.length > 0 && (
-                            <div className="mb-3">
-                              <p className="text-sm font-medium text-gray-700 mb-2">
-                                Prerequisites:
-                              </p>
-                              <div className="flex flex-wrap gap-2">
-                                {step.prerequisites.map(
-                                  (prereq, prereqIndex) => (
-                                    <Badge
-                                      key={prereqIndex}
-                                      variant="secondary"
-                                    >
-                                      {prereq}
-                                    </Badge>
-                                  )
-                                )}
-                              </div>
-                            </div>
-                          )}
-
-                        {/* Resources */}
-                        {step.resources && step.resources.length > 0 && (
-                          <div className="mb-3">
-                            <p className="text-sm font-medium text-gray-700 mb-2">
-                              Recommended Resources:
-                            </p>
-                            <ul className="list-disc list-inside space-y-1 text-sm text-gray-600">
-                              {step.resources.map((resource, resourceIndex) => (
-                                <li key={resourceIndex}>{resource}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-
-                        {/* Skills to Learn */}
-                        {step.learned_skills &&
-                          step.learned_skills.length > 0 && (
-                            <div className="mb-3">
-                              <p className="text-sm font-medium text-gray-700 mb-2">
-                                Skills you&apos;ll develop:
-                              </p>
-                              <div className="flex flex-wrap gap-2">
-                                {step.learned_skills.map(
-                                  (skill, skillIndex) => (
-                                    <Badge
-                                      key={skillIndex}
-                                      variant="outline"
-                                      className="bg-green-50 text-green-700 border-green-200"
-                                    >
-                                      {skill}
-                                    </Badge>
-                                  )
-                                )}
-                              </div>
-                            </div>
-                          )}
-
-                        {/* Time Estimate */}
-                        <div className="flex items-center gap-1 text-sm text-gray-600">
-                          <Clock className="w-4 h-4" />
-                          <span className="font-medium">
-                            Estimated time: {step.time}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                {/* Toggle Switch */}
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center space-x-3">
+                    <Switch
+                      id="role-mode"
+                      checked={isCustomRole}
+                      onCheckedChange={(checked) => {
+                        setIsCustomRole(checked);
+                        if (checked) {
+                          setCurrentRole(null);
+                          setSkillsComparison(null);
+                        } else {
+                          setCustomRole("");
+                        }
+                      }}
+                    />
+                    <label htmlFor="role-mode" className="text-sm font-medium text-gray-700">
+                      {isCustomRole ? "Custom Role Input" : "Select from Available Roles"}
+                    </label>
                   </div>
-                ))}
+                  <div className="text-xs text-gray-500">
+                    {isCustomRole 
+                      ? "Enter a custom role name" 
+                      : "Choose from predefined roles"
+                    }
+                  </div>
+                </div>
+
+                <div className="flex gap-4 items-end">
+                  <div className="flex-1">
+                    <label className="text-sm font-medium text-gray-700 mb-2 block">
+                      {isCustomRole ? "Custom Role" : "Available Roles"}
+                    </label>
+                    {isCustomRole ? (
+                      <Input
+                        value={customRole}
+                        onChange={(e) => setCustomRole(e.target.value)}
+                        placeholder="Enter your target role (e.g., Senior Software Engineer)"
+                        className="w-full"
+                      />
+                    ) : (
+                      <Select
+                        value={currentRole || ""}
+                        onValueChange={handleRoleChange}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select a role to generate roadmap" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {roles.map((role) => (
+                            <SelectItem key={role} value={role}>
+                              {role}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  </div>
+                  <Button
+                    onClick={handleGenerateRoadmap}
+                    disabled={(!currentRole && !customRole.trim()) || loading}
+                    className="min-w-[140px]"
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      "Generate Roadmap"
+                    )}
+                  </Button>
+                </div>
+
+                {(currentRole || customRole.trim()) && !loading && (
+                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <Target className="w-4 h-4 text-blue-600" />
+                      <span className="text-sm font-medium text-blue-800">
+                        {isCustomRole ? "Custom Role:" : "Selected Role:"}
+                      </span>
+                      <span className="text-sm text-blue-700 font-semibold">
+                        {isCustomRole ? customRole : currentRole}
+                      </span>
+                    </div>
+                    <p className="text-xs text-blue-600 mt-1">
+                      Click &quot;Generate Roadmap&quot; to create your personalized
+                      career roadmap
+                    </p>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
-        </div>
-      )}
 
-      {/* Empty State */}
-      {!roadmap && !loading && !error && (
-        <Card>
-          <CardContent className="text-center py-12">
-            <Target className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              No Roadmap Generated
-            </h3>
-            <p className="text-gray-600">
-              Select a target role above to generate your personalized career
-              roadmap
-            </p>
-          </CardContent>
-        </Card>
+          {/* Error State */}
+          {error && (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
+          {/* Roadmap Display */}
+          {roadmap && (
+            <div className="space-y-6">
+              {/* Roadmap Overview */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <TrendingUp className="w-5 h-5" />
+                    Roadmap Overview
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600">Current Level</p>
+                      <p className="text-lg font-semibold">
+                        {roadmap.currentLevel}
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600">Target Level</p>
+                      <p className="text-lg font-semibold text-blue-600">
+                        {roadmap.targetLevel}
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600">Estimated Duration</p>
+                      <p className="text-lg font-semibold">
+                        {roadmap.totalDuration}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <div className="flex justify-between text-sm text-gray-600 mb-2">
+                      <span>Overall Progress</span>
+                      <span>{roadmap.progress}%</span>
+                    </div>
+                    <Progress value={roadmap.progress} className="h-2" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Roadmap Steps */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Roadmap Steps</CardTitle>
+                  <CardDescription>
+                    Follow these steps to reach your target role
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {roadmap.steps.map((step, index) => (
+                      <div
+                        key={step.priority + index}
+                        className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+                      >
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <div className="flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full font-semibold text-sm">
+                                {step.priority}
+                              </div>
+                              <h3 className="text-lg font-semibold">
+                                Step {step.priority}
+                              </h3>
+                              <Badge className={getPriorityColor(step.priority)}>
+                                {getPriorityLabel(step.priority)}
+                              </Badge>
+                            </div>
+                            <p className="text-gray-600 mb-4 text-base leading-relaxed">
+                              {step.action}
+                            </p>
+
+                            {/* Prerequisites */}
+                            {step.prerequisites &&
+                              step.prerequisites.length > 0 && (
+                                <div className="mb-3">
+                                  <p className="text-sm font-medium text-gray-700 mb-2">
+                                    Prerequisites:
+                                  </p>
+                                  <div className="flex flex-wrap gap-2">
+                                    {step.prerequisites.map(
+                                      (prereq, prereqIndex) => (
+                                        <Badge
+                                          key={prereqIndex}
+                                          variant="secondary"
+                                        >
+                                          {prereq}
+                                        </Badge>
+                                      )
+                                    )}
+                                  </div>
+                                </div>
+                              )}
+
+                            {/* Resources */}
+                            {step.resources && step.resources.length > 0 && (
+                              <div className="mb-3">
+                                <p className="text-sm font-medium text-gray-700 mb-2">
+                                  Recommended Resources:
+                                </p>
+                                <ul className="list-disc list-inside space-y-1 text-sm text-gray-600">
+                                  {step.resources.map((resource, resourceIndex) => (
+                                    <li key={resourceIndex}>{resource}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+
+                            {/* Skills to Learn */}
+                            {step.learned_skills &&
+                              step.learned_skills.length > 0 && (
+                                <div className="mb-3">
+                                  <p className="text-sm font-medium text-gray-700 mb-2">
+                                    Skills you&apos;ll develop:
+                                  </p>
+                                  <div className="flex flex-wrap gap-2">
+                                    {step.learned_skills.map(
+                                      (skill, skillIndex) => (
+                                        <Badge
+                                          key={skillIndex}
+                                          variant="outline"
+                                          className="bg-green-50 text-green-700 border-green-200"
+                                        >
+                                          {skill}
+                                        </Badge>
+                                      )
+                                    )}
+                                  </div>
+                                </div>
+                              )}
+
+                            {/* Time Estimate */}
+                            <div className="flex items-center gap-1 text-sm text-gray-600">
+                              <Clock className="w-4 h-4" />
+                              <span className="font-medium">
+                                Estimated time: {step.time}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Empty State */}
+          {!roadmap && !loading && !error && (
+            <Card>
+              <CardContent className="text-center py-12">
+                <Target className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  No Roadmap Generated
+                </h3>
+                <p className="text-gray-600">
+                  Select a target role above to generate your personalized career
+                  roadmap
+                </p>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       )}
     </div>
   );

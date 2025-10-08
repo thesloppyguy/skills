@@ -272,7 +272,6 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
 
         // Load role-specific skills data for preset organizations
         const roleSpecificSkillsMap = new Map<string, Task[]>();
-        console.log(org.roleSpecificSkillsMap)
         Object.entries(org.roleSpecificSkillsMap).forEach(([roleTitle, tasks]) => {
           roleSpecificSkillsMap.set(roleTitle, tasks as Task[]);
         });

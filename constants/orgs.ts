@@ -224,6 +224,10 @@ export const orgs = {
                             {
                                 "title": "Quality Assurance Manager",
                                 "definition": "Develops and enforces company quality policies and SOPs."
+                            },
+                            {
+                                "title": "Quality Assurance Specialist",
+                                "definition": "Implements quality control processes by conducting inspections, documenting test results, and supporting continuous improvement. Provides training, assists with audits, and investigates issues to improve delivery of high-quality solar solutions.",
                             }
                         ]
                     }
@@ -326,6 +330,46 @@ export const orgs = {
                         ]
                     }
                 ]
+            },
+            {
+                "name": "Sales & Marketing",
+                "definition": "Drives business growth by securing new clients, generating leads, and promoting solar energy products through strategic sales and comprehensive marketing efforts.",
+                "sub_job_families": [
+                    {
+                        "name": "Marketing & Communications",
+                        "definition": "Builds the brand, manages promotional campaigns, coordinates events, and implements strategies to connect with customers and expand solar adoption.",
+                        "job_roles": [
+                            {
+                                "title": "Marketing Manager",
+                                "definition": "Develops and oversees marketing plans and budgets, leads campaign development, manages the marketing team, monitors performance analytics, and coordinates with sales to increase market share and brand visibility.",
+                            },
+                            {
+                                "title": "Marketing Coordinator",
+                                "definition": "Supports day-to-day execution of marketing initiatives. Organizes events, prepares content, coordinates social media, tracks campaign results, and liaises with vendors to increase outreach and lead generation.",
+                            }
+                        ],
+                    }
+                ],
+            },
+            {
+                "name": "Project Management & Installation",
+                "definition": "Executes and oversees solar system projects from planning and installation through commissioning, ensuring on-time and high-quality implementation.",
+                "sub_job_families": [
+                    {
+                        "name": "Installation Management",
+                        "definition": "Coordinates and supervises installation teams and activities, ensuring project milestones are met and systems are safely and effectively installed per design.",
+                        "job_roles": [
+                            {
+                                "title": "Installation Supervisor",
+                                "definition": "Manages installation crews, oversees scheduling, enforces safety standards, allocates resources, and addresses on-site challenges to ensure timely and accurate completion of solar installations.",
+                            },
+                            {
+                                "title": "Installation Technician",
+                                "definition": "Performs hands-on assembly, wiring, and integration of solar PV systems, including mounting panels, running conduit, connecting inverters, and conducting on-site quality checks to deliver fully operational installations.",
+                            }
+                        ],
+                    }
+                ],
             }
         ]
     },

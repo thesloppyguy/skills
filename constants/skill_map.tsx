@@ -1,4 +1,3242 @@
 export const solar_skill_map = {
+        "Quality Assurance Manager":
+    {
+        "id": "4df5ff4c-93dd-4fb3-b71c-c2ed43c742c9",
+        "roleId": "23cda09f-e358-4938-abae-2941c84a97ce",
+        "roleTitle": "Quality Assurance Manager",
+        "parentDetails": {
+            "industry": "Green Energy",
+            "subEntity": "Solar Power Division",
+            "jobFamily": "Quality Control & Testing",
+            "subJobFamily": "Quality Assurance"
+        },
+        "hierarchyPath": [
+            "Green Energy",
+            "Solar Power Division",
+            "Quality Assurance",
+            "Quality Control & Testing",
+            "Quality Assurance Manager"
+        ],
+        "hierarchy": [
+            {
+                "name": "Green Energy",
+                "categories": [
+                    {
+                        "name": "Solar Power Division",
+                        "subcategories": [
+                            {
+                                "name": "Quality Assurance",
+                                "skills": [
+                                    {
+                                        "name": "Quality Management Systems",
+                                        "skill_type": "Managerial",
+                                        "subskills": [
+                                            {
+                                                "name": "ISO 9001 Compliance",
+                                                "skill_type": "Technical",
+                                                "weight": 9,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Understand ISO 9001 basics",
+                                                        "Identify documentation requirements",
+                                                        "Attend ISO awareness sessions",
+                                                        "Monitor compliance basics",
+                                                        "Assist in document preparation"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Support gap analysis",
+                                                        "Participate in internal audits",
+                                                        "Assist in corrective actions",
+                                                        "Draft compliance reports",
+                                                        "Coordinate with departments"
+                                                    ],
+                                                    "advanced": [
+                                                        "Lead ISO audits",
+                                                        "Evaluate compliance processes",
+                                                        "Drive continual improvement",
+                                                        "Train staff on ISO standards",
+                                                        "Develop audit strategies"
+                                                    ],
+                                                    "expert": [
+                                                        "Design ISO-based QMS for large teams",
+                                                        "Consult on ISO implementation",
+                                                        "Advise on multi-site audits",
+                                                        "Optimize system integration",
+                                                        "Shape ISO policy for division"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Document Control",
+                                                "skill_type": "Managerial",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Track quality documents",
+                                                        "Assist with version management",
+                                                        "Deliver documents for audits",
+                                                        "Identify document types",
+                                                        "Support electronic filing"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Implement document control processes",
+                                                        "Coordinate updates and reviews",
+                                                        "Train team on document control",
+                                                        "Audit document practices",
+                                                        "Ensure data integrity"
+                                                    ],
+                                                    "advanced": [
+                                                        "Design document management systems",
+                                                        "Optimize control workflows",
+                                                        "Lead digital transition initiatives",
+                                                        "Establish access controls",
+                                                        "Set documentation KPIs"
+                                                    ],
+                                                    "expert": [
+                                                        "Integrate cross-department systems",
+                                                        "Innovate on control standards",
+                                                        "Mentor on advanced systems",
+                                                        "Advise on legal compliance",
+                                                        "Shape policies on global scale"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 9,
+                                        "levels": {
+                                            "beginner": [
+                                                "Follow established quality procedures",
+                                                "Understand quality policy basics",
+                                                "Assist with quality records",
+                                                "Observe quality standards in activities",
+                                                "Report minor issues"
+                                            ],
+                                            "intermediate": [
+                                                "Document processes",
+                                                "Verify adherence to procedures",
+                                                "Conduct quality checks",
+                                                "Support internal audits",
+                                                "Respond to minor nonconformities"
+                                            ],
+                                            "advanced": [
+                                                "Lead process audits",
+                                                "Analyze quality metrics",
+                                                "Implement improvement plans",
+                                                "Develop departmental quality manuals",
+                                                "Train teams on QMS"
+                                            ],
+                                            "expert": [
+                                                "Strategize quality improvements",
+                                                "Author division policies",
+                                                "Represent in external audits",
+                                                "Lead cross-functional improvement projects",
+                                                "Consult on industry best practices"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Root Cause Analysis",
+                                        "skill_type": "Technical",
+                                        "subskills": [
+                                            {
+                                                "name": "Five Whys",
+                                                "skill_type": "Technical",
+                                                "weight": 6,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "List immediate causes",
+                                                        "Participate in questioning sessions",
+                                                        "Collect incident data",
+                                                        "Record findings",
+                                                        "Identify basic trends"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Lead 5 Whys analysis",
+                                                        "Document cause chains",
+                                                        "Train junior staff",
+                                                        "Summarize complex findings",
+                                                        "Integrate with other RCA tools"
+                                                    ],
+                                                    "advanced": [
+                                                        "Combine multiple RCA tools",
+                                                        "Develop templates",
+                                                        "Drive continuous improvement based on findings",
+                                                        "Coach teams",
+                                                        "Prevent recurrence through system fixes"
+                                                    ],
+                                                    "expert": [
+                                                        "Lead organization-wide campaigns",
+                                                        "Benchmark RCA practices",
+                                                        "Shape industry guidance",
+                                                        "Author case studies",
+                                                        "Review high-stakes incidents"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 8,
+                                        "levels": {
+                                            "beginner": [
+                                                "Assist in data gathering",
+                                                "Apply basic RCA methods",
+                                                "Document observations",
+                                                "Support simple investigations",
+                                                "Identify process errors"
+                                            ],
+                                            "intermediate": [
+                                                "Facilitate RCA meetings",
+                                                "Draft root cause reports",
+                                                "Train peers",
+                                                "Track recurring issues",
+                                                "Recommend corrective actions"
+                                            ],
+                                            "advanced": [
+                                                "Lead cross-team RCAs",
+                                                "Refine RCA tools",
+                                                "Implement systemic solutions",
+                                                "Mentor in RCA methodology",
+                                                "Advance division standards"
+                                            ],
+                                            "expert": [
+                                                "Design divisional RCA programs",
+                                                "Consult for industry bodies",
+                                                "Pioneer new RCA models",
+                                                "Audit industry critical events",
+                                                "Lead high-impact investigations"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Statistical Process Control",
+                                        "skill_type": "Technical",
+                                        "subskills": [
+                                            {
+                                                "name": "Control Charts",
+                                                "skill_type": "Technical",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Understand chart basics",
+                                                        "Plot sample data",
+                                                        "Recognize normal vs abnormal",
+                                                        "Learn common types (X-bar, R)",
+                                                        "Support sample collection"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Apply control charts to processes",
+                                                        "Interpret chart signals",
+                                                        "Troubleshoot out-of-control situations",
+                                                        "Train operators",
+                                                        "Integrate charts with reports"
+                                                    ],
+                                                    "advanced": [
+                                                        "Design advanced chart applications",
+                                                        "Automate SPC data",
+                                                        "Coach cross-functional teams",
+                                                        "Optimize chart choice per process",
+                                                        "Review division-wide control charts"
+                                                    ],
+                                                    "expert": [
+                                                        "Advise at industry level",
+                                                        "Develop custom statistical tools",
+                                                        "Integrate AI in SPC",
+                                                        "Teach industry partners",
+                                                        "Author best practices"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 7,
+                                        "levels": {
+                                            "beginner": [
+                                                "Plot basic SPC charts",
+                                                "Collect and enter data",
+                                                "Assist in analysis",
+                                                "Read simple trends",
+                                                "Identify outliers"
+                                            ],
+                                            "intermediate": [
+                                                "Interpret SPC results",
+                                                "Suggest improvements",
+                                                "Troubleshoot quality variances",
+                                                "Educate staff on SPC",
+                                                "Prepare SPC reports"
+                                            ],
+                                            "advanced": [
+                                                "Design SPC strategies",
+                                                "Automate analysis",
+                                                "Integrate SPC with ERP",
+                                                "Lead SPC workshops",
+                                                "Standardize SPC processes"
+                                            ],
+                                            "expert": [
+                                                "Innovate on process controls",
+                                                "Consult division-wide programs",
+                                                "Benchmark SPC industry standards",
+                                                "Publish on SPC trends",
+                                                "Guide cross-company initiatives"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Supplier Quality Management",
+                                        "skill_type": "Managerial",
+                                        "subskills": [
+                                            {
+                                                "name": "Supplier Audits",
+                                                "skill_type": "Managerial",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Assist with audit planning",
+                                                        "Understand basics of supplier quality requirements",
+                                                        "Document audit results",
+                                                        "Participate in entry-level audits",
+                                                        "Provide supplier feedback"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Conduct routine supplier audits",
+                                                        "Interpret audit findings",
+                                                        "Support corrective actions",
+                                                        "Communicate requirements to suppliers",
+                                                        "Maintain supplier records"
+                                                    ],
+                                                    "advanced": [
+                                                        "Lead high-value supplier audits",
+                                                        "Negotiate improvement plans",
+                                                        "Train suppliers on expectations",
+                                                        "Set audit criteria",
+                                                        "Drive supplier development initiatives"
+                                                    ],
+                                                    "expert": [
+                                                        "Establish global supplier audit programs",
+                                                        "Innovate supplier audit procedures",
+                                                        "Mentor teams worldwide",
+                                                        "Represent division to key suppliers",
+                                                        "Align multi-site supplier strategies"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 8,
+                                        "levels": {
+                                            "beginner": [
+                                                "Record supplier performance",
+                                                "Participate in evaluations",
+                                                "Support quality criteria communication",
+                                                "Help track supplier complaints",
+                                                "Assist in audits"
+                                            ],
+                                            "intermediate": [
+                                                "Develop audit schedules",
+                                                "Analyze supplier data",
+                                                "Collaborate on improvement plans",
+                                                "Maintain supplier scorecards",
+                                                "Address performance gaps"
+                                            ],
+                                            "advanced": [
+                                                "Lead strategic supplier reviews",
+                                                "Establish quality agreements",
+                                                "Drive supplier development",
+                                                "Integrate supplier quality systems",
+                                                "Conduct global benchmarking"
+                                            ],
+                                            "expert": [
+                                                "Design division-wide SI programs",
+                                                "Influence supplier industry standards",
+                                                "Lead supplier innovation projects",
+                                                "Mentor supplier quality managers",
+                                                "Author best practices"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Internal Auditing",
+                                        "skill_type": "Functional",
+                                        "subskills": [
+                                            {
+                                                "name": "Audit Planning",
+                                                "skill_type": "Managerial",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Support scheduling",
+                                                        "Help collect audit evidence",
+                                                        "Review checklists",
+                                                        "Participate in simple audits",
+                                                        "Document findings"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Prepare audit plans",
+                                                        "Assign team roles",
+                                                        "Coordinate across departments",
+                                                        "Draft detailed audit reports",
+                                                        "Evaluate compliance gaps"
+                                                    ],
+                                                    "advanced": [
+                                                        "Design audit programs",
+                                                        "Train new auditors",
+                                                        "Lead risk assessment reviews",
+                                                        "Innovate audit tools",
+                                                        "Optimize schedules"
+                                                    ],
+                                                    "expert": [
+                                                        "Lead complex multi-site audits",
+                                                        "Influence policy through audits",
+                                                        "Mentor audit leaders",
+                                                        "Represent audits to regulators",
+                                                        "Shape audit methodologies"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 7,
+                                        "levels": {
+                                            "beginner": [
+                                                "Attend audit briefings",
+                                                "Record audit evidence",
+                                                "Summarize basic findings",
+                                                "Learn compliance basics",
+                                                "Assist lead auditors"
+                                            ],
+                                            "intermediate": [
+                                                "Take part in audit plans",
+                                                "Draft action items",
+                                                "Coordinate post-audit actions",
+                                                "Educate teams",
+                                                "Keep audit schedules"
+                                            ],
+                                            "advanced": [
+                                                "Lead entire internal audits",
+                                                "Manage post-audit plans",
+                                                "Create audit protocols",
+                                                "Advance audit innovation",
+                                                "Mentor auditors"
+                                            ],
+                                            "expert": [
+                                                "Review all-division audits",
+                                                "Lead training at industry level",
+                                                "Standardize audit best practices",
+                                                "Shape corporate strategy",
+                                                "Innovate next-generation audits"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "ontology": [
+            {
+                "role_or_skill_name": "Quality Assurance Manager",
+                "relationships": [
+                    {
+                        "type": "Core",
+                        "related_skills": [
+                            "Quality Management Systems",
+                            "Root Cause Analysis",
+                            "Statistical Process Control",
+                            "Supplier Quality Management",
+                            "Internal Auditing"
+                        ]
+                    },
+                    {
+                        "type": "Complementary",
+                        "related_skills": [
+                            "Leadership",
+                            "Team Development",
+                            "Regulatory Compliance",
+                            "Continuous Improvement"
+                        ]
+                    },
+                    {
+                        "type": "Prerequisite",
+                        "related_skills": [
+                            "QA Team Member Skills",
+                            "Solar Energy Fundamentals"
+                        ]
+                    }
+                ]
+            },
+            {
+                "role_or_skill_name": "ISO 9001 Compliance",
+                "relationships": [
+                    {
+                        "type": "Prerequisite",
+                        "related_skills": [
+                            "Document Control"
+                        ]
+                    },
+                    {
+                        "type": "Complementary",
+                        "related_skills": [
+                            "Internal Auditing",
+                            "Process Improvement"
+                        ]
+                    }
+                ]
+            },
+            {
+                "role_or_skill_name": "Root Cause Analysis",
+                "relationships": [
+                    {
+                        "type": "Progressive",
+                        "related_skills": [
+                            "Five Whys",
+                            "Fishbone Diagram"
+                        ]
+                    },
+                    {
+                        "type": "Complementary",
+                        "related_skills": [
+                            "Corrective Actions",
+                            "Continuous Improvement"
+                        ]
+                    }
+                ]
+            },
+            {
+                "role_or_skill_name": "Supplier Quality Management",
+                "relationships": [
+                    {
+                        "type": "Core",
+                        "related_skills": [
+                            "Supplier Audits",
+                            "Supplier Evaluation"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "generatedAt": "2025-10-08T05:20:16.417Z"
+        },
+        "Quality Assurance Specialist":
+    {
+        "id": "a4a04006-999b-4f85-9a7f-2526b57fe419",
+        "roleId": "784d0181-c3e2-4355-83ae-ec5bdb9d0b6f",
+        "roleTitle": "Quality Assurance Specialist",
+        "parentDetails": {
+            "industry": "Green Energy",
+            "subEntity": "Solar Power Division",
+            "jobFamily": "Quality Control & Testing",
+            "subJobFamily": "Quality Assurance"
+        },
+        "hierarchyPath": [
+            "Green Energy",
+            "Solar Power Division",
+            "Quality Assurance",
+            "Quality Control & Testing",
+            "Quality Assurance Specialist"
+        ],
+        "hierarchy": [
+            {
+                "name": "Green Energy",
+                "categories": [
+                    {
+                        "name": "Solar Power Division",
+                        "subcategories": [
+                            {
+                                "name": "Quality Assurance",
+                                "skills": [
+                                    {
+                                        "name": "Inspection Processes",
+                                        "skill_type": "Technical",
+                                        "subskills": [
+                                            {
+                                                "name": "Visual Inspection",
+                                                "skill_type": "Technical",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Identify obvious defects in solar panels",
+                                                        "Follow visual inspection checklists",
+                                                        "Report visible anomalies",
+                                                        "Use basic magnification tools",
+                                                        "Recognize common surface issues"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Interpret minor cosmetic defects",
+                                                        "Distinguish between acceptable & critical flaws",
+                                                        "Document findings with photography",
+                                                        "Use advanced magnifiers",
+                                                        "Perform inspections under various lighting"
+                                                    ],
+                                                    "advanced": [
+                                                        "Lead root cause analysis on visual defects",
+                                                        "Train others on visual inspection standards",
+                                                        "Optimize visual inspection techniques",
+                                                        "Correlate defects to production steps",
+                                                        "Audit visual inspection processes"
+                                                    ],
+                                                    "expert": [
+                                                        "Set organization-wide visual inspection standards",
+                                                        "Innovate new inspection technology",
+                                                        "Integrate visual inspection into quality frameworks",
+                                                        "Consult on visual standards externally",
+                                                        "Conduct multi-site benchmarking studies"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Dimensional Measurement",
+                                                "skill_type": "Technical",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Use calipers and rulers",
+                                                        "Understand tolerance specifications",
+                                                        "Read basic measurement drawings",
+                                                        "Record measurements in logs",
+                                                        "Identify out-of-spec parts"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Use coordinate measuring machines",
+                                                        "Interpret GD&T symbols",
+                                                        "Troubleshoot measurement discrepancies",
+                                                        "Analyze variation trends",
+                                                        "Calibrate tools"
+                                                    ],
+                                                    "advanced": [
+                                                        "Develop inspection plans",
+                                                        "Validate measurement systems",
+                                                        "Train team on measurement protocols",
+                                                        "Lead measurement audits",
+                                                        "Write SOPs for dimensional inspection"
+                                                    ],
+                                                    "expert": [
+                                                        "Design new measurement systems",
+                                                        "Represent org in external measurement forums",
+                                                        "Author technical papers on measurement",
+                                                        "Set corporate dimensional control policy",
+                                                        "Oversee metrology infrastructure"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 10,
+                                        "levels": {
+                                            "beginner": [
+                                                "Follow standard inspection checklists",
+                                                "Tag and segregate defective components",
+                                                "Document basic findings",
+                                                "Use inspection tools per SOP",
+                                                "Participate in routine quality meetings"
+                                            ],
+                                            "intermediate": [
+                                                "Interpret inspection results",
+                                                "Recommend corrective action",
+                                                "Conduct sampling inspections",
+                                                "Use advanced measurement tools",
+                                                "Prepare inspection reports"
+                                            ],
+                                            "advanced": [
+                                                "Supervise inspection team",
+                                                "Develop checklists and standards",
+                                                "Audit inspection processes",
+                                                "Train staff on inspection best practices",
+                                                "Implement sampling plans"
+                                            ],
+                                            "expert": [
+                                                "Design division-wide inspection strategy",
+                                                "Benchmark external QA practices",
+                                                "Set global inspection standards",
+                                                "Lead multi-site inspections",
+                                                "Consult for external QA teams"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Testing Protocols",
+                                        "skill_type": "Technical",
+                                        "subskills": [
+                                            {
+                                                "name": "Electrical Testing",
+                                                "skill_type": "Technical",
+                                                "weight": 9,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Read voltmeters",
+                                                        "Test panel output under supervision",
+                                                        "Check simple wiring continuity",
+                                                        "Refer to standard test procedures",
+                                                        "Help with test data entry"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Follow complex test protocols",
+                                                        "Analyze simple output variances",
+                                                        "Troubleshoot failed panels",
+                                                        "Document recurring faults",
+                                                        "Configure basic test equipment"
+                                                    ],
+                                                    "advanced": [
+                                                        "Develop custom test scripts",
+                                                        "Audit electrical safety procedures",
+                                                        "Interpret advanced test data",
+                                                        "Train staff in electrical testing",
+                                                        "Validate test equipment"
+                                                    ],
+                                                    "expert": [
+                                                        "Design non-standard test regimens",
+                                                        "Push global test innovation",
+                                                        "Represent org at industry forums",
+                                                        "Set advanced test criteria",
+                                                        "Consult on large-scale failures"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Mechanical Durability Testing",
+                                                "skill_type": "Technical",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Assist with vibration tests",
+                                                        "Set up panel mounting rigs",
+                                                        "Record mechanical data",
+                                                        "Follow durability test plans",
+                                                        "Identify panel failures"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Calibrate test equipment",
+                                                        "Report on environmental test results",
+                                                        "Analyze stress/strain data",
+                                                        "Troubleshoot mechanical faults",
+                                                        "Document test deviations"
+                                                    ],
+                                                    "advanced": [
+                                                        "Develop mechanical test scenarios",
+                                                        "Optimize durability test cycles",
+                                                        "Lead training on test protocols",
+                                                        "Audit mechanical testing labs",
+                                                        "Draft new test procedures"
+                                                    ],
+                                                    "expert": [
+                                                        "Set industry durability benchmarks",
+                                                        "Lead external mechanical test consultations",
+                                                        "Design new testing methodologies",
+                                                        "Oversee multi-site mechanical test labs",
+                                                        "Publish best practice guides"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 10,
+                                        "levels": {
+                                            "beginner": [
+                                                "Perform basic tests according to script",
+                                                "Record test data accurately",
+                                                "Identify pass/fail results",
+                                                "Maintain testing logs",
+                                                "Comply with safety procedures"
+                                            ],
+                                            "intermediate": [
+                                                "Analyze test output",
+                                                "Troubleshoot failed tests",
+                                                "Develop test reports",
+                                                "Suggest corrective actions",
+                                                "Support new test development"
+                                            ],
+                                            "advanced": [
+                                                "Lead test protocol reviews",
+                                                "Validate test methods",
+                                                "Audit test outcomes for accuracy",
+                                                "Develop test training material",
+                                                "Coordinate inter-team test cycles"
+                                            ],
+                                            "expert": [
+                                                "Establish new protocol benchmarks",
+                                                "Set divisional testing policies",
+                                                "Represent testing at industry conferences",
+                                                "Benchmark across sites",
+                                                "Mentor cross-disciplinary test leaders"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Root Cause Analysis",
+                                        "skill_type": "Technical",
+                                        "subskills": [
+                                            {
+                                                "name": "5 Whys Analysis",
+                                                "skill_type": "Technical",
+                                                "weight": 6,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Ask basic 'why' questions",
+                                                        "Document responses",
+                                                        "Follow RCA templates",
+                                                        "Work with mentor on analysis",
+                                                        "Record chain of events"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Lead group RCA sessions",
+                                                        "Identify immediate vs deeper causes",
+                                                        "Suggest intermediate countermeasures",
+                                                        "Diagram causal chains",
+                                                        "Document lessons learned"
+                                                    ],
+                                                    "advanced": [
+                                                        "Facilitate cross-team RCAs",
+                                                        "Develop templates for RCA",
+                                                        "Train new hires on process",
+                                                        "Integrate RCA with CAPA",
+                                                        "Audit RCAs for thoroughness"
+                                                    ],
+                                                    "expert": [
+                                                        "Optimize RCA process site-wide",
+                                                        "Benchmark best practices",
+                                                        "Coach external partners",
+                                                        "Innovate RCA visual tools",
+                                                        "Publish case studies"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 9,
+                                        "levels": {
+                                            "beginner": [
+                                                "Participate in corrective action teams",
+                                                "Document process failures",
+                                                "Use basic problem-solving worksheets",
+                                                "Register non-conformances",
+                                                "Support data gathering for analysis"
+                                            ],
+                                            "intermediate": [
+                                                "Lead mini-root cause groups",
+                                                "Apply basic cause-effect diagrams",
+                                                "Present findings to team",
+                                                "Develop action plans",
+                                                "Track corrective actions"
+                                            ],
+                                            "advanced": [
+                                                "Facilitate major RCAs",
+                                                "Prepare management reports",
+                                                "Develop site-level corrective strategies",
+                                                "Audit for recurring issues",
+                                                "Lead continuous improvement projects"
+                                            ],
+                                            "expert": [
+                                                "Set cross-division analysis standards",
+                                                "Mentor global RCA practice",
+                                                "Lead industry working groups",
+                                                "Innovate analysis tools",
+                                                "Publish benchmarking data"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Documentation & Reporting",
+                                        "skill_type": "Functional",
+                                        "subskills": [
+                                            {
+                                                "name": "Non-Conformance Reports",
+                                                "skill_type": "Functional",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Fill out NCR templates",
+                                                        "Describe basic issues",
+                                                        "Attach evidence to reports",
+                                                        "Submit reports on time",
+                                                        "Follow up on completion"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Analyze NCR frequency",
+                                                        "Present NCR trends",
+                                                        "Improve reporting formats",
+                                                        "Integrate NCR with QA systems",
+                                                        "Train others in NCR process"
+                                                    ],
+                                                    "advanced": [
+                                                        "Automate NCRs with digital tools",
+                                                        "Set up dashboards",
+                                                        "Develop cross-team NCR protocols",
+                                                        "Audit NCR quality",
+                                                        "Lead site NCR governance"
+                                                    ],
+                                                    "expert": [
+                                                        "Standardize NCR globally",
+                                                        "Innovate reporting frameworks",
+                                                        "Represent org in digital QA",
+                                                        "Publish case studies",
+                                                        "Coach external partners"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 8,
+                                        "levels": {
+                                            "beginner": [
+                                                "Prepare basic QA logs",
+                                                "Document routine findings",
+                                                "Organize QA files",
+                                                "Submit daily/weekly reports",
+                                                "Follow template guidelines"
+                                            ],
+                                            "intermediate": [
+                                                "Write detailed investigation summaries",
+                                                "Present data to team",
+                                                "Introduce improvements in formats",
+                                                "Train new hires on reporting",
+                                                "Validate report accuracy"
+                                            ],
+                                            "advanced": [
+                                                "Automate reporting where possible",
+                                                "Design custom report formats",
+                                                "Lead reporting audits",
+                                                "Integrate QA data with corporate systems",
+                                                "Coach team members"
+                                            ],
+                                            "expert": [
+                                                "Establish reporting policy",
+                                                "Benchmark best practices",
+                                                "Consult for other divisions",
+                                                "Present at industry forums",
+                                                "Publish in QA journals"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Continuous Improvement",
+                                        "skill_type": "Managerial",
+                                        "subskills": [
+                                            {
+                                                "name": "Kaizen Initiatives",
+                                                "skill_type": "Managerial",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Participate in suggestion programs",
+                                                        "Attend Kaizen events",
+                                                        "Document improvement ideas",
+                                                        "Implement small fixes",
+                                                        "Support team projects"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Lead simple Kaizens",
+                                                        "Analyze benefit metrics",
+                                                        "Present successes to management",
+                                                        "Standardize effective changes",
+                                                        "Mentor new participants"
+                                                    ],
+                                                    "advanced": [
+                                                        "Facilitate site-wide initiatives",
+                                                        "Audit improvement outcomes",
+                                                        "Report to leadership",
+                                                        "Train Kaizen leaders",
+                                                        "Set up Kaizen councils"
+                                                    ],
+                                                    "expert": [
+                                                        "Innovate new idea systems",
+                                                        "Represent org at industry CQI events",
+                                                        "Consult for external partners",
+                                                        "Develop new Kaizen frameworks",
+                                                        "Publish improvement case studies"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 7,
+                                        "levels": {
+                                            "beginner": [
+                                                "Suggest small improvements",
+                                                "Join team meetings",
+                                                "Support troubleshooting sessions",
+                                                "Document improvement ideas",
+                                                "Participate in process reviews"
+                                            ],
+                                            "intermediate": [
+                                                "Lead minor improvement events",
+                                                "Monitor improvement KPIs",
+                                                "Share best practices",
+                                                "Conduct small project reviews",
+                                                "Train new team members"
+                                            ],
+                                            "advanced": [
+                                                "Coordinate site improvement strategies",
+                                                "Audit improvement outcomes",
+                                                "Facilitate cross-department workshops",
+                                                "Develop improvement playbooks",
+                                                "Report results to leadership"
+                                            ],
+                                            "expert": [
+                                                "Set division-wide improvement strategy",
+                                                "Represent org at industry events",
+                                                "Mentor global improvement teams",
+                                                "Publish improvement methodologies",
+                                                "Consult for external teams"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "ontology": [
+            {
+                "role_or_skill_name": "Quality Assurance Specialist",
+                "relationships": [
+                    {
+                        "type": "Core",
+                        "related_skills": [
+                            "Inspection Processes",
+                            "Testing Protocols",
+                            "Root Cause Analysis",
+                            "Documentation & Reporting",
+                            "Continuous Improvement"
+                        ]
+                    },
+                    {
+                        "type": "Prerequisite",
+                        "related_skills": [
+                            "Visual Inspection",
+                            "Electrical Testing",
+                            "Non-Conformance Reports"
+                        ]
+                    },
+                    {
+                        "type": "Complementary",
+                        "related_skills": [
+                            "Environmental Awareness",
+                            "Team Collaboration",
+                            "Data Analysis"
+                        ]
+                    },
+                    {
+                        "type": "Advanced",
+                        "related_skills": [
+                            "5 Whys Analysis",
+                            "Kaizen Initiatives"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "generatedAt": "2025-10-08T05:21:14.670Z"
+        },
+        "Marketing Manager":
+    {
+        "id": "bccab7ab-d8d4-40db-934f-d41f1b0ce4cd",
+        "roleId": "3bc12aab-9059-40a5-b998-c6c889f3e32c",
+        "roleTitle": "Marketing Manager",
+        "parentDetails": {
+            "industry": "Green Energy",
+            "subEntity": "Solar Power Division",
+            "jobFamily": "Marketing & Communications",
+            "subJobFamily": "Sales & Marketing"
+        },
+        "hierarchyPath": [
+            "Green Energy",
+            "Solar Power Division",
+            "Sales & Marketing",
+            "Marketing & Communications",
+            "Marketing Manager"
+        ],
+        "hierarchy": [
+            {
+                "name": "Green Energy",
+                "categories": [
+                    {
+                        "name": "Solar Power Division",
+                        "subcategories": [
+                            {
+                                "name": "Sales & Marketing",
+                                "skills": [
+                                    {
+                                        "name": "Market Analysis",
+                                        "skill_type": "Technical",
+                                        "subskills": [
+                                            {
+                                                "name": "Competitive Benchmarking",
+                                                "skill_type": "Technical",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Identify competitors in solar energy",
+                                                        "list competitive products",
+                                                        "collect published pricing data",
+                                                        "gather competitor marketing materials",
+                                                        "summarize overall findings"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Analyze market share of main competitors",
+                                                        "Evaluate unique selling points",
+                                                        "Summarize strengths and weaknesses",
+                                                        "Interpret competitor customer reviews",
+                                                        "Use benchmarking tools"
+                                                    ],
+                                                    "advanced": [
+                                                        "Develop competitor profiles",
+                                                        "Benchmark product features vs. competitors",
+                                                        "Utilize advanced market data platforms",
+                                                        "Predict competitor moves",
+                                                        "Present recommendations to management"
+                                                    ],
+                                                    "expert": [
+                                                        "Design comprehensive market benchmarking systems",
+                                                        "Lead competitive intelligence projects",
+                                                        "Innovate new benchmarking methodologies",
+                                                        "Advise strategy based on deep analysis",
+                                                        "Integrate benchmarking into org-wide planning"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Trend Analysis",
+                                                "skill_type": "Technical",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Observe industry-level news",
+                                                        "Track basic solar trends",
+                                                        "List government initiatives",
+                                                        "Read analyst reports",
+                                                        "Identify new product launches"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Chart emerging adoption patterns",
+                                                        "Correlate policy impacts",
+                                                        "Review supply chain shifts",
+                                                        "Report on trend drivers",
+                                                        "Use basic trend analysis tools"
+                                                    ],
+                                                    "advanced": [
+                                                        "Forecast future industry trends",
+                                                        "Leverage solar adoption models",
+                                                        "Analyze multi-year market shifts",
+                                                        "Present strategic trend findings",
+                                                        "Benchmark forecasts vs. real data"
+                                                    ],
+                                                    "expert": [
+                                                        "Lead industry-level trend research",
+                                                        "Innovate new forecasting models",
+                                                        "Advise C-Suite with trend-driven recommendations",
+                                                        "Co-author market outlook reports",
+                                                        "Identify and leverage new market creation trends"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 10,
+                                        "levels": {
+                                            "beginner": [
+                                                "Assist with marketing reports",
+                                                "Gather market data",
+                                                "Support senior marketers",
+                                                "Compile basic competitive data",
+                                                "Distribute surveys"
+                                            ],
+                                            "intermediate": [
+                                                "Conduct market segmentation",
+                                                "Carry out customer research",
+                                                "Supervise marketing interns",
+                                                "Analyze direct competitors",
+                                                "Create standard marketing presentations"
+                                            ],
+                                            "advanced": [
+                                                "Design in-depth market studies",
+                                                "Lead customer insight initiatives",
+                                                "Interpret quantitative/qualitative data",
+                                                "Present to senior management",
+                                                "Develop research frameworks"
+                                            ],
+                                            "expert": [
+                                                "Oversee strategic market intelligence",
+                                                "Innovate new research methodologies",
+                                                "Advise executive decisions from insights",
+                                                "Mentor research teams",
+                                                "Shape overall market analysis strategy"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Product Positioning",
+                                        "skill_type": "Technical",
+                                        "subskills": [
+                                            {
+                                                "name": "Value Proposition Design",
+                                                "skill_type": "Technical",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Summarize product benefits",
+                                                        "Describe basic features/functions",
+                                                        "Assist in product messaging",
+                                                        "Document value points",
+                                                        "Compare with competitive offerings"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Identify key customer needs",
+                                                        "Align features to needs",
+                                                        "Draft initial value propositions",
+                                                        "Refine messages based on feedback",
+                                                        "Test value messages"
+                                                    ],
+                                                    "advanced": [
+                                                        "Lead client interviews to expand value statements",
+                                                        "Design differentiated product positioning",
+                                                        "Tailor value propositions by segment",
+                                                        "Integrate competitor analysis into messaging",
+                                                        "Guide cross-functional teams"
+                                                    ],
+                                                    "expert": [
+                                                        "Architect enterprise-level value frameworks",
+                                                        "Mentor in value-driven design",
+                                                        "Innovate new message architectures",
+                                                        "Advise business leaders",
+                                                        "Optimize value delivery by strategy"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Brand Management",
+                                                "skill_type": "Technical",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Follow brand guidelines",
+                                                        "Apply brand assets in materials",
+                                                        "Recognize logo usage requirements",
+                                                        "Identify brand tone",
+                                                        "Document brand assets"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Enforce brand consistency",
+                                                        "Brief creative teams",
+                                                        "Oversee collateral updates",
+                                                        "Guide use of digital brand assets",
+                                                        "Update style guides"
+                                                    ],
+                                                    "advanced": [
+                                                        "Develop sub-brand guidelines",
+                                                        "Oversee full product rebranding",
+                                                        "Manage brand audit projects",
+                                                        "Present brand strategy recommendations",
+                                                        "Evaluate creative campaigns"
+                                                    ],
+                                                    "expert": [
+                                                        "Architect new brand identity programs",
+                                                        "Shape long-term brand equity",
+                                                        "Lead multi-product brand portfolio management",
+                                                        "Advise on global expansion branding",
+                                                        "Mentor organization in brand best practices"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 9,
+                                        "levels": {
+                                            "beginner": [
+                                                "Support positioning research",
+                                                "Draft key messages",
+                                                "Adapt product messages",
+                                                "Build presentation decks",
+                                                "Participate in creative brainstorming"
+                                            ],
+                                            "intermediate": [
+                                                "Develop positioning documentation",
+                                                "Collaborate with product teams",
+                                                "Test customer responses",
+                                                "Support PR campaigns",
+                                                "Help coordinate launch plans"
+                                            ],
+                                            "advanced": [
+                                                "Own product positioning strategy",
+                                                "Lead content development",
+                                                "Guide communications teams",
+                                                "Act as positioning expert",
+                                                "Coach in message consistency"
+                                            ],
+                                            "expert": [
+                                                "Develop company-wide positioning strategy",
+                                                "Advise executive presentations",
+                                                "Mentor other marketers on positioning",
+                                                "Integrate global insights into strategy",
+                                                "Allocate resources for maximum impact"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Campaign Management",
+                                        "skill_type": "Technical",
+                                        "subskills": [
+                                            {
+                                                "name": "Digital Marketing",
+                                                "skill_type": "Technical",
+                                                "weight": 9,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Schedule social posts",
+                                                        "Upload email lists",
+                                                        "Draft ad copy",
+                                                        "Use campaign dashboards",
+                                                        "QA digital assets"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Optimize paid ad budgets",
+                                                        "Segment email audiences",
+                                                        "Analyze simple campaign results",
+                                                        "Run A/B tests",
+                                                        "Create landing pages"
+                                                    ],
+                                                    "advanced": [
+                                                        "Plan omni-channel digital campaigns",
+                                                        "Manage marketing automation",
+                                                        "Supervise SEO/SEM strategies",
+                                                        "Optimize multi-step conversion funnels",
+                                                        "Report ROI to management"
+                                                    ],
+                                                    "expert": [
+                                                        "Architect digital strategy",
+                                                        "Implement scaled automation",
+                                                        "Guide cross-geo digital initiatives",
+                                                        "Lead digital transformation projects",
+                                                        "Mentor marketers in digital best practices"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Event Marketing",
+                                                "skill_type": "Technical",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Coordinate logistics",
+                                                        "Support collateral development",
+                                                        "Register attendees",
+                                                        "Manage event timelines",
+                                                        "Track RSVPs"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Source event vendors",
+                                                        "Manage event budgets",
+                                                        "Design event materials",
+                                                        "Collaborate with sales",
+                                                        "Report event success"
+                                                    ],
+                                                    "advanced": [
+                                                        "Develop own event strategy",
+                                                        "Lead cross-channel event promotion",
+                                                        "Evaluate event ROI",
+                                                        "Implement lead-capture systems",
+                                                        "Report executive summaries"
+                                                    ],
+                                                    "expert": [
+                                                        "Lead multi-event programs",
+                                                        "Innovate industry event experiences",
+                                                        "Secure sponsorships",
+                                                        "Mentor event teams",
+                                                        "Advise on global event portfolios"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 10,
+                                        "levels": {
+                                            "beginner": [
+                                                "Assist with campaign setup",
+                                                "Support ad creation",
+                                                "Monitor live campaigns",
+                                                "Report campaign results",
+                                                "Follow up with prospects"
+                                            ],
+                                            "intermediate": [
+                                                "Manage campaign budgets",
+                                                "Optimize campaign assets",
+                                                "Supervise campaign workflows",
+                                                "Edit campaign content",
+                                                "Test campaign performance"
+                                            ],
+                                            "advanced": [
+                                                "Design multi-channel campaigns",
+                                                "Lead end-to-end campaign execution",
+                                                "Oversee campaign analytics",
+                                                "Report insights to management",
+                                                "Coordinate large launch events"
+                                            ],
+                                            "expert": [
+                                                "Architect integrated marketing campaigns",
+                                                "Mentor teams in campaign delivery",
+                                                "Advise enterprise campaign strategy",
+                                                "Coach crisis-response campaigns",
+                                                "Standardize campaign management processes"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Sales Enablement",
+                                        "skill_type": "Functional",
+                                        "subskills": [
+                                            {
+                                                "name": "Collateral Development",
+                                                "skill_type": "Technical",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Create simple brochures",
+                                                        "Format product one-pagers",
+                                                        "Edit price lists",
+                                                        "Update factsheets",
+                                                        "Assemble presentations"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Write detailed FAQs",
+                                                        "Coordinate content approvals",
+                                                        "Edit technical data sheets",
+                                                        "Design simple infographics",
+                                                        "Maintain collateral library"
+                                                    ],
+                                                    "advanced": [
+                                                        "Lead collateral strategy",
+                                                        "Oversee cross-functional input",
+                                                        "Generate multimedia sales tools",
+                                                        "Evaluate tool effectiveness",
+                                                        "Execute large collateral rollouts"
+                                                    ],
+                                                    "expert": [
+                                                        "Innovate new collateral formats",
+                                                        "Advise collateral digitization",
+                                                        "Mentor junior content creators",
+                                                        "Align collateral to enterprise strategy",
+                                                        "Present at national/international sales meetings"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Training & Onboarding",
+                                                "skill_type": "Behavioral",
+                                                "weight": 6,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Deliver prepared presentations",
+                                                        "Explain key features",
+                                                        "Answer basic product questions",
+                                                        "Compile onboarding materials",
+                                                        "Monitor attendance"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Adapt training to feedback",
+                                                        "Lead interactive training",
+                                                        "Customize onboarding guides",
+                                                        "Evaluate knowledge retention",
+                                                        "Follow feedback loops"
+                                                    ],
+                                                    "advanced": [
+                                                        "Design new sales training curricula",
+                                                        "Measure training effectiveness",
+                                                        "Integrate product updates",
+                                                        "Coach top performers",
+                                                        "Champion new onboarding practices"
+                                                    ],
+                                                    "expert": [
+                                                        "Architect company-wide training strategy",
+                                                        "Mentor training leads",
+                                                        "Innovate e-learning integrations",
+                                                        "Advise training for new market launches",
+                                                        "Present at global sales conferences"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 8,
+                                        "levels": {
+                                            "beginner": [
+                                                "Support collateral distribution",
+                                                "Answer basic sales team needs",
+                                                "Organize product demos",
+                                                "Document common questions",
+                                                "Track sales resource feedback"
+                                            ],
+                                            "intermediate": [
+                                                "Customize materials for segments",
+                                                "Coordinate onboarding schedules",
+                                                "Gather sales team input",
+                                                "Update sales toolkits",
+                                                "Measure material effectiveness"
+                                            ],
+                                            "advanced": [
+                                                "Lead enablement initiatives",
+                                                "Drive sales process improvements",
+                                                "Report enablement ROI",
+                                                "Supervise enablement tools rollouts",
+                                                "Integrate feedback loops"
+                                            ],
+                                            "expert": [
+                                                "Develop enablement strategies for new markets",
+                                                "Mentor enablement teams",
+                                                "Standardize enablement enterprise-wide",
+                                                "Advise executives on enablement best practices",
+                                                "Champion enablement innovation"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Stakeholder Engagement",
+                                        "skill_type": "Behavioral",
+                                        "subskills": [
+                                            {
+                                                "name": "Internal Communication",
+                                                "skill_type": "Behavioral",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Share marketing updates",
+                                                        "Schedule meetings",
+                                                        "Distribute materials",
+                                                        "Record meeting minutes",
+                                                        "Respond to basic queries"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Facilitate team communications",
+                                                        "Summarize project progress",
+                                                        "Escalate key issues",
+                                                        "Lead internal briefings",
+                                                        "Liaise with adjacent teams"
+                                                    ],
+                                                    "advanced": [
+                                                        "Advise department heads",
+                                                        "Implement communications frameworks",
+                                                        "Facilitate strategic workshops",
+                                                        "Mediate cross-functional conflicts",
+                                                        "Drive internal alignment"
+                                                    ],
+                                                    "expert": [
+                                                        "Mentor in communications excellence",
+                                                        "Advise executive team",
+                                                        "Lead organization-wide culture initiatives",
+                                                        "Standardize communications training",
+                                                        "Innovate engagement programs"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Customer Engagement",
+                                                "skill_type": "Behavioral",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Respond to customer emails",
+                                                        "Schedule customer calls",
+                                                        "Log feedback",
+                                                        "Provide basic information",
+                                                        "Collect testimonials"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Coordinate customer communications",
+                                                        "Follow up on inquiries",
+                                                        "Facilitate customer meetings",
+                                                        "Document customer pain points",
+                                                        "Lead simple engagement activities"
+                                                    ],
+                                                    "advanced": [
+                                                        "Develop customer advocacy programs",
+                                                        "Design customer journey maps",
+                                                        "Implement feedback improvement systems",
+                                                        "Lead satisfaction surveys",
+                                                        "Present insights to leadership"
+                                                    ],
+                                                    "expert": [
+                                                        "Architect customer success strategy",
+                                                        "Advise C-suite on engagement",
+                                                        "Lead cross-org customer forums",
+                                                        "Mentor teams in customer-first culture",
+                                                        "Standardize customer engagement processes"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 8,
+                                        "levels": {
+                                            "beginner": [
+                                                "Share updates with teams",
+                                                "Log stakeholder requests",
+                                                "Organize stakeholder sessions",
+                                                "Circulate meeting notes",
+                                                "Support external communications"
+                                            ],
+                                            "intermediate": [
+                                                "Coordinate regular engagement meetings",
+                                                "Address stakeholder concerns",
+                                                "Share tailored stakeholder updates",
+                                                "Collaborate on shared projects",
+                                                "Report engagement activity"
+                                            ],
+                                            "advanced": [
+                                                "Lead multi-party stakeholder strategies",
+                                                "Resolve advanced engagement barriers",
+                                                "Integrate feedback into planning",
+                                                "Host stakeholder panels",
+                                                "Advise on engagement best practices"
+                                            ],
+                                            "expert": [
+                                                "Design enterprise stakeholder strategies",
+                                                "Champion long-term engagement initiatives",
+                                                "Coach executives on stakeholder management",
+                                                "Standardize engagement metrics",
+                                                "Lead global stakeholder programs"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "ontology": [
+            {
+                "role_or_skill_name": "Marketing Manager",
+                "relationships": [
+                    {
+                        "type": "Prerequisite",
+                        "related_skills": [
+                            "Market Analysis",
+                            "Product Positioning",
+                            "Campaign Management"
+                        ]
+                    },
+                    {
+                        "type": "Complementary",
+                        "related_skills": [
+                            "Sales Enablement",
+                            "Stakeholder Engagement"
+                        ]
+                    },
+                    {
+                        "type": "Core",
+                        "related_skills": [
+                            "Market Analysis",
+                            "Product Positioning"
+                        ]
+                    },
+                    {
+                        "type": "Advanced",
+                        "related_skills": [
+                            "Digital Marketing",
+                            "Brand Management"
+                        ]
+                    },
+                    {
+                        "type": "Progressive",
+                        "related_skills": [
+                            "Market Analysis",
+                            "Strategy Development"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "generatedAt": "2025-10-08T05:22:12.723Z"
+        },
+        "Marketing Coordinator":
+    {
+        "id": "54b8a6b5-af9b-4008-acbf-692f90ba1a58",
+        "roleId": "42cd1afe-e84e-48a3-ac86-6ee4c491b89c",
+        "roleTitle": "Marketing Coordinator",
+        "parentDetails": {
+            "industry": "Green Energy",
+            "subEntity": "Solar Power Division",
+            "jobFamily": "Marketing & Communications",
+            "subJobFamily": "Sales & Marketing"
+        },
+        "hierarchyPath": [
+            "Green Energy",
+            "Solar Power Division",
+            "Sales & Marketing",
+            "Marketing & Communications",
+            "Marketing Coordinator"
+        ],
+        "hierarchy": [
+            {
+                "name": "Green Energy",
+                "categories": [
+                    {
+                        "name": "Sales & Marketing",
+                        "subcategories": [
+                            {
+                                "name": "Marketing & Communications",
+                                "skills": [
+                                    {
+                                        "name": "Digital Marketing",
+                                        "skill_type": "Technical",
+                                        "subskills": [
+                                            {
+                                                "name": "Social Media Marketing",
+                                                "skill_type": "Technical",
+                                                "weight": 9,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Create social media posts",
+                                                        "Schedule basic posts",
+                                                        "Use common hashtags",
+                                                        "Follow company guidelines",
+                                                        "Basic analytics usage"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Design campaign calendars",
+                                                        "A/B test post types",
+                                                        "Engage with audience",
+                                                        "Use analytics for reporting",
+                                                        "Create branded visuals"
+                                                    ],
+                                                    "advanced": [
+                                                        "Develop social strategy",
+                                                        "Lead influencer partnerships",
+                                                        "Optimize organic/paid integration",
+                                                        "Manage crises on platforms",
+                                                        "Drive lead generation strategies"
+                                                    ],
+                                                    "expert": [
+                                                        "Architect omni-channel campaigns",
+                                                        "Leverage viral trends strategically",
+                                                        "Engage in deep data-driven segmentation",
+                                                        "Integrate with broader PR initiatives",
+                                                        "Innovate new platform strategies"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Email Marketing",
+                                                "skill_type": "Technical",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Send newsletters",
+                                                        "Segment basic audiences",
+                                                        "Use templates",
+                                                        "Track open rates",
+                                                        "Write short copy"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Set up automations",
+                                                        "Personalize campaigns",
+                                                        "Analyze click-through data",
+                                                        "Troubleshoot delivery issues",
+                                                        "A/B subject lines"
+                                                    ],
+                                                    "advanced": [
+                                                        "Build complex funnels",
+                                                        "Integrate with CRM",
+                                                        "Optimize for deliverability",
+                                                        "Forecast campaign ROI",
+                                                        "Dynamic content generation"
+                                                    ],
+                                                    "expert": [
+                                                        "Run multi-segment lifecycle campaigns",
+                                                        "Hyper-personalize messaging",
+                                                        "Architect cross-platform automation",
+                                                        "Drive adoption of new tools",
+                                                        "Optimize for regulatory compliance"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "SEO",
+                                                "skill_type": "Technical",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Identify keywords",
+                                                        "Update meta tags",
+                                                        "Basic on-page SEO",
+                                                        "Read Google Analytics",
+                                                        "Monitor rankings"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Keyword research",
+                                                        "Competitor analysis",
+                                                        "Content optimization",
+                                                        "Backlink building",
+                                                        "Use Google Search Console"
+                                                    ],
+                                                    "advanced": [
+                                                        "Technical SEO fixes",
+                                                        "SEO audit execution",
+                                                        "Schema implementation",
+                                                        "Strategy for new content areas",
+                                                        "SEO reporting"
+                                                    ],
+                                                    "expert": [
+                                                        "SEO architecture for large sites",
+                                                        "International SEO strategy",
+                                                        "Algorithm change adaptation",
+                                                        "Execute cross-channel SEO integrations",
+                                                        "Lead SEO innovation"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 9,
+                                        "levels": {
+                                            "beginner": [
+                                                "Create simple online ads",
+                                                "Edit social posts",
+                                                "Enter data in CRM",
+                                                "Send mass emails",
+                                                "Tag editing"
+                                            ],
+                                            "intermediate": [
+                                                "Manage ad accounts",
+                                                "Optimize ad spend",
+                                                "Refine campaign parameters",
+                                                "Analyze digital traffic",
+                                                "Lead A/B experiments"
+                                            ],
+                                            "advanced": [
+                                                "Integrate digital campaigns",
+                                                "Report to management",
+                                                "Troubleshoot conversion bottlenecks",
+                                                "Coordinate creatives & copywriters",
+                                                "Oversee digital budget"
+                                            ],
+                                            "expert": [
+                                                "Direct digital marketing vision",
+                                                "Innovate KPI frameworks",
+                                                "Mentor digital teams",
+                                                "Set global campaign policies",
+                                                "Orchestrate large-scale digital launches"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Content Creation",
+                                        "skill_type": "Technical",
+                                        "subskills": [
+                                            {
+                                                "name": "Copywriting",
+                                                "skill_type": "Technical",
+                                                "weight": 9,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Write social blurbs",
+                                                        "Revise press releases",
+                                                        "Edit web text",
+                                                        "Draft email snippets",
+                                                        "Summarize reports"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Refine brand language",
+                                                        "Create branded blogs",
+                                                        "SEO copywriting",
+                                                        "Script short videos",
+                                                        "Write ad copy"
+                                                    ],
+                                                    "advanced": [
+                                                        "Long-form storytelling",
+                                                        "Lead voice and style guides",
+                                                        "Edit complex content",
+                                                        "Integrate key marketing messaging",
+                                                        "Develop campaign narratives"
+                                                    ],
+                                                    "expert": [
+                                                        "Establish brand editorial vision",
+                                                        "Mentor writing staff",
+                                                        "Direct content calendars",
+                                                        "Innovate content pillars",
+                                                        "Author strategic whitepapers"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Visual Design",
+                                                "skill_type": "Technical",
+                                                "weight": 6,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Choose stock photos",
+                                                        "Crop images",
+                                                        "Simple infographics",
+                                                        "Use templates",
+                                                        "Basic editing"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Design on Canva/Figma",
+                                                        "Create branded assets",
+                                                        "Refine visual style",
+                                                        "Apply color theory",
+                                                        "Basic video editing"
+                                                    ],
+                                                    "advanced": [
+                                                        "Develop design guidelines",
+                                                        "Lead campaign visuals",
+                                                        "Multi-platform optimization",
+                                                        "Photography direction",
+                                                        "Advanced video production"
+                                                    ],
+                                                    "expert": [
+                                                        "Innovate visual identity",
+                                                        "Mentor design team",
+                                                        "Strategize multimedia projects",
+                                                        "Oversee high-budget content",
+                                                        "Pioneer interactive media"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 8,
+                                        "levels": {
+                                            "beginner": [
+                                                "Edit social visuals",
+                                                "Proofread draft posts",
+                                                "Format presentations",
+                                                "Write basic web content",
+                                                "Simple cross-channel repurpose"
+                                            ],
+                                            "intermediate": [
+                                                "Manage content scheduling",
+                                                "Refine copy for mission",
+                                                "Optimize visuals for platform",
+                                                "Develop content themes",
+                                                "Translate marketing messages"
+                                            ],
+                                            "advanced": [
+                                                "Set editorial calendar",
+                                                "Content audits",
+                                                "Train junior team",
+                                                "Identify emerging content trends",
+                                                "Coordinate with designers"
+                                            ],
+                                            "expert": [
+                                                "Define content strategy",
+                                                "Launch multimedia projects",
+                                                "Set innovation roadmap",
+                                                "Integrate market research into content",
+                                                "Oversee content crisis plans"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Campaign Management",
+                                        "skill_type": "Functional",
+                                        "subskills": [
+                                            {
+                                                "name": "Event Coordination",
+                                                "skill_type": "Functional",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Book venues",
+                                                        "Send invites",
+                                                        "Update RSVPs",
+                                                        "Create event lists",
+                                                        "Order supplies"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Coordinate event staff",
+                                                        "Negotiate with vendors",
+                                                        "Manage on-site issues",
+                                                        "Promote on social channels",
+                                                        "Track budgets"
+                                                    ],
+                                                    "advanced": [
+                                                        "Lead experiential marketing",
+                                                        "Drive post-event analytics",
+                                                        "Innovate event formats",
+                                                        "Sponsor partnerships",
+                                                        "Virtual event production"
+                                                    ],
+                                                    "expert": [
+                                                        "Direct flagship events",
+                                                        "Define event-driven strategy",
+                                                        "Mentor coordinators",
+                                                        "Secure major sponsorships",
+                                                        "Crisis management"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Budget Management",
+                                                "skill_type": "Managerial",
+                                                "weight": 6,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Record expenses",
+                                                        "Update trackers",
+                                                        "Collect receipts",
+                                                        "Use expense software",
+                                                        "Monitor petty cash"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Create campaign budgets",
+                                                        "Generate spend reports",
+                                                        "Flag overages",
+                                                        "Forecast needs",
+                                                        "Request purchase orders"
+                                                    ],
+                                                    "advanced": [
+                                                        "Allocate multi-channel funds",
+                                                        "Negotiate spend with vendors",
+                                                        "Set annual budgets",
+                                                        "Deliver variance analysis",
+                                                        "Establish controls"
+                                                    ],
+                                                    "expert": [
+                                                        "Strategic allocation plans",
+                                                        "Direct complex reconciliations",
+                                                        "Vendor/consolidation decisions",
+                                                        "Mentor on finance accuracy",
+                                                        "Optimize spend ROI"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 8,
+                                        "levels": {
+                                            "beginner": [
+                                                "Track campaign results",
+                                                "Update timetables",
+                                                "Monitor ad performance",
+                                                "Support campaign launches",
+                                                "Collect feedback"
+                                            ],
+                                            "intermediate": [
+                                                "Manage project timelines",
+                                                "Coordinate cross-channel",
+                                                "Handle campaign logistics",
+                                                "Report on KPIs",
+                                                "Support partnerships"
+                                            ],
+                                            "advanced": [
+                                                "Lead multi-phase launches",
+                                                "Optimize for goals",
+                                                "Crisis response for campaign",
+                                                "Mentor new team members",
+                                                "Cross-functional alignment"
+                                            ],
+                                            "expert": [
+                                                "Set campaign strategy",
+                                                "Direct portfolio of launches",
+                                                "Lead debriefing sessions",
+                                                "Innovate launch methodologies",
+                                                "Establish new best practices"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Market Research",
+                                        "skill_type": "Technical",
+                                        "subskills": [
+                                            {
+                                                "name": "Competitor Analysis",
+                                                "skill_type": "Technical",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Identify main competitors",
+                                                        "Basic SWOT analysis",
+                                                        "Track pricing changes",
+                                                        "Collect public data",
+                                                        "Monitor social media"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Deep feature comparison",
+                                                        "Customer review mining",
+                                                        "Benchmark marketing tactics",
+                                                        "Update leaderboards",
+                                                        "Attend competitor webinars"
+                                                    ],
+                                                    "advanced": [
+                                                        "Evaluate competitor strategies",
+                                                        "Anticipate market moves",
+                                                        "Integrate findings into campaigns",
+                                                        "Identify white space",
+                                                        "Develop response plans"
+                                                    ],
+                                                    "expert": [
+                                                        "Strategic competitor monitoring",
+                                                        "Define threat mitigation",
+                                                        "Lead quarterly review boards",
+                                                        "Mentor research analysts",
+                                                        "Innovate new data sources"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Survey Design",
+                                                "skill_type": "Technical",
+                                                "weight": 6,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Write basic questions",
+                                                        "Test simple forms",
+                                                        "Distribute via email",
+                                                        "Log responses",
+                                                        "Summarize findings"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Design advanced surveys",
+                                                        "Target by segment",
+                                                        "Analyze open/end responses",
+                                                        "Use survey tools",
+                                                        "Optimise for bias"
+                                                    ],
+                                                    "advanced": [
+                                                        "Link surveys to campaigns",
+                                                        "Run advanced statistics",
+                                                        "Innovative response drivers",
+                                                        "Interpret impacts for business",
+                                                        "Integrate to reporting"
+                                                    ],
+                                                    "expert": [
+                                                        "Architect complex multi-stage surveys",
+                                                        "Establish panel management",
+                                                        "Mentor on survey best practices",
+                                                        "Drive insights to C-suite",
+                                                        "Innovative research formulation"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 7,
+                                        "levels": {
+                                            "beginner": [
+                                                "Read industry news",
+                                                "Note trends",
+                                                "Log competitors",
+                                                "Tabulate basic findings",
+                                                "Assist on survey"
+                                            ],
+                                            "intermediate": [
+                                                "Compile market reports",
+                                                "Analyze survey data",
+                                                "Create trend summaries",
+                                                "Present findings",
+                                                "Spot new opportunities"
+                                            ],
+                                            "advanced": [
+                                                "Lead research projects",
+                                                "Forecast shifts",
+                                                "Contribute to primary studies",
+                                                "Guide product marketing",
+                                                "Suggest tactical pivots"
+                                            ],
+                                            "expert": [
+                                                "Direct research vision",
+                                                "Mentor market researchers",
+                                                "Run industry deep-dives",
+                                                "Set research best practices",
+                                                "Drive company-wide decisions"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Stakeholder Communication",
+                                        "skill_type": "Behavioral",
+                                        "subskills": [
+                                            {
+                                                "name": "Internal Communication",
+                                                "skill_type": "Behavioral",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Relay simple messages",
+                                                        "Forward emails",
+                                                        "Attend meetings",
+                                                        "Take meeting notes",
+                                                        "Clarify information"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Draft internal briefs",
+                                                        "Summarize team updates",
+                                                        "Schedule communications",
+                                                        "Align key stakeholders",
+                                                        "Address basic misunderstandings"
+                                                    ],
+                                                    "advanced": [
+                                                        "Present strategies",
+                                                        "Facilitate cross-team alignment",
+                                                        "Conflict resolution support",
+                                                        "Develop internal comms materials",
+                                                        "Mentor team on clarity"
+                                                    ],
+                                                    "expert": [
+                                                        "Lead executive briefings",
+                                                        "Coach in organizational alignment",
+                                                        "Drive culture through comms",
+                                                        "Strategic negotiation",
+                                                        "Manage comms crisis"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Client Liaison",
+                                                "skill_type": "Behavioral",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Note client queries",
+                                                        "Forward information",
+                                                        "Log feedback",
+                                                        "Attend update calls",
+                                                        "Send confirmations"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Draft updates",
+                                                        "Summarize meeting outcomes",
+                                                        "Schedule check-ins",
+                                                        "Facilitate technical responses",
+                                                        "Procedure overview"
+                                                    ],
+                                                    "advanced": [
+                                                        "Lead client reporting",
+                                                        "Coordinate renewals",
+                                                        "Manage minor crises",
+                                                        "Translate marketing for clients",
+                                                        "Identify upsell opportunities"
+                                                    ],
+                                                    "expert": [
+                                                        "Direct key accounts",
+                                                        "Set client comms strategy",
+                                                        "Resolve major disputes",
+                                                        "Innovate client engagement",
+                                                        "Mentor on relationship management"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 7,
+                                        "levels": {
+                                            "beginner": [
+                                                "Participate in meetings",
+                                                "Read reports",
+                                                "Reply to routine emails",
+                                                "Log key updates",
+                                                "Summarize messages"
+                                            ],
+                                            "intermediate": [
+                                                "Draft comms to teams",
+                                                "Prepare leadership reports",
+                                                "Facilitate small group discussions",
+                                                "Onboard new partners",
+                                                "Clarify owners of tasks"
+                                            ],
+                                            "advanced": [
+                                                "Drive multi-stakeholder updates",
+                                                "Coordinate launch communications",
+                                                "Support executives",
+                                                "Negotiate deliverables",
+                                                "Promote transparent updates"
+                                            ],
+                                            "expert": [
+                                                "Lead company-wide comms",
+                                                "Architect stakeholder maps",
+                                                "Coach team on influence",
+                                                "Deliver C-suite briefings",
+                                                "Resolve major comms challenges"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "ontology": [
+            {
+                "role_or_skill_name": "Marketing Coordinator",
+                "relationships": [
+                    {
+                        "type": "Core",
+                        "related_skills": [
+                            "Digital Marketing",
+                            "Content Creation",
+                            "Campaign Management",
+                            "Market Research",
+                            "Stakeholder Communication"
+                        ]
+                    },
+                    {
+                        "type": "Prerequisite",
+                        "related_skills": [
+                            "Copywriting",
+                            "SEO",
+                            "Social Media Marketing",
+                            "Event Coordination"
+                        ]
+                    },
+                    {
+                        "type": "Complementary",
+                        "related_skills": [
+                            "Budget Management",
+                            "Email Marketing",
+                            "Competitor Analysis",
+                            "Internal Communication"
+                        ]
+                    },
+                    {
+                        "type": "Progressive",
+                        "related_skills": [
+                            "Digital Marketing",
+                            "Digital Analytics",
+                            "Marketing Strategy",
+                            "Brand Management"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "generatedAt": "2025-10-08T05:23:10.794Z"
+        },
+        "Installation Supervisor":
+    {
+        "id": "62f8a0d4-3984-4e2f-9a4c-fb4b3264fa9f",
+        "roleId": "442aa1de-5bc8-42aa-aaf7-8ee5400a6089",
+        "roleTitle": "Installation Supervisor",
+        "parentDetails": {
+            "industry": "Green Energy",
+            "subEntity": "Solar Power Division",
+            "jobFamily": "Installation Management",
+            "subJobFamily": "Project Management & Installation"
+        },
+        "hierarchyPath": [
+            "Green Energy",
+            "Solar Power Division",
+            "Project Management & Installation",
+            "Installation Management",
+            "Installation Supervisor"
+        ],
+        "hierarchy": [
+            {
+                "name": "Green Energy",
+                "categories": [
+                    {
+                        "name": "Solar Power Division",
+                        "subcategories": [
+                            {
+                                "name": "Project Management & Installation",
+                                "skills": [
+                                    {
+                                        "name": "Installation Oversight",
+                                        "skill_type": "Managerial",
+                                        "subskills": [
+                                            {
+                                                "name": "Site Supervision",
+                                                "skill_type": "Managerial",
+                                                "weight": 9,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Monitor crew adherence to schedules",
+                                                        "Ensure site cleanliness",
+                                                        "Receive basic safety training",
+                                                        "Participate in daily toolbox talks",
+                                                        "Assist in equipment placement"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Oversee subcontractor activities",
+                                                        "Interpret site maps and layout plans",
+                                                        "Conduct basic site inspections",
+                                                        "Address minor crew conflicts",
+                                                        "Report site progress to manager"
+                                                    ],
+                                                    "advanced": [
+                                                        "Verify compliance with safety regulations",
+                                                        "Solve equipment allocation issues",
+                                                        "Lead morning briefings",
+                                                        "Document site incidents",
+                                                        "Support risk assessments"
+                                                    ],
+                                                    "expert": [
+                                                        "Develop site safety protocols",
+                                                        "Mentor junior supervisors",
+                                                        "Design site operational plans",
+                                                        "Optimize resource allocation",
+                                                        "Conduct incident investigations"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Installation Scheduling",
+                                                "skill_type": "Managerial",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Maintain daily work logs",
+                                                        "Assist with scheduling crew shifts",
+                                                        "Check material arrival dates",
+                                                        "Review simple timelines",
+                                                        "Communicate schedule to team"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Coordinate labor resources",
+                                                        "Resolve minor delays",
+                                                        "Update progress on software",
+                                                        "Communicate timeline changes",
+                                                        "Collect feedback on progress"
+                                                    ],
+                                                    "advanced": [
+                                                        "Optimize project schedules",
+                                                        "Mitigate major risks and delays",
+                                                        "Integrate supplier schedules",
+                                                        "Present to upper management",
+                                                        "Negotiate delivery timelines"
+                                                    ],
+                                                    "expert": [
+                                                        "Lead master scheduling across projects",
+                                                        "Develop contingency plans",
+                                                        "Train others in scheduling tools",
+                                                        "Design scheduling workflows",
+                                                        "Predict project-level scheduling risks"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 10,
+                                        "levels": {
+                                            "beginner": [
+                                                "Support installation tasks",
+                                                "Shadow experienced supervisor",
+                                                "Learn basic site documentation",
+                                                "Attend safety orientation",
+                                                "Provide input during daily meetings"
+                                            ],
+                                            "intermediate": [
+                                                "Supervise small teams independently",
+                                                "Oversee installation steps",
+                                                "Communicate daily tasks to crew",
+                                                "Resolve basic installation issues",
+                                                "Ensure proper use of personal protective equipment"
+                                            ],
+                                            "advanced": [
+                                                "Lead teams in high complexity installations",
+                                                "Plan installation workflow",
+                                                "Escalate technical issues as needed",
+                                                "Coach new team members",
+                                                "Document best practices"
+                                            ],
+                                            "expert": [
+                                                "Manage multiple installations in parallel",
+                                                "Standardize installation processes",
+                                                "Mentor other supervisors",
+                                                "Define performance indicators",
+                                                "Conduct comprehensive project reviews"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Solar Equipment Installation",
+                                        "skill_type": "Technical",
+                                        "subskills": [
+                                            {
+                                                "name": "PV Module Installation",
+                                                "skill_type": "Technical",
+                                                "weight": 10,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Lift and position panels",
+                                                        "Verify labeling on PV modules",
+                                                        "Understand basic panel orientation",
+                                                        "Secure modules per instructions",
+                                                        "Use common hand tools"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Install mounting and racking systems",
+                                                        "Connect panel wiring",
+                                                        "Ensure proper tilt and spacing",
+                                                        "Replace damaged modules",
+                                                        "Read basic wiring schematics"
+                                                    ],
+                                                    "advanced": [
+                                                        "Optimize panel array layouts",
+                                                        "Troubleshoot module performance issues",
+                                                        "Monitor grounding and polarity",
+                                                        "Conduct thermal imaging scans",
+                                                        "Supervise complex roof installations"
+                                                    ],
+                                                    "expert": [
+                                                        "Diagnose system underperformance",
+                                                        "Optimize for efficiency",
+                                                        "Train others on best practices",
+                                                        "Implement innovative mounting solutions",
+                                                        "Write procedures for module replacement"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Inverter Installation",
+                                                "skill_type": "Technical",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Identify inverter types",
+                                                        "Understand inverter location requirements",
+                                                        "Assist in mounting inverters",
+                                                        "Connect input/output wires",
+                                                        "Follow manufacturer installation steps"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Configure inverter settings",
+                                                        "Troubleshoot minor installation issues",
+                                                        "Replace inverter components",
+                                                        "Implement basic monitoring",
+                                                        "Reference installation software"
+                                                    ],
+                                                    "advanced": [
+                                                        "Integrate advanced monitoring systems",
+                                                        "Optimize inverter positioning",
+                                                        "Diagnose wiring or sizing issues",
+                                                        "Supervise multi-inverter sites",
+                                                        "Ensure safety code compliance"
+                                                    ],
+                                                    "expert": [
+                                                        "Commission complex inverter systems",
+                                                        "Train teams on inverter installation",
+                                                        "Implement design customizations",
+                                                        "Write repair and commissioning guides",
+                                                        "Provide technical approval"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 9,
+                                        "levels": {
+                                            "beginner": [
+                                                "Assist in lifting modules",
+                                                "Unpack materials",
+                                                "Participate in safety briefings",
+                                                "Hand tools to technicians",
+                                                "Simple manual assembly"
+                                            ],
+                                            "intermediate": [
+                                                "Independently execute part of installation",
+                                                "Check racking alignment",
+                                                "Support panel placement",
+                                                "Install basic wiring",
+                                                "Understand reading of schematic diagrams"
+                                            ],
+                                            "advanced": [
+                                                "Perform complex assemblies",
+                                                "Lead installation of subsystem",
+                                                "Troubleshoot modules",
+                                                "Provide quality control",
+                                                "Train new installers"
+                                            ],
+                                            "expert": [
+                                                "Design installation plans",
+                                                "Lead innovations in installation",
+                                                "Write installation standards",
+                                                "Evaluate new technology integration",
+                                                "Audit complex installations"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Quality & Safety Compliance",
+                                        "skill_type": "Managerial",
+                                        "subskills": [
+                                            {
+                                                "name": "Safety Auditing",
+                                                "skill_type": "Managerial",
+                                                "weight": 9,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Attend toolbox safety talks",
+                                                        "Wear PPE consistently",
+                                                        "Participate in basic site hazard checks",
+                                                        "Complete required safety trainings",
+                                                        "Log site incidents"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Conduct daily safety briefings",
+                                                        "Lead site walk-throughs",
+                                                        "Write minor incident reports",
+                                                        "Ensure signage and PPE are in place",
+                                                        "Document compliance checks"
+                                                    ],
+                                                    "advanced": [
+                                                        "Audit safety practices",
+                                                        "Develop safety improvement plans",
+                                                        "Handle accident investigations",
+                                                        "Lead root cause analysis",
+                                                        "Recommend improvements"
+                                                    ],
+                                                    "expert": [
+                                                        "Design company-wide safety standards",
+                                                        "Mentor safety leads",
+                                                        "Evaluate new safety technologies",
+                                                        "Lead external safety audits",
+                                                        "Develop emergency protocols"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Quality Assurance",
+                                                "skill_type": "Managerial",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Understand quality checklists",
+                                                        "Assist in defect recording",
+                                                        "Help implement minor improvements",
+                                                        "Follow approved installation procedures",
+                                                        "Participate in quality workshops"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Perform random installation checks",
+                                                        "Investigate reported defects",
+                                                        "Lead corrective actions for minor defects",
+                                                        "Maintain quality documentation",
+                                                        "Present findings to teams"
+                                                    ],
+                                                    "advanced": [
+                                                        "Develop QA training",
+                                                        "Set up quality benchmarks",
+                                                        "Analyze trends and root causes",
+                                                        "Coordinate with external inspectors",
+                                                        "Design quality tracking systems"
+                                                    ],
+                                                    "expert": [
+                                                        "Implement company-wide QA programs",
+                                                        "Set advanced KPIs",
+                                                        "Train auditors and QA leads",
+                                                        "Develop continuous improvement strategy",
+                                                        "Approve vendor QA processes"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 9,
+                                        "levels": {
+                                            "beginner": [
+                                                "Follow jobsite safety protocols",
+                                                "Use PPE correctly",
+                                                "Assist with basic quality checks",
+                                                "Complete safety forms",
+                                                "Attend compliance briefings"
+                                            ],
+                                            "intermediate": [
+                                                "Lead site safety moments",
+                                                "Document near-misses",
+                                                "Perform routine quality checks",
+                                                "Train crew on safety basics",
+                                                "Collect compliance documentation"
+                                            ],
+                                            "advanced": [
+                                                "Conduct comprehensive site audits",
+                                                "Investigate workplace incidents",
+                                                "Oversee major compliance issues",
+                                                "Implement continuous improvements",
+                                                "Coach team on compliance issues"
+                                            ],
+                                            "expert": [
+                                                "Develop and enforce division standards",
+                                                "Mentor other supervisors",
+                                                "Present compliance outcomes to leadership",
+                                                "Lead new compliance initiatives",
+                                                "Integrate new regulations into SOPs"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "Team Leadership",
+                                        "skill_type": "Behavioral",
+                                        "subskills": [
+                                            {
+                                                "name": "Conflict Resolution",
+                                                "skill_type": "Behavioral",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Listen to crew concerns",
+                                                        "Ask for help when needed",
+                                                        "Avoid escalation",
+                                                        "Follow directions in conflicts",
+                                                        "Practice active listening"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Mediate simple conflicts",
+                                                        "Suggest compromises",
+                                                        "Document basic issues",
+                                                        "Present solutions to team lead",
+                                                        "Encourage cooperation"
+                                                    ],
+                                                    "advanced": [
+                                                        "Lead resolution for complex issues",
+                                                        "Coach team on emotional intelligence",
+                                                        "Conduct mediation sessions",
+                                                        "Document outcomes",
+                                                        "Promote team values"
+                                                    ],
+                                                    "expert": [
+                                                        "Develop conflict management protocols",
+                                                        "Train teams on resolution skills",
+                                                        "Serve as escalation point",
+                                                        "Define culture around resolving disagreements",
+                                                        "Integrate resolution in performance process"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Crew Training",
+                                                "skill_type": "Behavioral",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Train on tool use",
+                                                        "Demonstrate installation steps",
+                                                        "Shadow team lead",
+                                                        "Participate in group learning",
+                                                        "Help new crew onboard"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Lead training on safety",
+                                                        "Coach in installation techniques",
+                                                        "Provide refresher sessions",
+                                                        "Address common knowledge gaps",
+                                                        "Document training attendance"
+                                                    ],
+                                                    "advanced": [
+                                                        "Develop standard training modules",
+                                                        "Evaluate learning outcomes",
+                                                        "Mentor new trainers",
+                                                        "Review training effectiveness",
+                                                        "Host upskilling workshops"
+                                                    ],
+                                                    "expert": [
+                                                        "Design division-wide education programs",
+                                                        "Implement digital learning",
+                                                        "Set training KPIs",
+                                                        "Lead cross-team training",
+                                                        "Certify crew in technical skills"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 8,
+                                        "levels": {
+                                            "beginner": [
+                                                "Assist supervisor with crew tasks",
+                                                "Communicate instructions to crew",
+                                                "Engage in basic crew meetings",
+                                                "Participate in team initiatives",
+                                                "Demonstrate task commitment"
+                                            ],
+                                            "intermediate": [
+                                                "Lead crew in daily activities",
+                                                "Conduct skill demonstrations",
+                                                "Delegate basic tasks",
+                                                "Address crew needs",
+                                                "Reflect on leadership growth"
+                                            ],
+                                            "advanced": [
+                                                "Coach crew through change",
+                                                "Mentor junior team leads",
+                                                "Share feedback with management",
+                                                "Develop team initiatives",
+                                                "Coordinate resource distribution"
+                                            ],
+                                            "expert": [
+                                                "Lead multi-crew teams",
+                                                "Influence leadership development",
+                                                "Create cross-team collaboration plans",
+                                                "Set succession planning",
+                                                "Drive culture transformation"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "ontology": [
+            {
+                "role_or_skill_name": "Installation Supervisor",
+                "relationships": [
+                    {
+                        "type": "Core",
+                        "related_skills": [
+                            "Installation Oversight",
+                            "Solar Equipment Installation",
+                            "Quality & Safety Compliance",
+                            "Team Leadership"
+                        ]
+                    },
+                    {
+                        "type": "Prerequisite",
+                        "related_skills": [
+                            "Project Management Basics",
+                            "Electrical Safety",
+                            "Solar Power Fundamentals"
+                        ]
+                    },
+                    {
+                        "type": "Complementary",
+                        "related_skills": [
+                            "Client Communication",
+                            "Progress Reporting",
+                            "Vendor Management"
+                        ]
+                    },
+                    {
+                        "type": "Alternative",
+                        "related_skills": [
+                            "Field Engineer",
+                            "Technical Supervisor"
+                        ]
+                    },
+                    {
+                        "type": "Advanced",
+                        "related_skills": [
+                            "Process Optimization",
+                            "Regulatory Compliance",
+                            "Innovation Management"
+                        ]
+                    }
+                ]
+            },
+            {
+                "role_or_skill_name": "Installation Oversight",
+                "relationships": [
+                    {
+                        "type": "Core",
+                        "related_skills": [
+                            "Site Supervision",
+                            "Installation Scheduling"
+                        ]
+                    }
+                ]
+            },
+            {
+                "role_or_skill_name": "Solar Equipment Installation",
+                "relationships": [
+                    {
+                        "type": "Core",
+                        "related_skills": [
+                            "PV Module Installation",
+                            "Inverter Installation"
+                        ]
+                    }
+                ]
+            },
+            {
+                "role_or_skill_name": "Quality & Safety Compliance",
+                "relationships": [
+                    {
+                        "type": "Core",
+                        "related_skills": [
+                            "Safety Auditing",
+                            "Quality Assurance"
+                        ]
+                    }
+                ]
+            },
+            {
+                "role_or_skill_name": "Team Leadership",
+                "relationships": [
+                    {
+                        "type": "Core",
+                        "related_skills": [
+                            "Conflict Resolution",
+                            "Crew Training"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "generatedAt": "2025-10-08T05:23:58.997Z"
+        },
+        "Installation Technician":
+    {
+        "id": "ee4df311-5a64-4193-af4c-0e1d5488e28f",
+        "roleId": "3219c851-7948-4f58-bc86-ef49c9fdf8dd",
+        "roleTitle": "Installation Technician",
+        "parentDetails": {
+            "industry": "Green Energy",
+            "subEntity": "Solar Power Division",
+            "jobFamily": "Installation Management",
+            "subJobFamily": "Project Management & Installation"
+        },
+        "hierarchyPath": [
+            "Green Energy",
+            "Solar Power Division",
+            "Project Management & Installation",
+            "Installation Management",
+            "Installation Technician"
+        ],
+        "hierarchy": [
+            {
+                "name": "Green Energy",
+                "categories": [
+                    {
+                        "name": "Solar Power Division",
+                        "subcategories": [
+                            {
+                                "name": "Project Management & Installation",
+                                "skills": [
+                                    {
+                                        "name": "Installation Technician",
+                                        "skill_type": "Technical",
+                                        "subskills": [
+                                            {
+                                                "name": "Solar Panel Mounting",
+                                                "skill_type": "Technical",
+                                                "weight": 10,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Identify mounting locations",
+                                                        "Gather mounting tools",
+                                                        "Read mounting instructions",
+                                                        "Assist with basic mounting",
+                                                        "Observe mounting process"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Install standard mounts",
+                                                        "Secure panels to racks",
+                                                        "Use hand/power tools",
+                                                        "Check alignment",
+                                                        "Follow safety protocols"
+                                                    ],
+                                                    "advanced": [
+                                                        "Lead mounting teams",
+                                                        "Troubleshoot mounting issues",
+                                                        "Interpret structural blueprints",
+                                                        "Ensure mounting compliance",
+                                                        "Train new installers"
+                                                    ],
+                                                    "expert": [
+                                                        "Design custom mounting solutions",
+                                                        "Audit installations for adherence",
+                                                        "Develop mounting protocols",
+                                                        "Consult on difficult installations",
+                                                        "Optimize for efficiency"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Electrical Wiring",
+                                                "skill_type": "Technical",
+                                                "weight": 9,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Strip and prepare wires",
+                                                        "Connect basic circuits",
+                                                        "Follow wiring diagrams",
+                                                        "Label wires",
+                                                        "Assist lead electricians"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Wire inverters to panels",
+                                                        "Install disconnects",
+                                                        "Terminate wires safely",
+                                                        "Test solar circuits",
+                                                        "Apply grounding methods"
+                                                    ],
+                                                    "advanced": [
+                                                        "Plan system layouts",
+                                                        "Diagnose wiring issues",
+                                                        "Install advanced protection",
+                                                        "Lead electrical crews",
+                                                        "Interpret load calculations"
+                                                    ],
+                                                    "expert": [
+                                                        "Design complex wiring systems",
+                                                        "Write documentation and SOPs",
+                                                        "Train electricians in solar installs",
+                                                        "Specify equipment",
+                                                        "Audit site safety"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "System Testing & Commissioning",
+                                                "skill_type": "Technical",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Check basic system functions",
+                                                        "Follow checklists",
+                                                        "Assist with test tools",
+                                                        "Record data",
+                                                        "Visual inspection"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Measure voltage/current output",
+                                                        "Troubleshoot common issues",
+                                                        "Calibrate testers",
+                                                        "Implement fixes",
+                                                        "Log performance readings"
+                                                    ],
+                                                    "advanced": [
+                                                        "Commission full solar arrays",
+                                                        "Analyze output data",
+                                                        "Lead resolution teams",
+                                                        "Conduct formal system handovers",
+                                                        "Advise improvements"
+                                                    ],
+                                                    "expert": [
+                                                        "Develop commissioning checklists",
+                                                        "Write performance standards",
+                                                        "Audit projects for best practice",
+                                                        "Design advanced test protocols",
+                                                        "Mentor others"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Safety Compliance",
+                                                "skill_type": "Functional",
+                                                "weight": 10,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Wear PPE",
+                                                        "Follow basic safety rules",
+                                                        "Attend safety briefings",
+                                                        "Identify hazards",
+                                                        "Report incidents"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Conduct risk assessments",
+                                                        "Lead safety inspections",
+                                                        "Enforce use of safety gear",
+                                                        "Complete safety documentation",
+                                                        "Respond to emergencies"
+                                                    ],
+                                                    "advanced": [
+                                                        "Develop safety protocols",
+                                                        "Train teams in safety",
+                                                        "Investigate accidents",
+                                                        "Coordinate with regulators",
+                                                        "Implement improvements"
+                                                    ],
+                                                    "expert": [
+                                                        "Advise on regulatory compliance",
+                                                        "Audit and certify sites",
+                                                        "Develop company-wide safety systems",
+                                                        "Consult on new standards",
+                                                        "Represent company in audits"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Blueprint Reading",
+                                                "skill_type": "Technical",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Identify legend and symbols",
+                                                        "Understand scales",
+                                                        "Locate major components",
+                                                        "Follow basic drawings",
+                                                        "Assist with layout"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Interpret panel layouts",
+                                                        "Read detailed wiring diagrams",
+                                                        "Identify installation sequences",
+                                                        "Spot conflicts in plans",
+                                                        "Communicate findings"
+                                                    ],
+                                                    "advanced": [
+                                                        "Redline and update prints",
+                                                        "Coach others",
+                                                        "Resolve field discrepancies",
+                                                        "Lead plan reviews",
+                                                        "Consult on design changes"
+                                                    ],
+                                                    "expert": [
+                                                        "Advise design teams",
+                                                        "Review & approve final drawings",
+                                                        "Mentor in advanced blueprinting",
+                                                        "Work with engineers",
+                                                        "Certify compliance"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Tool Usage",
+                                                "skill_type": "Technical",
+                                                "weight": 8,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Identify basic tools",
+                                                        "Perform routine maintenance",
+                                                        "Follow tool safety",
+                                                        "Assist in tool setup",
+                                                        "Handle tools with care"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Operate electrical/mechanical tools",
+                                                        "Perform minor repairs",
+                                                        "Select right tools for job",
+                                                        "Troubleshoot malfunctions",
+                                                        "Train peers"
+                                                    ],
+                                                    "advanced": [
+                                                        "Recommend tool upgrades",
+                                                        "Lead tool safety workshops",
+                                                        "Specialize in advanced equipment",
+                                                        "Create tool registers",
+                                                        "Support procurement"
+                                                    ],
+                                                    "expert": [
+                                                        "Specify tool standards company-wide",
+                                                        "Audit tool use",
+                                                        "Introduce innovations",
+                                                        "Set maintenance protocols",
+                                                        "Liaise with suppliers"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Customer Interaction",
+                                                "skill_type": "Behavioral",
+                                                "weight": 6,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Greet clients",
+                                                        "Explain installation timelines",
+                                                        "Respond politely to questions",
+                                                        "Assist with site walkthroughs",
+                                                        "Record customer feedback"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Resolve minor issues",
+                                                        "Clarify technical concepts",
+                                                        "Report customer needs to team",
+                                                        "Provide basic training",
+                                                        "Log complaints"
+                                                    ],
+                                                    "advanced": [
+                                                        "Handle escalations",
+                                                        "Advise on upgrades/options",
+                                                        "Conduct satisfaction surveys",
+                                                        "Implement feedback pickup",
+                                                        "Represent brand professionally"
+                                                    ],
+                                                    "expert": [
+                                                        "Lead customer relations strategy",
+                                                        "Develop training in communications",
+                                                        "Resolve conflicts at executive level",
+                                                        "Coach teams company-wide",
+                                                        "Present at public forums"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "Documentation",
+                                                "skill_type": "Functional",
+                                                "weight": 7,
+                                                "levels": {
+                                                    "beginner": [
+                                                        "Record basic installation data",
+                                                        "Complete checklists",
+                                                        "File daily logs",
+                                                        "Assist with paperwork",
+                                                        "Follow templates"
+                                                    ],
+                                                    "intermediate": [
+                                                        "Draft installation reports",
+                                                        "Maintain compliance logs",
+                                                        "Summarize performance data",
+                                                        "Review peer documentation",
+                                                        "Support audits"
+                                                    ],
+                                                    "advanced": [
+                                                        "Develop reporting procedures",
+                                                        "Audit internal records",
+                                                        "Coordinate documentation teams",
+                                                        "Coach others",
+                                                        "Integrate digital reporting tools"
+                                                    ],
+                                                    "expert": [
+                                                        "Design custom documentation processes",
+                                                        "Train company-wide",
+                                                        "Consult on digital systems",
+                                                        "Lead system rollouts",
+                                                        "Set documentation policy"
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "weight": 10,
+                                        "levels": {
+                                            "beginner": [
+                                                "Assist skilled technician",
+                                                "Identify basic components",
+                                                "Follow standard procedures",
+                                                "Understand safety basics",
+                                                "Use simple hand tools"
+                                            ],
+                                            "intermediate": [
+                                                "Independently install systems",
+                                                "Troubleshoot common install problems",
+                                                "Read work orders",
+                                                "Conduct quality checks",
+                                                "Train peers in basics"
+                                            ],
+                                            "advanced": [
+                                                "Lead installation crews",
+                                                "Interpret blueprints and schematics",
+                                                "Coordinate with contractors",
+                                                "Validate advanced troubleshooting",
+                                                "Ensure regulatory compliance"
+                                            ],
+                                            "expert": [
+                                                "Advise on system design improvements",
+                                                "Audit installation teams",
+                                                "Optimize installation procedures",
+                                                "Consult with leadership",
+                                                "Lead training company-wide"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "ontology": [
+            {
+                "role_or_skill_name": "Installation Technician",
+                "relationships": [
+                    {
+                        "type": "Core",
+                        "related_skills": [
+                            "Solar Panel Mounting",
+                            "Electrical Wiring",
+                            "Safety Compliance",
+                            "System Testing & Commissioning"
+                        ]
+                    },
+                    {
+                        "type": "Complementary",
+                        "related_skills": [
+                            "Customer Interaction",
+                            "Documentation",
+                            "Tool Usage"
+                        ]
+                    },
+                    {
+                        "type": "Prerequisite",
+                        "related_skills": [
+                            "Blueprint Reading"
+                        ]
+                    },
+                    {
+                        "type": "Progressive",
+                        "related_skills": [
+                            "Lead Technician",
+                            "Installation Supervisor"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "generatedAt": "2025-10-08T05:24:44.242Z"
+        },
         "Solar Project Manager":
         {
             "id": "aec4ce9a-ae18-4f22-9f6b-70c3732ad0ae",

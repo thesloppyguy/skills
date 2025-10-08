@@ -8,7 +8,6 @@ import { Input } from "../ui/input";
 const SearchBar = () => {
   const [search, setSearch] = useState("");
   const handleSearch = () => {
-    console.log(search);
   };
   return (
     <div className="flex items-center space-x-4">

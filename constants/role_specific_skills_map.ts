@@ -1,5 +1,529 @@
 export const solar_role_specific_skills_map = {
-        "Solar Project Manager":
+    "Quality Assurance Manager": 
+        [
+            {
+                "name": "Develop and Implement Quality Assurance Policies",
+                "definition": "Designing, documenting, and implementing quality assurance (QA) policies and procedures to ensure compliance with industry standards and regulations. The Quality Assurance Manager oversees ongoing revisions and ensures all employees are trained on updated procedures, focusing on continuous improvement within the solar power division.",
+                "related_occupations": [
+                    "Quality Control Engineer",
+                    "Compliance Manager",
+                    "Quality Assurance Analyst",
+                    "Regulatory Affairs Manager",
+                    "Process Improvement Manager"
+                ]
+            },
+            {
+                "name": "Conduct Internal Audits and Quality Reviews",
+                "definition": "Planning and executing regular internal audits of processes, materials, and finished products in order to identify nonconformance or potential risks. The Manager prepares audit reports and works with teams to address any deficiencies, ensuring the highest quality standards are consistently maintained.",
+                "related_occupations": [
+                    "Internal Auditor",
+                    "Quality Inspector",
+                    "Operations Manager",
+                    "Production Supervisor",
+                    "Health and Safety Officer"
+                ]
+            },
+            {
+                "name": "Oversee Supplier Quality Management",
+                "definition": "Collaborating with suppliers to ensure received raw materials and components meet company quality standards. This involves setting supplier QA guidelines, inspecting shipments, resolving non-compliance issues, and working on corrective actions for supplier improvement.",
+                "related_occupations": [
+                    "Supplier Quality Engineer",
+                    "Procurement Quality Manager",
+                    "Supply Chain Manager",
+                    "Vendor Relations Specialist",
+                    "Manufacturing Engineer"
+                ]
+            },
+            {
+                "name": "Lead Root Cause Analyses and Corrective Actions",
+                "definition": "When quality issues arise, the Manager leads root cause investigations, using tools such as the 5 Whys or fishbone diagrams. The goal is to identify the source of problems, implement corrective actions, and track effectiveness to prevent recurrence, thus ensuring reliability in solar energy products.",
+                "related_occupations": [
+                    "Continuous Improvement Specialist",
+                    "Root Cause Analyst",
+                    "Failure Analysis Engineer",
+                    "Process Engineer",
+                    "Operations Analyst"
+                ]
+            },
+            {
+                "name": "Manage Quality Assurance Team",
+                "definition": "Supervising and mentoring QA specialists, technicians, and inspectors. The Manager assigns tasks, monitors team performance, provides training, and promotes skill development, cultivating a quality-focused culture within the organization.",
+                "related_occupations": [
+                    "Team Lead - Quality Assurance",
+                    "QA Supervisor",
+                    "Quality Team Leader",
+                    "Training and Development Manager",
+                    "Human Resources Manager"
+                ]
+            },
+            {
+                "name": "Ensure Compliance with Environmental and Safety Regulations",
+                "definition": "Working closely with legal and regulatory teams to guarantee company practices align with national, international, and environmental laws (such as ISO 14001) pertinent to the solar industry. This includes documenting compliance procedures and facilitating regulatory audits or inspections.",
+                "related_occupations": [
+                    "Environmental Compliance Officer",
+                    "Regulatory Affairs Specialist",
+                    "Safety Manager",
+                    "Sustainability Officer",
+                    "Environmental Engineer"
+                ]
+            },
+            {
+                "name": "Monitor Performance Metrics and Quality Trends",
+                "definition": "Establishing and managing key performance indicators (KPIs) related to product quality, operational efficiency, and customer satisfaction. The QA Manager uses statistical tools to monitor trends, generate reports, and make data-driven decisions for continuous improvement.",
+                "related_occupations": [
+                    "Quality Data Analyst",
+                    "Business Intelligence Analyst",
+                    "Performance Measurement Specialist",
+                    "Statistical Process Control Analyst",
+                    "Operations Analyst"
+                ]
+            }
+        ],
+    "Quality Assurance Specialist": 
+        [
+            {
+                "name": "Develop and Implement Quality Assurance Procedures",
+                "definition": "Design, document, and implement quality assurance policies, protocols, and guidelines specific to solar power manufacturing or installation. Ensure all products, services, and processes meet regulatory and company standards. Revise procedures based on new technologies, materials, and compliance requirements.",
+                "related_occupations": [
+                    "Quality Control Analyst",
+                    "Process Improvement Specialist",
+                    "Compliance Manager",
+                    "Manufacturing Engineer",
+                    "Regulatory Affairs Specialist"
+                ]
+            },
+            {
+                "name": "Conduct Inspections and Testing",
+                "definition": "Perform or oversee onsite and laboratory testing of solar panels, components, or systems to verify functionality, safety, and efficiency. Utilize specialized testing equipment to detect faults, inconsistencies, or deviations from standard quality benchmarks.",
+                "related_occupations": [
+                    "Test Engineer",
+                    "Field Service Technician",
+                    "Solar Installation Inspector",
+                    "Electronics Quality Technician",
+                    "Materials Tester"
+                ]
+            },
+            {
+                "name": "Analyze Defects and Process Failures",
+                "definition": "Investigate defective solar products or system failures to identify root causes, whether related to materials, workmanship, or process errors. Collaborate with engineering and operations teams to implement corrective actions and prevent recurrence.",
+                "related_occupations": [
+                    "Failure Analysis Engineer",
+                    "Manufacturing Quality Engineer",
+                    "Product Reliability Analyst",
+                    "Root Cause Analyst",
+                    "Operations Quality Manager"
+                ]
+            },
+            {
+                "name": "Coordinate with Suppliers and Vendors",
+                "definition": "Evaluate and audit the quality standards of suppliers’ materials or components. Develop quality requirements for external vendors, conduct supplier assessments, and approve or reject batches based on compliance.",
+                "related_occupations": [
+                    "Supplier Quality Engineer",
+                    "Procurement Quality Specialist",
+                    "Supply Chain Auditor",
+                    "Vendor Relationship Manager",
+                    "Purchasing Quality Analyst"
+                ]
+            },
+            {
+                "name": "Document and Report Quality Metrics",
+                "definition": "Track, analyze, and report key quality indicators including defect rates, inspection outcomes, and compliance records. Prepare detailed reports for management, customers, or regulatory bodies and recommend improvements based on data trends.",
+                "related_occupations": [
+                    "Quality Data Analyst",
+                    "Quality Reporting Specialist",
+                    "Compliance Analyst",
+                    "Operations Metrics Coordinator",
+                    "Statistical Process Control Analyst"
+                ]
+            },
+            {
+                "name": "Train Employees on Quality Standards",
+                "definition": "Design and deliver training programs to educate staff on current quality assurance procedures, standards, and best practices for solar power systems and processes. Ensure consistent awareness and application of quality requirements.",
+                "related_occupations": [
+                    "Quality Trainer",
+                    "Technical Training Specialist",
+                    "Employee Development Coordinator",
+                    "Manufacturing Trainer",
+                    "Safety and Compliance Instructor"
+                ]
+            },
+            {
+                "name": "Ensure Regulatory Compliance",
+                "definition": "Monitor and enforce adherence to local, national, and international quality and safety regulations governing solar equipment, installation practices, and operational procedures. Prepare documentation for audits and maintain certifications.",
+                "related_occupations": [
+                    "Regulatory Compliance Officer",
+                    "Environment, Health and Safety (EHS) Specialist",
+                    "ISO Auditor",
+                    "Legal Compliance Specialist",
+                    "Environmental Quality Manager"
+                ]
+            },
+            {
+                "name": "Facilitate Continuous Improvement Initiatives",
+                "definition": "Lead or participate in cross-functional teams to identify, plan, and execute continuous improvement projects targeting efficiency, product quality, and cost reduction within the solar power division.",
+                "related_occupations": [
+                    "Lean Six Sigma Specialist",
+                    "Continuous Improvement Manager",
+                    "Process Optimization Analyst",
+                    "Performance Improvement Coordinator",
+                    "Industrial Engineer"
+                ]
+            },
+            {
+                "name": "Approve or Reject Finished Products",
+                "definition": "Inspect final solar modules, assemblies, or installations to determine compliance with specified quality standards. Make decisions to approve, rework, or reject products before shipment or installation.",
+                "related_occupations": [
+                    "Final Inspector",
+                    "Manufacturing Quality Controller",
+                    "Site Supervisor (Solar Projects)",
+                    "Assembly Line Inspector",
+                    "Product Certification Specialist"
+                ]
+            }
+        ],
+    "Marketing Manager": 
+        [
+            {
+                "name": "Developing Marketing Strategies",
+                "definition": "Design, implement, and evaluate comprehensive marketing plans that effectively promote solar power products and services. This includes analyzing market trends, customer needs, and the competitive landscape in the green energy sector to maximize outreach and meet organizational objectives.",
+                "related_occupations": [
+                    "Product Marketing Manager",
+                    "Brand Manager",
+                    "Business Development Manager",
+                    "Market Research Analyst",
+                    "Advertising Manager"
+                ]
+            },
+            {
+                "name": "Lead Generation and Management",
+                "definition": "Create and execute campaigns to generate and nurture sales leads for solar power solutions. This involves identifying potential customers, developing lead scoring models, and partnering with sales teams to convert leads into clients.",
+                "related_occupations": [
+                    "Sales Manager",
+                    "Business Development Representative",
+                    "Customer Relationship Manager",
+                    "Account Manager",
+                    "Digital Marketing Specialist"
+                ]
+            },
+            {
+                "name": "Content Creation and Management",
+                "definition": "Oversee the development of marketing materials such as brochures, social media content, blog posts, and technical guides tailored to green energy audiences. Ensure all content aligns with brand identity and drives customer engagement.",
+                "related_occupations": [
+                    "Content Marketing Manager",
+                    "Copywriter",
+                    "Public Relations Specialist",
+                    "Social Media Manager",
+                    "Communications Manager"
+                ]
+            },
+            {
+                "name": "Market Analysis and Reporting",
+                "definition": "Continually research market dynamics affecting solar power and prepare regular reports on competitor activities, pricing trends, and customer preferences. Use data analytics tools to measure the effectiveness of marketing campaigns and optimize future activities.",
+                "related_occupations": [
+                    "Market Research Analyst",
+                    "Data Analyst",
+                    "Business Analyst",
+                    "Product Manager",
+                    "Intelligence Analyst"
+                ]
+            },
+            {
+                "name": "Collaboration with Sales and Technical Teams",
+                "definition": "Work closely with internal sales and solar engineering teams to ensure marketing materials accurately represent the company’s products and capabilities, supporting the sales pipeline and technical demonstrations.",
+                "related_occupations": [
+                    "Sales Engineer",
+                    "Technical Marketing Specialist",
+                    "Project Manager",
+                    "Partnerships Manager",
+                    "Sales Operations Specialist"
+                ]
+            },
+            {
+                "name": "Event Planning and Representation",
+                "definition": "Organize and participate in trade shows, exhibitions, webinars, and green energy conferences to promote the solar division. Represent the company to build brand visibility and establish industry connections.",
+                "related_occupations": [
+                    "Event Manager",
+                    "Public Relations Manager",
+                    "Exhibition Coordinator",
+                    "Sponsorship Manager",
+                    "Business Development Executive"
+                ]
+            },
+            {
+                "name": "Budget Management",
+                "definition": "Develop, oversee, and optimize the marketing budget for the solar power division. Allocate resources across campaigns, monitor expenditures, and report on return on investment to ensure cost-effective marketing initiatives.",
+                "related_occupations": [
+                    "Marketing Budget Analyst",
+                    "Finance Manager",
+                    "Campaign Manager",
+                    "Operations Manager",
+                    "Media Planner"
+                ]
+            }
+        ],
+    "Marketing Coordinator": 
+        [
+            {
+                "name": "Campaign Planning and Execution",
+                "definition": "Developing, coordinating, and executing marketing campaigns targeted at promoting solar power products and services. This includes market research, budgeting, scheduling, and working with creative teams to ensure campaigns meet objectives and timelines. The Marketing Coordinator ensures that campaigns resonate with the target audience and support business growth in the green energy sector.",
+                "related_occupations": [
+                    "Marketing Manager",
+                    "Digital Marketing Specialist",
+                    "Advertising Coordinator",
+                    "Product Marketing Specialist",
+                    "Brand Manager"
+                ]
+            },
+            {
+                "name": "Content Creation and Management",
+                "definition": "Creating, editing, and managing content across multiple platforms, including websites, social media, newsletters, and sales collateral. Content is tailored to highlight the benefits of solar energy and the company’s solutions, educating potential customers and supporting lead generation efforts.",
+                "related_occupations": [
+                    "Content Marketing Specialist",
+                    "Copywriter",
+                    "Social Media Manager",
+                    "Communications Coordinator",
+                    "SEO Specialist"
+                ]
+            },
+            {
+                "name": "Market Research and Analysis",
+                "definition": "Conducting research to identify market trends, customer preferences, and competitor activities within the solar power space. This involves gathering and analyzing data to recommend strategic actions and support the development of effective marketing plans.",
+                "related_occupations": [
+                    "Market Research Analyst",
+                    "Business Development Associate",
+                    "Marketing Analyst",
+                    "Product Analyst",
+                    "Business Intelligence Specialist"
+                ]
+            },
+            {
+                "name": "Event Coordination",
+                "definition": "Organizing and supporting events such as industry conferences, trade shows, webinars, and product launches to increase brand awareness and generate leads. Responsibilities include coordinating logistics, promotions, and follow-up activities.",
+                "related_occupations": [
+                    "Event Coordinator",
+                    "Trade Show Manager",
+                    "Public Relations Assistant",
+                    "Conference Planner",
+                    "Outreach Coordinator"
+                ]
+            },
+            {
+                "name": "Collaboration with Sales Team",
+                "definition": "Working closely with the sales team to align marketing initiatives with sales objectives, ensure message consistency, and provide the necessary marketing materials and support to drive conversions in the green energy marketplace.",
+                "related_occupations": [
+                    "Sales Coordinator",
+                    "Account Manager",
+                    "Sales Enablement Specialist",
+                    "Business Development Coordinator",
+                    "Customer Relationship Manager"
+                ]
+            },
+            {
+                "name": "Digital Marketing and Social Media Management",
+                "definition": "Managing the company’s online presence, including social media channels, digital ad campaigns, and search engine marketing, to boost engagement and generate interest in solar power solutions. This also involves analyzing metrics and optimizing digital strategies for better performance.",
+                "related_occupations": [
+                    "Digital Marketing Manager",
+                    "Social Media Strategist",
+                    "PPC Specialist",
+                    "Online Marketing Coordinator",
+                    "Web Content Manager"
+                ]
+            },
+            {
+                "name": "Brand Development and Messaging",
+                "definition": "Assisting in developing and maintaining a consistent brand image, voice, and positioning for the solar power division. Responsible for ensuring all marketing communication reinforces brand values and resonates with the target audience.",
+                "related_occupations": [
+                    "Brand Strategist",
+                    "Corporate Communications Specialist",
+                    "Public Relations Manager",
+                    "Creative Director",
+                    "Marketing Communications Coordinator"
+                ]
+            },
+            {
+                "name": "Reporting and Metrics Analysis",
+                "definition": "Tracking the effectiveness of marketing campaigns and initiatives using analytics tools, preparing reports, and presenting results to management to inform future strategy within the solar energy segment.",
+                "related_occupations": [
+                    "Marketing Analyst",
+                    "Data Analyst",
+                    "Insights Specialist",
+                    "Reporting Analyst",
+                    "Market Intelligence Coordinator"
+                ]
+            }
+        ],
+    "Installation Supervisor": 
+        [
+            {
+                "name": "Site Assessment and Planning",
+                "definition": "Conduct comprehensive site assessments to determine the suitability for solar installation, considering factors such as roof structure, orientation, shading, and electrical wiring. Prepare site assessment reports and devise project plans ensuring adherence to safety and regulatory standards.",
+                "related_occupations": [
+                    "Solar Installation Technician",
+                    "Project Engineer (Solar Power)",
+                    "Electrical Site Supervisor",
+                    "Construction Site Manager",
+                    "Renewable Energy Assessor"
+                ]
+            },
+            {
+                "name": "Team Supervision and Coordination",
+                "definition": "Manage and lead a team of installation technicians by assigning tasks, providing training, monitoring performance, and ensuring that all work is completed efficiently, safely, and according to company standards.",
+                "related_occupations": [
+                    "Construction Foreman",
+                    "Electrical Supervisor",
+                    "Operations Manager (Solar)",
+                    "Renewable Energy Project Manager",
+                    "Maintenance Supervisor"
+                ]
+            },
+            {
+                "name": "Resource and Inventory Management",
+                "definition": "Oversee procurement, delivery, storage, and allocation of materials and equipment necessary for solar installations, ensuring that inventory levels are maintained and usage is tracked for cost efficiency.",
+                "related_occupations": [
+                    "Logistics Coordinator",
+                    "Supply Chain Manager",
+                    "Warehouse Supervisor",
+                    "Procurement Specialist",
+                    "Solar Project Coordinator"
+                ]
+            },
+            {
+                "name": "Quality Control and Inspection",
+                "definition": "Inspect work performed by the installation team to verify compliance with technical standards, building codes, and safety regulations. Troubleshoot and resolve installation issues, ensuring quality control throughout the project lifecycle.",
+                "related_occupations": [
+                    "Quality Assurance Inspector",
+                    "Health and Safety Officer",
+                    "Electrical Inspector",
+                    "Project Quality Manager",
+                    "Solar Field Service Technician"
+                ]
+            },
+            {
+                "name": "Client Communication and Reporting",
+                "definition": "Serve as the primary point of contact for clients during the installation phase, providing updates, addressing concerns, and ensuring client satisfaction. Prepare and submit detailed progress and completion reports to internal and external stakeholders.",
+                "related_occupations": [
+                    "Customer Service Supervisor",
+                    "Project Coordinator (Solar)",
+                    "Field Operations Supervisor",
+                    "Account Manager (Renewables)",
+                    "Sales Engineer (Solar)"
+                ]
+            },
+            {
+                "name": "Health and Safety Enforcement",
+                "definition": "Develop, implement, and enforce safety procedures and protocols to maintain a safe work environment on the installation site. Conduct regular safety briefings and ensure all personnel adhere to legal and organizational health and safety regulations.",
+                "related_occupations": [
+                    "Health and Safety Coordinator",
+                    "Risk Manager",
+                    "Construction Safety Supervisor",
+                    "Environmental Health Officer",
+                    "Site Compliance Officer"
+                ]
+            },
+            {
+                "name": "Scheduling and Timeline Management",
+                "definition": "Create and manage installation schedules, coordinating timelines with suppliers, clients, and internal teams to ensure that projects are completed within set deadlines and budgets.",
+                "related_occupations": [
+                    "Project Scheduler",
+                    "Construction Planner",
+                    "Operations Scheduler",
+                    "Field Project Manager",
+                    "Resource Planner"
+                ]
+            },
+            {
+                "name": "Troubleshooting and Technical Support",
+                "definition": "Provide hands-on problem-solving support for technical challenges that arise during installation, such as electrical or mechanical issues, to minimize project delays and ensure system efficiency and functionality.",
+                "related_occupations": [
+                    "Field Service Technician",
+                    "Technical Support Engineer",
+                    "Maintenance Engineer (Solar)",
+                    "Electrical Engineer",
+                    "Commissioning Specialist"
+                ]
+            }
+        ],
+    "Installation Technician": 
+        [
+            {
+                "name": "Solar Panel Installation",
+                "definition": "Install solar photovoltaic (PV) panels on rooftops or ground-mounted structures, following blueprints and manufacturer guidelines. This includes measuring and assembling equipment, securing panels, and ensuring structural integrity for optimal power generation while adhering to safety regulations.",
+                "related_occupations": [
+                    "Solar Photovoltaic Installer",
+                    "Electrical Technician",
+                    "Construction Laborer",
+                    "Roofer",
+                    "Energy Systems Installer"
+                ]
+            },
+            {
+                "name": "System Testing and Commissioning",
+                "definition": "Conduct tests on newly installed solar systems to ensure proper operation, including electrical connectivity checks, power output measurements, and compliance with technical specifications. Troubleshoot issues and make necessary adjustments for system commissioning and client handover.",
+                "related_occupations": [
+                    "Electrical Engineer",
+                    "Renewable Energy Technician",
+                    "Quality Assurance Inspector",
+                    "Field Service Technician",
+                    "Maintenance Technician"
+                ]
+            },
+            {
+                "name": "Wiring and Electrical Connections",
+                "definition": "Install electrical wiring and connect solar panels to inverters, batteries, and utility grids in compliance with national and local codes. Ensure safe and efficient electrical integration with the existing building infrastructure to enable reliable solar power usage.",
+                "related_occupations": [
+                    "Electrician",
+                    "Residential Wireman",
+                    "Solar Energy Specialist",
+                    "Low Voltage Technician",
+                    "Electrical Installer"
+                ]
+            },
+            {
+                "name": "Site Assessment and Preparation",
+                "definition": "Evaluate installation sites for suitability, considering sunlight exposure, structural stability, and local environmental conditions. Prepare the site by measuring, marking, clearing obstructions, and coordinating with clients and contractors to ensure a safe and effective setup.",
+                "related_occupations": [
+                    "Site Project Coordinator",
+                    "Surveyor",
+                    "Civil Engineering Technician",
+                    "Solar Site Assessor",
+                    "Project Manager"
+                ]
+            },
+            {
+                "name": "System Maintenance and Troubleshooting",
+                "definition": "Perform routine checks, preventive maintenance, and repair work on installed solar power systems to maximize uptime. Diagnose performance issues, replace faulty components, and provide technical support to resolve client-reported problems efficiently.",
+                "related_occupations": [
+                    "Solar Maintenance Technician",
+                    "Field Service Engineer",
+                    "Technical Support Specialist",
+                    "Operations & Maintenance Technician",
+                    "Electronics Repair Technician"
+                ]
+            },
+            {
+                "name": "Client Training and Documentation",
+                "definition": "Educate clients on system operation, safety measures, and regular maintenance routines. Prepare and provide technical documentation, user manuals, and service records to ensure clients can effectively operate their solar energy systems post-installation.",
+                "related_occupations": [
+                    "Customer Support Representative",
+                    "Technical Trainer",
+                    "Installation Supervisor",
+                    "Documentation Specialist",
+                    "Field Application Engineer"
+                ]
+            },
+            {
+                "name": "Safety Compliance and Risk Mitigation",
+                "definition": "Adhere strictly to safety standards and protocols during installation and maintenance activities. Identify potential hazards, use appropriate personal protective equipment (PPE), and implement risk mitigation strategies to ensure a safe working environment for the team and clients.",
+                "related_occupations": [
+                    "Safety Officer",
+                    "Health and Safety Inspector",
+                    "Occupational Health Technician",
+                    "Site Supervisor",
+                    "Construction Safety Specialist"
+                ]
+            }
+        ],
+    "Solar Project Manager":
         [
             {
                 "name": "Project Planning and Scheduling",
