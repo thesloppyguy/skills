@@ -59,11 +59,15 @@ export const renderSkillLevels = (levels: {
           </AccordionTrigger>
           <AccordionContent>
             <div className="space-y-1">
-              {levels[key as keyof typeof levels].map((task, index) => (
+              {levels[key as keyof typeof levels]?.map((task, index) => (
                 <div key={index} className="text-xs text-gray-600 p-2 bg-gray-50 rounded">
                   • {task}
                 </div>
-              ))}
+              )) || (
+                <div className="text-xs text-gray-500 p-2 bg-gray-50 rounded">
+                  No tasks defined for this level
+                </div>
+              )}
             </div>
           </AccordionContent>
         </AccordionItem>
