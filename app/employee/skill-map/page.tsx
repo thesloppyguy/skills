@@ -2,7 +2,7 @@
 "use client";
 import React, { useState } from "react";
 import { dummyEmployees } from "@/constants";
-import { getEmployeeSkillsOntology } from "@/services/app";
+import { user_skill_map } from "@/constants/user_skill_map";
 import { Domain, OntologyRelationship } from "@/types/organization";
 import { useEffect } from "react";
 import { Brain } from "lucide-react";
@@ -18,24 +18,19 @@ import { useEmployee } from "@/contexts/EmployeeContext";
 import { useOrganization } from "@/contexts/OrganizationContext";
 import { Card } from "@/components/ui/card";
 import { MultiStepLoader } from "@/components/ui/multi-step-loader";
-import { hierarchy } from "d3";
 
 const getEmployeeOntology = (employeeId: string) => {
-  const ontology = localStorage.getItem(`ontology_${employeeId}`);
-  if (ontology) {
-    return JSON.parse(ontology);
+  // Look up the employee's ontology from user_skill_map
+  const ontologyKey = `ontology_${employeeId}`;
+  const employeeOntology = user_skill_map[ontologyKey as keyof typeof user_skill_map];
+  
+  if (employeeOntology) {
+    return {
+      hierarchy: employeeOntology.hierarchy as Domain[],
+      ontology: employeeOntology.ontology as OntologyRelationship[]
+    };
   }
   return null;
-};
-
-const setOntology = (
-  ontology: {
-    hierarchy?: Domain[];
-    ontology?: OntologyRelationship[];
-  },
-  employeeId: string
-) => {
-  localStorage.setItem(`ontology_${employeeId}`, JSON.stringify(ontology));
 };
 
 const getOrganizationOntology = (designation: string, skillsMap: Map<string, any>) => {
@@ -310,24 +305,38 @@ const SkillMapPage = () => {
   useEffect(() => {
     setCurrentOntology({});
     const ontology = getEmployeeOntology(employee.id);
-    if (!ontology) {
-      const fetchSkillMap = async () => {
-        const response = (await getEmployeeSkillsOntology(employee)) as {
-          hierarchy?: Domain[];
-          ontology?: OntologyRelationship[];
-        };
-        setCurrentOntology(response);
-        setOntology(response, employee.id);
-      };
-      fetchSkillMap();
-    } else {
+    if (ontology) {
       setCurrentOntology(ontology);
+    } else {
+      // Set empty ontology if no data found for this employee
+      const emptyOntology = { hierarchy: [], ontology: [] };
+      setCurrentOntology(emptyOntology);
     }
   }, [employee]);
   if (!currentOntology.hierarchy || !currentOntology.ontology) {
+    // Check if we have empty arrays (no data found) vs undefined (still loading)
+    if (currentOntology.hierarchy && currentOntology.ontology && 
+        currentOntology.hierarchy.length === 0 && currentOntology.ontology.length === 0) {
+      return (
+        <Card className="p-6">
+          <div className="flex items-center justify-center h-64">
+            <div className="text-center">
+              <Brain className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-gray-600 mb-2">
+                No Skills Data Available
+              </h3>
+              <p className="text-gray-500">
+                No skills ontology data found for employee {employee.id}.
+              </p>
+            </div>
+          </div>
+        </Card>
+      );
+    }
+
     const loadingStates = [
       { text: "Loading employee data..." },
-      { text: "Fetching skills ontology..." },
+      { text: "Loading skills ontology..." },
       { text: "Analyzing skill hierarchy..." },
       { text: "Preparing visualization..." },
     ];
@@ -337,7 +346,7 @@ const SkillMapPage = () => {
         loadingStates={loadingStates}
         loading={true}
         loop={false}
-        duration={5000}
+        duration={2000}
       />
     );
   }

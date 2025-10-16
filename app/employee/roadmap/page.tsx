@@ -27,6 +27,8 @@ import { useEmployee } from "@/contexts/EmployeeContext";
 import { useOrganization } from "@/contexts/OrganizationContext";
 import { CheckCircle, XCircle, AlertTriangle } from "lucide-react";
 import { solar_roadmaps } from "@/constants/roadmaps";
+import { user_skill_map } from "@/constants/user_skill_map";
+import { Domain } from "@/types/organization";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const getEmployeeRoles = (skillsMap: Map<string, any>) => {
@@ -48,10 +50,15 @@ const getEmployeeRoles = (skillsMap: Map<string, any>) => {
 };
 
 const getEmployeeOntology = (employeeId: string) => {
-  if (typeof window === "undefined") return null;
-  const ontology = localStorage.getItem(`ontology_${employeeId}`);
-  if (ontology) {
-    return JSON.parse(ontology);
+  // Look up the employee's ontology from user_skill_map
+  const ontologyKey = `ontology_${employeeId}`;
+  const employeeOntology = user_skill_map[ontologyKey as keyof typeof user_skill_map];
+  
+  if (employeeOntology) {
+    return {
+      hierarchy: employeeOntology.hierarchy,
+      ontology: employeeOntology.ontology
+    };
   }
   return null;
 };
@@ -425,7 +432,7 @@ const RoadmapPage = () => {
       }
 
       const roadmapData = await generateRoadmap({
-        skills: employeeOntology,
+        skills: employeeOntology.hierarchy as Domain[],
         target: targetOntology,
       });
 
