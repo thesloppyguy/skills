@@ -212,6 +212,7 @@ export const renderDomain = (domain: Domain) => {
 const Ontology: React.FC<OntologyProps> = ({
   ontology,
 }) => {
+  console.log(ontology);
   return (
     <div className="space-y-6 max-h-[calc(90vh-200px)] overflow-y-auto">
     {/* Skills Hierarchy */}

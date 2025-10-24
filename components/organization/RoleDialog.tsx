@@ -72,7 +72,7 @@ const RoleDialog: React.FC<RoleDialogProps> = ({
       </Card>
     );
   };
-
+  console.log(ontology);
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
@@ -93,9 +93,9 @@ const RoleDialog: React.FC<RoleDialogProps> = ({
               <TabsTrigger value="ontology">Ontology</TabsTrigger>
             </TabsList>
             <TabsContent value="ontology">
-            {ontology && (
+            {/* {ontology && (
           <Ontology ontology={ontology} />
-            )}
+            )} */}
             </TabsContent>
             <TabsContent value="definitions">
             {roleSpecificInfo && roleSpecificInfo.length > 0 && (

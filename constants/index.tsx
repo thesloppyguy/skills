@@ -31,151 +31,151 @@ export const sections: {
   children?: SubSectionType[];
   path?: string;
 }[] = [
-  {
-    name: "About Me",
-    icon: <User className="w-5 h-5 text-white" />,
-    iconColor: "bg-blue-900",
-    children: [
-      {
-        name: "Personal Details",
-        path: "/employee/personal-details",
-      },
-      {
-        name: "Profile Picture",
-        path: "/employee/profile-picture",
-      },
-      {
-        name: "Contact Details",
-        path: "/employee/contact-details",
-      },
-      {
-        name: "Employment Details",
-        path: "/employee/employment-details",
-      },
-      {
-        name: "Bank Details",
-        path: "/employee/bank-details",
-      },
-      {
-        name: "Statutory Details",
-        path: "/employee/statutory-details",
-      },
-      {
-        name: "Attribute Level Details",
-        path: "/employee/attribute-level-details",
-      },
-    ],
-  },
-  {
-    name: "Address/Coordinates",
-    icon: <MapPin className="w-5 h-5 text-white" />,
-    iconColor: "bg-green-900",
-    children: [
-      {
-        name: "Primary Location",
-        path: "/employee/primary-location",
-      },
-      {
-        name: "Emergency Contact",
-        path: "/employee/emergency-contact",
-      },
-    ],
-  },
-  {
-    name: "Identity Proofs",
-    icon: <IdCard className="w-5 h-5 text-white" />,
-    iconColor: "bg-purple-900",
-    children: [
-      {
-        name: "Identity Proof Details",
-        path: "/employee/identity-proofs",
-      },
-      {
-        name: "Visa Details",
-        path: "/employee/visa-details",
-      },
-    ],
-  },
-  {
-    name: "Skills & Qualification",
-    icon: <GraduationCap className="w-5 h-5 text-white" />,
-    iconColor: "bg-yellow-900",
-    children: [
-      {
-        name: "Qualifications",
-        path: "/employee/qualifications",
-      },
-      {
-        name: "Skills",
-        path: "/employee/skills",
-      },
-      {
-        name: "Roadmap",
-        path: "/employee/roadmap",
-      },
-      {
-        name: "Skill Map",
-        path: "/employee/skill-map",
-      },
-      {
-        name: "Training & Certifications",
-        path: "/employee/training-certifications",
-      },
-      {
-        name: "Languages",
-        path: "/employee/languages",
-      },
-    ],
-  },
-  {
-    name: "Family",
-    icon: <Users2 className="w-5 h-5 text-white" />,
-    iconColor: "bg-red-900",
-    children: [
-      {
-        name: "Family Details",
-        path: "/employee/family-details",
-      },
+    {
+      name: "About Me",
+      icon: <User className="w-5 h-5 text-white" />,
+      iconColor: "bg-blue-900",
+      children: [
+        {
+          name: "Personal Details",
+          path: "/employee/personal-details",
+        },
+        {
+          name: "Profile Picture",
+          path: "/employee/profile-picture",
+        },
+        {
+          name: "Contact Details",
+          path: "/employee/contact-details",
+        },
+        {
+          name: "Employment Details",
+          path: "/employee/employment-details",
+        },
+        {
+          name: "Bank Details",
+          path: "/employee/bank-details",
+        },
+        {
+          name: "Statutory Details",
+          path: "/employee/statutory-details",
+        },
+        {
+          name: "Attribute Level Details",
+          path: "/employee/attribute-level-details",
+        },
+      ],
+    },
+    {
+      name: "Address/Coordinates",
+      icon: <MapPin className="w-5 h-5 text-white" />,
+      iconColor: "bg-green-900",
+      children: [
+        {
+          name: "Primary Location",
+          path: "/employee/primary-location",
+        },
+        {
+          name: "Emergency Contact",
+          path: "/employee/emergency-contact",
+        },
+      ],
+    },
+    {
+      name: "Identity Proofs",
+      icon: <IdCard className="w-5 h-5 text-white" />,
+      iconColor: "bg-purple-900",
+      children: [
+        {
+          name: "Identity Proof Details",
+          path: "/employee/identity-proofs",
+        },
+        {
+          name: "Visa Details",
+          path: "/employee/visa-details",
+        },
+      ],
+    },
+    {
+      name: "Skills & Qualification",
+      icon: <GraduationCap className="w-5 h-5 text-white" />,
+      iconColor: "bg-yellow-900",
+      children: [
+        {
+          name: "Qualifications",
+          path: "/employee/qualifications",
+        },
+        {
+          name: "Skills",
+          path: "/employee/skills",
+        },
+        {
+          name: "Roadmap",
+          path: "/employee/roadmap",
+        },
+        {
+          name: "Skill Map",
+          path: "/employee/skill-map",
+        },
+        {
+          name: "Training & Certifications",
+          path: "/employee/training-certifications",
+        },
+        {
+          name: "Languages",
+          path: "/employee/languages",
+        },
+      ],
+    },
+    {
+      name: "Family",
+      icon: <Users2 className="w-5 h-5 text-white" />,
+      iconColor: "bg-red-900",
+      children: [
+        {
+          name: "Family Details",
+          path: "/employee/family-details",
+        },
 
-      {
-        name: "Nominee Details",
-        path: "/employee/nominee-details",
-      },
+        {
+          name: "Nominee Details",
+          path: "/employee/nominee-details",
+        },
 
-      {
-        name: "Medical Insurance",
-        path: "/employee/medical-insurance",
-      },
-    ],
-  },
-  {
-    name: "Employment History",
-    icon: <ClipboardList className="w-5 h-5 text-white" />,
-    iconColor: "bg-orange-900",
-    children: [
-      {
-        name: "Employment Details",
-        path: "/employee/employment-details",
-      },
-      {
-        name: "Performance Ratings",
-        path: "/employee/performance-ratings",
-      },
-    ],
-  },
-  {
-    name: "Undertakings",
-    icon: <FileText className="w-5 h-5 text-white" />,
-    iconColor: "bg-pink-900",
-    path: "/employee/undertakings",
-  },
-  {
-    name: "Documents",
-    icon: <File className="w-5 h-5 text-white" />,
-    iconColor: "bg-gray-900",
-    path: "/employee/documents",
-  },
-];
+        {
+          name: "Medical Insurance",
+          path: "/employee/medical-insurance",
+        },
+      ],
+    },
+    {
+      name: "Employment History",
+      icon: <ClipboardList className="w-5 h-5 text-white" />,
+      iconColor: "bg-orange-900",
+      children: [
+        {
+          name: "Employment Details",
+          path: "/employee/employment-details",
+        },
+        {
+          name: "Performance Ratings",
+          path: "/employee/performance-ratings",
+        },
+      ],
+    },
+    {
+      name: "Undertakings",
+      icon: <FileText className="w-5 h-5 text-white" />,
+      iconColor: "bg-pink-900",
+      path: "/employee/undertakings",
+    },
+    {
+      name: "Documents",
+      icon: <File className="w-5 h-5 text-white" />,
+      iconColor: "bg-gray-900",
+      path: "/employee/documents",
+    },
+  ];
 
 export type SideBarItem = {
   label: string;
@@ -198,6 +198,11 @@ export const sideBarItems: SideBarItem[] = [
     label: "My Profile",
     icon: <User className="w-6 h-6" />,
     href: "/employee",
+  },
+  {
+    label: "My Growth",
+    icon: <TrendingUp className="w-6 h-6" />,
+    href: "/growth",
   },
 ];
 

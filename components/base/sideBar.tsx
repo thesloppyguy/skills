@@ -10,6 +10,8 @@ const getCurrentItem = (currentItem: string | undefined) => {
       return "My Org";
     case "employee":
       return "My Profile";
+    case "growth":
+      return "My Growth";
     default:
       return "My Home";
   }
@@ -25,7 +27,7 @@ const SideBar = () => {
       setItem("My Home");
       router.push("/");
     }
-  }, [currentItem]);
+  }, [currentItem, router]);
 
   return (
     <aside className="w-16 bg-white border-r border-gray-200 flex flex-col items-center py-3">
@@ -34,11 +36,10 @@ const SideBar = () => {
           {sideBarItems.map((item: SideBarItem) => (
             <li key={item.label} className="flex flex-col items-center">
               <button
-                className={`p-2 rounded-lg transition-colors ${
-                  Item === item.href
-                    ? "bg-blue-100 text-blue-700"
-                    : "text-gray-600 hover:bg-gray-100"
-                }`}
+                className={`p-2 rounded-lg transition-colors ${Item === item.href
+                  ? "bg-blue-100 text-blue-700"
+                  : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 onClick={() => {
                   router.push(item.href);
                   setItem(item.href);
