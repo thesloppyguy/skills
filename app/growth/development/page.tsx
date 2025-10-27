@@ -167,7 +167,7 @@ const DevelopmentPage = () => {
                                     <AccordionContent>
                                         <div className="pt-4">
                                             <div className="bg-blue-50 border rounded-lg p-4">
-                                                <p className="text-sm italic">"{script.script}"</p>
+                                                <p className="text-sm italic">&quot;{script.script}&quot;</p>
                                             </div>
                                         </div>
                                     </AccordionContent>

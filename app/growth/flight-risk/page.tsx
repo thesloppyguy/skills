@@ -23,7 +23,7 @@ const FlightRiskPage = () => {
     }
 
     const getRiskBadgeVariant = (level: string) => {
-        switch (level.toLowerCase()) {
+        switch (level?.toLowerCase()) {
             case 'low': return 'default';
             case 'moderate': return 'secondary';
             case 'high': return 'destructive';
@@ -32,7 +32,7 @@ const FlightRiskPage = () => {
     };
 
     const getPriorityBadgeVariant = (priority: string) => {
-        switch (priority.toLowerCase()) {
+        switch (priority?.toLowerCase()) {
             case 'high': return 'destructive';
             case 'medium': return 'secondary';
             case 'low': return 'outline';
@@ -41,7 +41,7 @@ const FlightRiskPage = () => {
     };
 
     const getTrendIcon = (trend: string) => {
-        switch (trend.toLowerCase()) {
+        switch (trend?.toLowerCase()) {
             case 'positive': return <TrendingUp className="h-4 w-4 text-green-600" />;
             case 'negative': return <TrendingDown className="h-4 w-4 text-red-600" />;
             case 'stable': return <Minus className="h-4 w-4 text-gray-600" />;
@@ -50,7 +50,7 @@ const FlightRiskPage = () => {
     };
 
     const getImpactColor = (impact: string) => {
-        switch (impact.toLowerCase()) {
+        switch (impact?.toLowerCase()) {
             case 'high': return 'text-red-600';
             case 'moderate': return 'text-yellow-600';
             case 'low': return 'text-green-600';
@@ -201,7 +201,7 @@ const FlightRiskPage = () => {
                             <AlertTitle>Current Risk Level: {riskData.risk_level}</AlertTitle>
                             <AlertDescription>
                                 This employee has a {Math.round(riskData.flight_risk_score * 100)}% flight risk score,
-                                which is considered {riskData.risk_level.toLowerCase()}.
+                                which is considered {riskData.risk_level?.toLowerCase() || 'unknown'}.
                                 {riskData.risk_level === 'Low' && ' Continue monitoring and maintain current engagement strategies.'}
                                 {riskData.risk_level === 'Moderate' && ' Consider implementing recommended interventions to reduce risk factors.'}
                                 {riskData.risk_level === 'High' && ' Immediate action recommended. Prioritize high-impact interventions.'}
