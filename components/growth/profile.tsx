@@ -55,7 +55,6 @@ const Profile = () => {
                                 {selectedEmployee.personalDetails.firstName} {selectedEmployee.personalDetails.lastName}
                             </CardTitle>
                             <p className="text-sm text-muted-foreground">{selectedEmployee.domain}</p>
-                            <p className="text-xs text-muted-foreground">Employee ID: {selectedEmployee.id}</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
@@ -72,12 +71,6 @@ const Profile = () => {
                     </div>
                 </div>
             </CardHeader>
-            <CardContent>
-                <div className="text-sm text-muted-foreground">
-                    <p>Employee switching is handled by the header selector above.</p>
-                    <p>Current employee: <strong>{selectedEmployee.personalDetails.firstName} {selectedEmployee.personalDetails.lastName}</strong></p>
-                </div>
-            </CardContent>
         </Card>
     );
 };
