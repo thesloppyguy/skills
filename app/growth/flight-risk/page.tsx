@@ -155,7 +155,7 @@ const FlightRiskPage = () => {
                             <h3 className="font-semibold mb-2">Risk Score Breakdown</h3>
                             <Progress 
                                 value={riskScore * 100} 
-                                className={`h-4 mb-2 ${getRiskBorderColor(riskLevel, riskScore).includes('green') ? 'bg-green-500' : getRiskBorderColor(riskLevel, riskScore).includes('yellow') ? 'bg-yellow-500' : 'bg-red-500'}`}
+                                className={`h-4 mb-2`}
                             />
                             <p className="text-sm text-muted-foreground">
                                 Based on multiple factors including tenure, compensation, and career growth

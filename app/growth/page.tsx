@@ -98,8 +98,8 @@ const GrowthDashboard = () => {
                         <Target className={`h-4 w-4 ${getProgressColor(totalProgress)}`} />
                     </CardHeader>
                     <CardContent>
-                        <div className={`text-2xl font-bold ${getProgressColor(totalProgress)}`}>{Math.round(totalProgress)}%</div>
-                        <Progress value={totalProgress} className={`mt-2 ${getProgressBarColor(totalProgress)}`} />
+                        <div className={`text-2xl font-bold`}>{Math.round(totalProgress)}%</div>
+                        <Progress value={totalProgress} className={`mt-2`} />
                         <p className="text-xs text-muted-foreground mt-1">
                             Average completion across all current goals
                         </p>
@@ -171,7 +171,7 @@ const GrowthDashboard = () => {
                                 </div>
                                 <Progress 
                                     value={goal.progress} 
-                                    className={`h-2 ${getProgressBarColor(goal.progress)}`} 
+                                    className={`h-2`} 
                                 />
                             </div>
                         ))}
@@ -236,7 +236,7 @@ const GrowthDashboard = () => {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <CheckCircle className="h-5 w-5" />
-                        Role Competencies
+                        Current Role Competencies
                     </CardTitle>
                     <p className="text-sm text-muted-foreground mt-1">
                         Key skills and expertise areas for this role. Expert level indicates mastery, Intermediate shows solid understanding.

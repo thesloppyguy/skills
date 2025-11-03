@@ -83,7 +83,7 @@ const KPIsPage = () => {
                     </CardHeader>
                     <CardContent>
                         <div className={`text-3xl font-bold ${getProgressColor(totalProgress)}`}>{Math.round(totalProgress)}%</div>
-                        <Progress value={totalProgress} className={`mt-2 ${getProgressBarColor(totalProgress)}`} />
+                        <Progress value={totalProgress} className={`mt-2`} />
                         <p className="text-xs text-muted-foreground mt-1">
                             Average completion across all current goals
                         </p>
@@ -119,7 +119,7 @@ const KPIsPage = () => {
                                 </div>
                                 <Progress 
                                     value={goal.progress} 
-                                    className={`h-3 ${getProgressBarColor(goal.progress)}`} 
+                                    className={`h-3`} 
                                 />
                                 <p className="text-xs text-muted-foreground mt-1">
                                     Goal importance: {goal.weight}% of overall performance evaluation
@@ -206,7 +206,7 @@ const KPIsPage = () => {
                                                         </div>
                                                         <Progress 
                                                             value={goal.progress} 
-                                                            className={`h-2 ${getProgressBarColor(goal.progress)}`} 
+                                                            className={`h-2`} 
                                                         />
                                                     </div>
                                                 ))}

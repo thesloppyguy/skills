@@ -101,7 +101,7 @@ const DevelopmentPage = () => {
                         <div className="space-y-3">
                             <div className="flex items-center gap-4">
                                 <div className="flex-1">
-                                    <Progress value={confidenceScore * 100} className={`h-4 ${getConfidenceBarColor(confidenceScore)}`} />
+                                    <Progress value={confidenceScore * 100} className={`h-4`} />
                                 </div>
                                 <span className={`text-2xl font-semibold ${getConfidenceColor(confidenceScore)}`}>
                                     {Math.round(confidenceScore * 100)}%

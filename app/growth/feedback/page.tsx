@@ -103,7 +103,7 @@ const FeedbackPage = () => {
                         <div className="space-y-3">
                             <div className="flex items-center gap-4">
                                 <div className="flex-1">
-                                    <Progress value={sentimentScore * 100} className={`h-4 ${getSentimentBarColor(sentimentScore)}`} />
+                                    <Progress value={sentimentScore * 100} className={`h-4`} />
                                 </div>
                                 <span className={`text-2xl font-semibold ${getSentimentColor(sentimentScore)}`}>
                                     {Math.round(sentimentScore * 100)}%
@@ -143,7 +143,7 @@ const FeedbackPage = () => {
                                 <div className="border rounded-lg p-4">
                                     <h4 className="font-semibold mb-2">Sentiment Score</h4>
                                     <div className="flex items-center gap-2">
-                                        <Progress value={sentimentScore * 100} className={`flex-1 ${getSentimentBarColor(sentimentScore)}`} />
+                                        <Progress value={sentimentScore * 100} className={`flex-1`} />
                                         <span className={`text-sm font-semibold ${getSentimentColor(sentimentScore)}`}>
                                             {Math.round(sentimentScore * 100)}%
                                         </span>
