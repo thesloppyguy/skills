@@ -31,7 +31,7 @@ export default function RootLayout({
                             {!isTablet && <LayoutSections />}
 
                             {/* Right Column - Growth Details */}
-                            <div className="flex-1 mt-4">
+                            <div className="flex-1 p-4">
                                 <Profile />
                                 {children}
                             </div>
