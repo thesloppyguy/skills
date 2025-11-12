@@ -19,7 +19,7 @@ export default function RootLayout({
         <SideBar />
 
         {/* Main Content */}
-        <main className="flex-1 p-6 gap-6 overflow-y-auto">{children}</main>
+        <main className="flex-1 gap-6 overflow-y-auto">{children}</main>
       </div>
     </>
   );

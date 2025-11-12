@@ -125,7 +125,7 @@ const FeedbackPage = () => {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <CheckCircle className="h-5 w-5" />
-                            Auto-Generated Summary
+                            Summary
                         </CardTitle>
                         <p className="text-sm text-muted-foreground mt-1">
                             AI-generated insights from feedback discussions. Highlights key themes, sentiment, and actionable items identified from conversations.
@@ -238,49 +238,13 @@ const FeedbackPage = () => {
                 </Card>
             )}
 
-            {/* Risk Flags - Early Warning Signals */}
-            {feedbackData.risk_flags && feedbackData.risk_flags.length > 0 && (
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <AlertTriangle className="h-5 w-5 text-red-600" />
-                            Risk Flags
-                        </CardTitle>
-                        <p className="text-sm text-muted-foreground mt-1">
-                            Early warning indicators identified from feedback analysis. High priority items require immediate attention to prevent escalation.
-                        </p>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="space-y-3">
-                            {feedbackData.risk_flags.map((risk: any, index: number) => (
-                                <Alert key={index} variant="destructive" className={`border-l-4 ${getRiskLevelBorderColor(risk.level)}`}>
-                                    <AlertTriangle className="h-4 w-4" />
-                                    <AlertTitle className="flex items-center gap-2">
-                                        {risk.type}
-                                        <Badge variant={getRiskLevelBadgeVariant(risk.level)}>
-                                            {risk.level} Risk
-                                        </Badge>
-                                    </AlertTitle>
-                                    <AlertDescription>
-                                        <p className="mb-2">{risk.description}</p>
-                                        <p className="text-sm">
-                                            <strong>Recommended Action:</strong> {risk.recommended_action}
-                                        </p>
-                                    </AlertDescription>
-                                </Alert>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-            )}
-
             {/* Meeting Agenda - Structured Discussion Guide */}
             {feedbackData.agenda && feedbackData.agenda.length > 0 && (
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Clock className="h-5 w-5" />
-                            Meeting Agenda
+                            Manager's Meeting Agenda
                         </CardTitle>
                         <p className="text-sm text-muted-foreground mt-1">
                             Structured discussion points for feedback sessions. Priority indicates importance, duration helps plan meeting time.
@@ -318,7 +282,7 @@ const FeedbackPage = () => {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <MessageSquare className="h-5 w-5" />
-                            Discussion Prompts
+                            Discussion Points
                         </CardTitle>
                         <p className="text-sm text-muted-foreground mt-1">
                             Suggested conversation starters for different participants. Use these to guide productive feedback discussions.
@@ -329,7 +293,6 @@ const FeedbackPage = () => {
                             {feedbackData.discussion_prompts.map((prompt: any, index: number) => (
                                 <Alert key={index} className="bg-blue-50 border-blue-200">
                                     <MessageSquare className="h-4 w-4" />
-                                    <AlertTitle>For {prompt.for}</AlertTitle>
                                     <AlertDescription>{prompt.text}</AlertDescription>
                                 </Alert>
                             ))}
@@ -344,7 +307,7 @@ const FeedbackPage = () => {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <TrendingUp className="h-5 w-5" />
-                            AI Feedback Suggestions
+                            Suggestions for Consideration
                         </CardTitle>
                         <p className="text-sm text-muted-foreground mt-1">
                             AI-generated feedback recommendations based on performance data and patterns. Use these as guidance for delivering constructive feedback.
@@ -361,7 +324,41 @@ const FeedbackPage = () => {
                     </CardContent>
                 </Card>
             )}
-
+            {/* Risk Flags - Early Warning Signals */}
+            {feedbackData.risk_flags && feedbackData.risk_flags.length > 0 && (
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <AlertTriangle className="h-5 w-5 text-red-600" />
+                            Risk Flags
+                        </CardTitle>
+                        <p className="text-sm text-muted-foreground mt-1">
+                            Early warning indicators identified from feedback analysis. High priority items require immediate attention to prevent escalation.
+                        </p>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="space-y-3">
+                            {feedbackData.risk_flags.map((risk: any, index: number) => (
+                                <Alert key={index} variant="destructive" className={`border-l-4 ${getRiskLevelBorderColor(risk.level)}`}>
+                                    <AlertTriangle className="h-4 w-4" />
+                                    <AlertTitle className="flex items-center gap-2">
+                                        {risk.type}
+                                        <Badge variant={getRiskLevelBadgeVariant(risk.level)}>
+                                            {risk.level} Risk
+                                        </Badge>
+                                    </AlertTitle>
+                                    <AlertDescription>
+                                        <p className="mb-2">{risk.description}</p>
+                                        <p className="text-sm">
+                                            <strong>Recommended Action:</strong> {risk.recommended_action}
+                                        </p>
+                                    </AlertDescription>
+                                </Alert>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            )}
             {/* Follow-up Recommendations - Next Steps */}
             {feedbackData.follow_up_recommendations && feedbackData.follow_up_recommendations.length > 0 && (
                 <Card>
@@ -396,7 +393,7 @@ const FeedbackPage = () => {
                                                 <span className="ml-1 text-muted-foreground">{recommendation.estimated_impact}</span>
                                             </div>
                                         </div>
-                                        <div className="flex items-center gap-2">
+                                        {/* <div className="flex items-center gap-2">
                                             <div>
                                                 <span className="font-medium">Cost:</span>
                                                 <span className="ml-1 text-muted-foreground">{recommendation.cost}</span>
@@ -408,7 +405,7 @@ const FeedbackPage = () => {
                                                 <span className="font-medium">Time:</span>
                                                 <span className="ml-1 text-muted-foreground">{recommendation.time_to_implement}</span>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             ))}

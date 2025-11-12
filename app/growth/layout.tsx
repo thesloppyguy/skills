@@ -25,13 +25,13 @@ export default function RootLayout({
                     <SideBar />
 
                     {/* Main Content */}
-                    <main className="flex-1 p-6 gap-6 overflow-y-auto">
-                        <div className="flex flex-col lg:flex-row gap-6 mt-4">
+                    <main className="flex-1 gap-6 overflow-y-auto">
+                        <div className="flex flex-col lg:flex-row gap-6">
                             {/* Left Column - Growth Sections */}
                             {!isTablet && <LayoutSections />}
 
                             {/* Right Column - Growth Details */}
-                            <div className="flex-1">
+                            <div className="flex-1 mt-4">
                                 <Profile />
                                 {children}
                             </div>

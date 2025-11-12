@@ -1,11 +1,5 @@
 "use client";
 import React from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import {
   Accordion,
@@ -13,7 +7,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Brain } from "lucide-react";
 
 import {
   SkillsOntology,
@@ -57,17 +50,17 @@ export const renderSkillLevels = (levels: {
               </Badge>
             </div>
           </AccordionTrigger>
-          <AccordionContent>
+          <AccordionContent className="pl-6">
             <div className="space-y-1">
               {levels[key as keyof typeof levels]?.map((task, index) => (
                 <div key={index} className="text-xs text-gray-600 p-2 bg-gray-50 rounded">
                   • {task}
                 </div>
               )) || (
-                <div className="text-xs text-gray-500 p-2 bg-gray-50 rounded">
-                  No tasks defined for this level
-                </div>
-              )}
+                  <div className="text-xs text-gray-500 p-2 bg-gray-50 rounded">
+                    No tasks defined for this level
+                  </div>
+                )}
             </div>
           </AccordionContent>
         </AccordionItem>
@@ -109,7 +102,7 @@ export const renderSkill = (skill: Skill) => {
                     </div>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent>
+                <AccordionContent className="pl-6">
                   <div className="mt-2">
                     {renderSkillLevels(subskill.levels)}
                   </div>
@@ -139,15 +132,14 @@ export const renderSkillGroup = (skillGroup: SkillGroup) => {
                 <span className="text-sm font-medium">{skill.name}</span>
                 <div className="flex items-center gap-2">
                   <Badge
-                    className={`text-xs ${
-                      skill.skill_type === "Technical"
-                        ? "bg-blue-100 text-blue-800"
-                        : skill.skill_type === "Behavioral"
+                    className={`text-xs ${skill.skill_type === "Technical"
+                      ? "bg-blue-100 text-blue-800"
+                      : skill.skill_type === "Behavioral"
                         ? "bg-green-100 text-green-800"
                         : skill.skill_type === "Managerial"
-                        ? "bg-purple-100 text-purple-800"
-                        : "bg-orange-100 text-orange-800"
-                    }`}
+                          ? "bg-purple-100 text-purple-800"
+                          : "bg-orange-100 text-orange-800"
+                      }`}
                   >
                     {skill.skill_type}
                   </Badge>
@@ -157,7 +149,7 @@ export const renderSkillGroup = (skillGroup: SkillGroup) => {
                 </div>
               </div>
             </AccordionTrigger>
-            <AccordionContent>{renderSkill(skill)}</AccordionContent>
+            <AccordionContent className="pl-6">{renderSkill(skill)}</AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
@@ -179,7 +171,7 @@ export const renderCategory = (category: Category) => {
             <AccordionTrigger className="py-2 text-sm">
               <span className="text-sm font-medium">{skillGroup.name}</span>
             </AccordionTrigger>
-            <AccordionContent>{renderSkillGroup(skillGroup)}</AccordionContent>
+            <AccordionContent className="pl-6">{renderSkillGroup(skillGroup)}</AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
@@ -201,7 +193,7 @@ export const renderDomain = (domain: Domain) => {
             <AccordionTrigger className="py-2 text-sm">
               <span className="text-sm font-medium">{category.name}</span>
             </AccordionTrigger>
-            <AccordionContent>{renderCategory(category)}</AccordionContent>
+            <AccordionContent className="pl-6">{renderCategory(category)}</AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
@@ -215,23 +207,23 @@ const Ontology: React.FC<OntologyProps> = ({
   console.log(ontology);
   return (
     <div className="space-y-6 max-h-[calc(90vh-200px)] overflow-y-auto">
-    {/* Skills Hierarchy */}
-    <Accordion
-      type="single"
-      collapsible
-      className="w-full"
-      defaultValue="domain-0"
-    >
-      {ontology.hierarchy.map((domain, index) => (
-        <AccordionItem key={index} value={`domain-${index}`}>
-          <AccordionTrigger className="py-2 text-sm">
-            <span className="text-sm font-medium">{domain.name}</span>
-          </AccordionTrigger>
-          <AccordionContent>{renderDomain(domain)}</AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
-  </div>
+      {/* Skills Hierarchy */}
+      <Accordion
+        type="single"
+        collapsible
+        className="w-full"
+        defaultValue="domain-0"
+      >
+        {ontology.hierarchy.map((domain, index) => (
+          <AccordionItem key={index} value={`domain-${index}`}>
+            <AccordionTrigger className="py-2 text-sm">
+              <span className="text-sm font-medium">{domain.name}</span>
+            </AccordionTrigger>
+            <AccordionContent className="pl-6">{renderDomain(domain)}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </div>
   );
 };
 

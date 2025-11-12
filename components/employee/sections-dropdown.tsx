@@ -18,7 +18,8 @@ const SectionsDropdown = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (activeSection && subSections) {
+
+    if (subSections) {
       router.push(subSections.path);
     } else {
       router.push(activeSection?.path || "");
@@ -53,18 +54,16 @@ const SectionsDropdown = () => {
                         ? "default"
                         : "outline"
                     }
-                    className={`flex items-center space-x-2 whitespace-nowrap ${
-                      activeSection?.name === section.name
-                        ? `${section.iconColor} text-white hover:${section.iconColor}`
-                        : ""
-                    }`}
+                    className={`flex items-center space-x-2 whitespace-nowrap ${activeSection?.name === section.name
+                      ? `${section.iconColor} text-white hover:${section.iconColor}`
+                      : ""
+                      }`}
                   >
                     <div
-                      className={`w-5 h-5 ${
-                        activeSection?.name === section.name
-                          ? "bg-white/20"
-                          : section.iconColor
-                      } rounded-full flex items-center justify-center`}
+                      className={`w-5 h-5 ${activeSection?.name === section.name
+                        ? "bg-white/20"
+                        : section.iconColor
+                        } rounded-full flex items-center justify-center`}
                     >
                       {section.icon}
                     </div>
@@ -77,15 +76,14 @@ const SectionsDropdown = () => {
                     <DropdownMenuItem
                       key={item.name}
                       onClick={() => handleSubSectionClick(item)}
-                      className={`cursor-pointer ${
-                        subSections?.name === item.name
-                          ? `bg-${section.iconColor
-                              .replace("bg-", "")
-                              .replace("-900", "-100")} text-${section.iconColor
-                              .replace("bg-", "")
-                              .replace("-900", "-900")} font-medium`
-                          : ""
-                      }`}
+                      className={`cursor-pointer ${subSections?.name === item.name
+                        ? `bg-${section.iconColor
+                          .replace("bg-", "")
+                          .replace("-900", "-100")} text-${section.iconColor
+                            .replace("bg-", "")
+                            .replace("-900", "-900")} font-medium`
+                        : ""
+                        }`}
                     >
                       {item.name}
                     </DropdownMenuItem>
@@ -98,18 +96,16 @@ const SectionsDropdown = () => {
                   activeSection?.name === section.name ? "default" : "outline"
                 }
                 onClick={() => handleSectionClick(section)}
-                className={`flex items-center space-x-2 whitespace-nowrap ${
-                  activeSection?.name === section.name
-                    ? `${section.iconColor} text-white hover:${section.iconColor}`
-                    : ""
-                }`}
+                className={`flex items-center space-x-2 whitespace-nowrap ${activeSection?.name === section.name
+                  ? `${section.iconColor} text-white hover:${section.iconColor}`
+                  : ""
+                  }`}
               >
                 <div
-                  className={`w-5 h-5 ${
-                    activeSection?.name === section.name
-                      ? "bg-white/20"
-                      : section.iconColor
-                  } rounded-full flex items-center justify-center`}
+                  className={`w-5 h-5 ${activeSection?.name === section.name
+                    ? "bg-white/20"
+                    : section.iconColor
+                    } rounded-full flex items-center justify-center`}
                 >
                   {section.icon}
                 </div>

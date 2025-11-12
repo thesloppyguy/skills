@@ -142,7 +142,7 @@ const renderSkillGroupWithStatus = (
             <AccordionTrigger className="py-2 text-sm">
               {renderSkillWithStatus(skill, isSkillPresent(skill.name))}
             </AccordionTrigger>
-            <AccordionContent>
+            <AccordionContent className="pl-6">
               <div className="space-y-2">
                 <div className="text-xs text-gray-600 mb-2">
                   <strong>Weight:</strong> {skill.weight}
@@ -207,7 +207,7 @@ const renderCategoryWithStatus = (
             <AccordionTrigger className="py-2 text-sm">
               <span className="text-sm font-medium">{skillGroup.name}</span>
             </AccordionTrigger>
-            <AccordionContent>
+            <AccordionContent className="pl-6">
               {renderSkillGroupWithStatus(skillGroup, isSkillPresent)}
             </AccordionContent>
           </AccordionItem>
@@ -234,7 +234,7 @@ const renderDomainWithStatus = (
             <AccordionTrigger className="py-2 text-sm">
               <span className="text-sm font-medium">{category.name}</span>
             </AccordionTrigger>
-            <AccordionContent>
+            <AccordionContent className="pl-6">
               {renderCategoryWithStatus(category, isSkillPresent)}
             </AccordionContent>
           </AccordionItem>
@@ -380,7 +380,7 @@ const SkillMapPage = () => {
               <AccordionTrigger className="py-2 text-sm">
                 <span className="text-sm font-medium">{domain.name}</span>
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="pl-6">
                 {renderDomainWithStatus(domain, isSkillPresent)}
               </AccordionContent>
             </AccordionItem>

@@ -89,11 +89,11 @@ export const kpi = {
                 "value": 98.5,
                 "unit": "%"
             },
-            {
-                "metric": "Supplier Audit Frequency",
-                "value": 12.0,
-                "unit": "audits per year"
-            }
+            // {
+            //     "metric": "Supplier Audit Frequency",
+            //     "value": 12.0,
+            //     "unit": "audits per year"
+            // }
         ],
         "teamSize": 6,
         "roleCompetencies": [

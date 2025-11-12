@@ -117,9 +117,9 @@ const KPIsPage = () => {
                                         </Badge>
                                     </div>
                                 </div>
-                                <Progress 
-                                    value={goal.progress} 
-                                    className={`h-3`} 
+                                <Progress
+                                    value={goal.progress}
+                                    className={`h-3`}
                                 />
                                 <p className="text-xs text-muted-foreground mt-1">
                                     Goal importance: {goal.weight}% of overall performance evaluation
@@ -204,9 +204,9 @@ const KPIsPage = () => {
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <Progress 
-                                                            value={goal.progress} 
-                                                            className={`h-2`} 
+                                                        <Progress
+                                                            value={goal.progress}
+                                                            className={`h-2`}
                                                         />
                                                     </div>
                                                 ))}
@@ -226,7 +226,7 @@ const KPIsPage = () => {
             )}
 
             {/* Industry Benchmarks - Comparative Analysis */}
-            {kpiData.industryBenchmarks && kpiData.industryBenchmarks.length > 0 && (
+            {/* {kpiData.industryBenchmarks && kpiData.industryBenchmarks.length > 0 && (
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
@@ -255,7 +255,7 @@ const KPIsPage = () => {
                         </div>
                     </CardContent>
                 </Card>
-            )}
+            )} */}
 
             {/* Role Competencies - Skills Assessment */}
             {kpiData.roleCompetencies && kpiData.roleCompetencies.length > 0 && (
@@ -275,11 +275,10 @@ const KPIsPage = () => {
                                 <Badge
                                     key={index}
                                     variant={competency.level === 'Expert' ? 'default' : competency.level === 'Intermediate' ? 'secondary' : 'outline'}
-                                    className={`${
-                                        competency.level === 'Expert' ? 'bg-green-100 text-green-800 border-green-300' : 
-                                        competency.level === 'Intermediate' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' : 
-                                        'bg-gray-100 text-gray-800 border-gray-300'
-                                    } text-sm px-3 py-1`}
+                                    className={`${competency.level === 'Expert' ? 'bg-green-100 text-green-800 border-green-300' :
+                                            competency.level === 'Intermediate' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
+                                                'bg-gray-100 text-gray-800 border-gray-300'
+                                        } text-sm px-3 py-1`}
                                 >
                                     {competency.name} - {competency.level}
                                 </Badge>

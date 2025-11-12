@@ -84,41 +84,43 @@ const Header = () => {
         </div>
       </div>
       <div className="flex items-center justify-between bg-blue-900 px-6 py-3">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 justify-between w-full">
           <h2 className="text-lg font-semibold text-white">My Profile</h2>
-          <Select
-            value={selectedEmployee.id}
-            onValueChange={(value) => {
-              const employee = employees.find((emp) => emp.id === value);
-              if (employee) setSelectedEmployee(employee);
-            }}
-          >
-            <SelectTrigger className="w-64 bg-white border-white text-gray-900">
-              <SelectValue>
-                {selectedEmployee.personalDetails.firstName}{" "}
-                {selectedEmployee.personalDetails.lastName} -{" "}
-                {selectedEmployee.domain}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {employees.map((employee) => (
-                <SelectItem key={employee.id} value={employee.id}>
-                  {employee.personalDetails.firstName}{" "}
-                  {employee.personalDetails.lastName} - {employee.domain}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <div className="text-white text-lg font-semibold">|</div>
-          <div className="bg-white rounded-md">
-            <OrganizationSwitcher
-              currentOrgId={currentOrgId}
-              onOrganizationChange={switchToOrganization}
-              onCreateNew={createNewOrganization}
-            />
+          <div className="flex items-center space-x-4">
+            <Select
+              value={selectedEmployee.id}
+              onValueChange={(value) => {
+                const employee = employees.find((emp) => emp.id === value);
+                if (employee) setSelectedEmployee(employee);
+              }}
+            >
+              <SelectTrigger className="w-64 bg-white border-white text-gray-900">
+                <SelectValue>
+                  {selectedEmployee.personalDetails.firstName}{" "}
+                  {selectedEmployee.personalDetails.lastName} -{" "}
+                  {selectedEmployee.domain}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {employees.map((employee) => (
+                  <SelectItem key={employee.id} value={employee.id}>
+                    {employee.personalDetails.firstName}{" "}
+                    {employee.personalDetails.lastName} - {employee.domain}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <div className="text-white text-lg font-semibold">|</div>
+            <div className="bg-white rounded-md">
+              <OrganizationSwitcher
+                currentOrgId={currentOrgId}
+                onOrganizationChange={switchToOrganization}
+                onCreateNew={createNewOrganization}
+              />
+            </div>
           </div>
         </div>
-        <div className="flex items-center space-x-4">
+        {/* <div className="flex items-center space-x-4">
           <Button
             size="sm"
             className="bg-white text-blue-900 hover:bg-gray-100"
@@ -169,7 +171,7 @@ const Header = () => {
             <Trash2 className="w-4 h-4 mr-2" />
             CLEAR DATA
           </Button>
-        </div>
+        </div> */}
       </div>
     </header>
   );

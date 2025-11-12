@@ -24,8 +24,8 @@ export default function RootLayout({
         <SideBar />
 
         {/* Main Content */}
-        <main className="flex-1 p-6 gap-6 overflow-y-auto">
-          <div className="flex flex-col lg:flex-row gap-6 mt-4">
+        <main className="flex-1 gap-6 overflow-y-auto">
+          <div className="flex flex-col lg:flex-row gap-6 p-4">
             {/* Left Column - Profile Sections */}
             {isTablet ? <SectionsDropdown /> : <LayoutSections />}
 

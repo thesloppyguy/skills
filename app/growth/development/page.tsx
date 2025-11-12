@@ -387,10 +387,10 @@ const DevelopmentPage = () => {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <TrendingUp className="h-5 w-5" />
-                            Plan Rationale
+                            Planning Rationale
                         </CardTitle>
                         <p className="text-sm text-muted-foreground mt-1">
-                            Explanation of why these development activities were recommended, based on performance data, role requirements, and career goals.
+                            Why these development activities were recommended, based on performance data, role requirements, and career goals.
                         </p>
                     </CardHeader>
                     <CardContent>
