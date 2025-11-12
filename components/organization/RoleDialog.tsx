@@ -41,7 +41,7 @@ const RoleDialog: React.FC<RoleDialogProps> = ({
                 {task.name}
               </h3>
             </div>
-            
+
             <div className="space-y-2">
               <h4 className="text-sm font-medium text-gray-700">Definition:</h4>
               <p className="text-sm text-gray-600 leading-relaxed">
@@ -93,37 +93,37 @@ const RoleDialog: React.FC<RoleDialogProps> = ({
               <TabsTrigger value="ontology">Ontology</TabsTrigger>
             </TabsList>
             <TabsContent value="ontology">
-            {/* {ontology && (
-          <Ontology ontology={ontology} />
-            )} */}
+              {ontology && (
+                <Ontology ontology={ontology} />
+              )}
             </TabsContent>
             <TabsContent value="definitions">
-            {roleSpecificInfo && roleSpecificInfo.length > 0 && (
-            <div className="space-y-4">
-              <div className="space-y-4">
-                {roleSpecificInfo.map((task, index) =>
-                  renderTask(task, index)
-                )}
-              </div>
-            </div>
-          )}
-          {roleSpecificInfo && roleSpecificInfo.length === 0 && (
-            <Card className="border-orange-200 bg-orange-50">
-              <CardContent className="p-4">
-                <div className="flex items-center gap-2">
-                  <Target className="h-5 w-5 text-orange-600" />
-                  <div>
-                    <p className="text-sm font-medium text-orange-900">
-                      No Tasks Available
-                    </p>
-                    <p className="text-xs text-orange-700">
-                      No specific tasks were found for this role.
-                    </p>
+              {roleSpecificInfo && roleSpecificInfo.length > 0 && (
+                <div className="space-y-4">
+                  <div className="space-y-4">
+                    {roleSpecificInfo.map((task, index) =>
+                      renderTask(task, index)
+                    )}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          )}
+              )}
+              {roleSpecificInfo && roleSpecificInfo.length === 0 && (
+                <Card className="border-orange-200 bg-orange-50">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-2">
+                      <Target className="h-5 w-5 text-orange-600" />
+                      <div>
+                        <p className="text-sm font-medium text-orange-900">
+                          No Tasks Available
+                        </p>
+                        <p className="text-xs text-orange-700">
+                          No specific tasks were found for this role.
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </TabsContent>
           </Tabs>
         </div>

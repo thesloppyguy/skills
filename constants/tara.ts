@@ -82,12 +82,12 @@ export const kpi = {
             {
                 "metric": "Defect Rate in Solar Manufacturing",
                 "value": 0.8,
-                "unit": "percentage"
+                "unit": "%"
             },
             {
                 "metric": "ISO Compliance Rate",
                 "value": 98.5,
-                "unit": "percentage"
+                "unit": "%"
             },
             {
                 "metric": "Supplier Audit Frequency",
@@ -207,7 +207,7 @@ export const kpi = {
           {
             "metric": "Lead Conversion Rate",
             "value": 15.0,
-            "unit": "percentage"
+            "unit": "%"
           },
           {
             "metric": "Marketing ROI",
@@ -303,7 +303,7 @@ export const kpi = {
             {
                 "kpi_name": "Safety Compliance Rate",
                 "kpi_type": "leading",
-                "definition": "Percentage of installations completed without safety incidents.",
+                "definition": "% of installations completed without safety incidents.",
                 "calculation": {
                     "expression": "(1 - (Safety Incidents / Total Installations)) * 100",
                     "data_fields": [
@@ -312,7 +312,7 @@ export const kpi = {
                     ],
                     "aggregation_window": "monthly"
                 },
-                "unit": "percentage",
+                "unit": "%",
                 "target_value": 100.0,
                 "target_type": "ideal",
                 "data_requirements": [

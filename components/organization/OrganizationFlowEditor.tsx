@@ -84,9 +84,8 @@ const IndustryNode = ({
   selected: boolean;
 }) => (
   <div
-    className={`w-64 max-h-20 px-4 py-2 shadow-md rounded-md bg-blue-100 border-2 transition-all duration-200 hover:shadow-lg hover:scale-105 ${
-      selected ? "border-blue-500" : "border-blue-200"
-    }`}
+    className={`w-64 max-h-20 px-4 py-2 shadow-md rounded-md bg-blue-100 border-2 transition-all duration-200 hover:shadow-lg hover:scale-105 ${selected ? "border-blue-500" : "border-blue-200"
+      }`}
   >
     <Handle
       type="source"
@@ -136,9 +135,8 @@ const SubEntityNode = ({
   selected: boolean;
 }) => (
   <div
-    className={`w-64 max-h-20 px-4 py-2 shadow-md rounded-md bg-green-100 border-2 transition-all duration-200 hover:shadow-lg hover:scale-105 ${
-      selected ? "border-green-500" : "border-green-200"
-    }`}
+    className={`w-64 max-h-20 px-4 py-2 shadow-md rounded-md bg-green-100 border-2 transition-all duration-200 hover:shadow-lg hover:scale-105 ${selected ? "border-green-500" : "border-green-200"
+      }`}
   >
     <Handle
       type="target"
@@ -196,9 +194,8 @@ const JobFamilyNode = ({
   selected: boolean;
 }) => (
   <div
-    className={`w-64 max-h-24 px-4 py-2 shadow-md rounded-md bg-purple-100 border-2 transition-all duration-200 hover:shadow-lg hover:scale-105 ${
-      selected ? "border-purple-500" : "border-purple-200"
-    }`}
+    className={`w-64 max-h-24 px-4 py-2 shadow-md rounded-md bg-purple-100 border-2 transition-all duration-200 hover:shadow-lg hover:scale-105 ${selected ? "border-purple-500" : "border-purple-200"
+      }`}
   >
     <Handle
       type="target"
@@ -259,9 +256,8 @@ const NestedJobFamilyNode = ({
   selected: boolean;
 }) => (
   <div
-    className={`w-64 max-h-24 px-4 py-2 shadow-md rounded-md bg-orange-100 border-2 transition-all duration-200 hover:shadow-lg hover:scale-105 ${
-      selected ? "border-orange-500" : "border-orange-200"
-    }`}
+    className={`w-64 max-h-24 px-4 py-2 shadow-md rounded-md bg-orange-100 border-2 transition-all duration-200 hover:shadow-lg hover:scale-105 ${selected ? "border-orange-500" : "border-orange-200"
+      }`}
   >
     <Handle
       type="target"
@@ -377,11 +373,10 @@ const JobRoleNode = ({
                 e.stopPropagation();
                 onViewSkillsOntology();
               }}
-              className={`p-1 rounded transition-colors ${
-                hasSkillsOntology
+              className={`p-1 rounded transition-colors ${hasSkillsOntology
                   ? "hover:bg-green-200 text-green-600"
                   : "hover:bg-blue-200 text-blue-600"
-              }`}
+                }`}
               title={
                 hasSkillsOntology
                   ? "View Skills Ontology"
@@ -397,11 +392,10 @@ const JobRoleNode = ({
                 e.stopPropagation();
                 onViewRoleSpecificInfo();
               }}
-              className={`p-1 rounded transition-colors ${
-                hasRoleSpecificInfo
+              className={`p-1 rounded transition-colors ${hasRoleSpecificInfo
                   ? "hover:bg-purple-200 text-purple-600"
                   : "hover:bg-orange-200 text-orange-600"
-              }`}
+                }`}
               title={
                 hasRoleSpecificInfo
                   ? "View Role Specific Info"
@@ -802,7 +796,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
       const yPosition =
         startY +
         familyIndex *
-          Math.max(VERTICAL_SPACING, totalHeight / data.job_families.length);
+        Math.max(VERTICAL_SPACING, totalHeight / data.job_families.length);
 
       processJobFamily(
         jobFamily,
@@ -1079,12 +1073,12 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
             prevNodes.map((node) =>
               descendants.includes(node.id)
                 ? {
-                    ...node,
-                    position: {
-                      ...node.position,
-                      x: node.position.x + offsetX,
-                    },
-                  }
+                  ...node,
+                  position: {
+                    ...node.position,
+                    x: node.position.x + offsetX,
+                  },
+                }
                 : node
             )
           );
@@ -1200,9 +1194,9 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
         prevNodes.map((node) =>
           allNodeIds.includes(node.id)
             ? {
-                ...node,
-                position: { ...node.position, x: node.position.x + offsetX },
-              }
+              ...node,
+              position: { ...node.position, x: node.position.x + offsetX },
+            }
             : node
         )
       );
@@ -1348,9 +1342,9 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
           level: parentNode ? (parentNode.data.level as number) + 1 : 2,
           hierarchyPath: parentNode
             ? [
-                ...((parentNode.data.hierarchyPath as string[]) || []),
-                `New ${type.replace("_", " ")}`,
-              ]
+              ...((parentNode.data.hierarchyPath as string[]) || []),
+              `New ${type.replace("_", " ")}`,
+            ]
             : ["New " + type.replace("_", " ")],
         },
         position: optimalPosition,
@@ -1416,7 +1410,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
   }, [contextMenu, closeContextMenu]);
 
   return (
-    <div className="h-[600px] w-full border border-gray-200 rounded-lg relative bg-white shadow-sm">
+    <div className="h-[700px] w-full border border-gray-200 rounded-lg relative bg-white shadow-sm">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -1429,7 +1423,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
         nodeTypes={createNodeTypes(
           processingStatus,
           handleViewSkillsOntology,
-          )}
+        )}
         edgeTypes={edgeTypes}
         fitView
         attributionPosition="bottom-left"
@@ -1600,7 +1594,7 @@ const FlowEditorContent: React.FC<OrganizationFlowEditorProps> = ({
         isOpen={isDrawerOpen}
         onClose={() => {
           setIsDrawerOpen(false);
-          }}
+        }}
         type={editingNode?.type as string}
         definition={editData?.definition as string}
         handleDeleteNode={() => (editingNode) ? handleDeleteNode(editingNode) : undefined}

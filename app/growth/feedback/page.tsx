@@ -110,9 +110,9 @@ const FeedbackPage = () => {
                                 </span>
                             </div>
                             <p className="text-xs text-muted-foreground">
-                                {sentimentScore >= 0.7 ? '✓ Positive sentiment - employee is engaged' : 
-                                 sentimentScore >= 0.4 ? '→ Neutral sentiment - monitor closely' : 
-                                 '⚠ Negative sentiment - action recommended'}
+                                {sentimentScore >= 0.7 ? '✓ Positive sentiment - employee is engaged' :
+                                    sentimentScore >= 0.4 ? '→ Neutral sentiment - monitor closely' :
+                                        '⚠ Negative sentiment - action recommended'}
                             </p>
                         </div>
                     </CardContent>
@@ -397,10 +397,9 @@ const FeedbackPage = () => {
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <DollarSign className="h-4 w-4 text-muted-foreground" />
                                             <div>
                                                 <span className="font-medium">Cost:</span>
-                                                <span className="ml-1 text-muted-foreground">${recommendation.cost}</span>
+                                                <span className="ml-1 text-muted-foreground">{recommendation.cost}</span>
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-2">

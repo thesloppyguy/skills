@@ -108,9 +108,9 @@ const DevelopmentPage = () => {
                                 </span>
                             </div>
                             <p className="text-xs text-muted-foreground">
-                                {confidenceScore >= 0.8 ? '✓ High confidence - recommendations are well-supported' : 
-                                 confidenceScore >= 0.6 ? '→ Moderate confidence - recommendations are reasonable' : 
-                                 '⚠ Low confidence - recommendations may need review'}
+                                {confidenceScore >= 0.8 ? '✓ High confidence - recommendations are well-supported' :
+                                    confidenceScore >= 0.6 ? '→ Moderate confidence - recommendations are reasonable' :
+                                        '⚠ Low confidence - recommendations may need review'}
                             </p>
                         </div>
                     </CardContent>
@@ -152,8 +152,7 @@ const DevelopmentPage = () => {
                                                 </div>
                                                 {item.cost && (
                                                     <div className="flex items-center gap-1">
-                                                        <DollarSign className="h-4 w-4" />
-                                                        ${item.cost}
+                                                        {item.cost}
                                                     </div>
                                                 )}
                                             </div>
@@ -360,10 +359,9 @@ const DevelopmentPage = () => {
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <DollarSign className="h-4 w-4 text-muted-foreground" />
                                             <div>
                                                 <span className="font-medium">Cost:</span>
-                                                <span className="ml-1 text-muted-foreground">${path.cost}</span>
+                                                <span className="ml-1 text-muted-foreground">{path.cost}</span>
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-2">

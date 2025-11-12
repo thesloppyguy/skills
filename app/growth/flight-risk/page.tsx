@@ -145,16 +145,16 @@ const FlightRiskPage = () => {
                                 Flight risk score (0-100%)
                             </p>
                             <p className="text-xs text-muted-foreground mt-1">
-                                {riskLevel === 'Low' ? '✓ Low risk - employee is stable' : 
-                                 riskLevel === 'Moderate' ? '→ Monitor closely - some risk factors present' : 
-                                 '⚠ High risk - immediate attention needed'}
+                                {riskLevel === 'Low' ? '✓ Low risk - employee is stable' :
+                                    riskLevel === 'Moderate' ? '→ Monitor closely - some risk factors present' :
+                                        '⚠ High risk - immediate attention needed'}
                             </p>
                         </div>
 
                         <div className="flex-1">
                             <h3 className="font-semibold mb-2">Risk Score Breakdown</h3>
-                            <Progress 
-                                value={riskScore * 100} 
+                            <Progress
+                                value={riskScore * 100}
                                 className={`h-4 mb-2`}
                             />
                             <p className="text-sm text-muted-foreground">
@@ -259,8 +259,8 @@ const FlightRiskPage = () => {
                     <CardContent>
                         <div className="space-y-4">
                             {riskData.top_contributors.map((factor: any, index: number) => (
-                                <div 
-                                    key={index} 
+                                <div
+                                    key={index}
                                     className={`border rounded-lg p-4 border-l-4 ${getImpactBgColor(factor.impact)} ${getImpactColor(factor.impact).includes('red') ? 'border-l-red-500' : getImpactColor(factor.impact).includes('yellow') ? 'border-l-yellow-500' : 'border-l-green-500'}`}
                                 >
                                     <div className="flex items-start justify-between mb-3">
@@ -315,8 +315,8 @@ const FlightRiskPage = () => {
                     <CardContent>
                         <div className="space-y-4">
                             {riskData.recommended_interventions.map((intervention: any, index: number) => (
-                                <div 
-                                    key={index} 
+                                <div
+                                    key={index}
                                     className={`border rounded-lg p-4 border-l-4 ${getPriorityBorderColor(intervention.priority)}`}
                                 >
                                     <div className="flex items-start justify-between mb-3">
@@ -347,10 +347,9 @@ const FlightRiskPage = () => {
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <DollarSign className="h-4 w-4 text-muted-foreground" />
                                             <div>
                                                 <span className="font-medium">Cost:</span>
-                                                <span className="ml-1 text-muted-foreground">${intervention.cost}</span>
+                                                <span className="ml-1 text-muted-foreground">{intervention.cost}</span>
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-2">
