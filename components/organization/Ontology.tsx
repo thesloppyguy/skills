@@ -144,7 +144,7 @@ export const renderSkillGroup = (skillGroup: SkillGroup) => {
                     {skill.skill_type}
                   </Badge>
                   <Badge variant="outline" className="text-xs">
-                    W: {skill.weight}
+                    Priority: {skill.weight}
                   </Badge>
                 </div>
               </div>
